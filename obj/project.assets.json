@@ -3803,23 +3803,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Rafael\\.nuget\\packages\\": {},
+    "C:\\Users\\etechas\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\RotaLimpa\\RotaLimpa.Api\\RotaLimpa.Api.csproj",
+      "projectUniqueName": "a:\\3DS\\RAFAEL\\RotaLimpa\\RotaLimpa.Api\\RotaLimpa.Api.csproj",
       "projectName": "RotaLimpa.Api",
-      "projectPath": "D:\\RotaLimpa\\RotaLimpa.Api\\RotaLimpa.Api.csproj",
-      "packagesPath": "C:\\Users\\Rafael\\.nuget\\packages\\",
-      "outputPath": "D:\\RotaLimpa\\RotaLimpa.Api\\obj\\",
+      "projectPath": "a:\\3DS\\RAFAEL\\RotaLimpa\\RotaLimpa.Api\\RotaLimpa.Api.csproj",
+      "packagesPath": "C:\\Users\\etechas\\.nuget\\packages\\",
+      "outputPath": "a:\\3DS\\RAFAEL\\RotaLimpa\\RotaLimpa.Api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Rafael\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\etechas\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -3829,7 +3829,7 @@
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "C:\\Program Files\\dotnet\\library-packs": {},
-        "C:\\Program Files\\dotnet\\sdk\\7.0.302\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
+        "C:\\Program Files\\dotnet\\sdk\\7.0.305\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -3888,7 +3888,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.305\\RuntimeIdentifierGraph.json"
       }
     }
   }
