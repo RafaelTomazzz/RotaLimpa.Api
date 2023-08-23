@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "tiJ8LngB1BoWQkDK6A/1Oo8228fcPL74b/xHHg+TCiGoPl7QbXPQvIkQYzQW9mKrSe7Cq/1+WHoDmUAc3lcivQ==",
+  "dgSpecHash": "UuZ27GAMIu1mfzD2M4HAcfNL6pgLGDoiujdRLFXydVneuaCMcLlEe5kNNZFCUhpf8TBcR5uyK6syDSIDCfeNMQ==",
   "success": true,
-  "projectFilePath": "A:\\3DS\\RAFAEL\\RotaLimpa\\RotaLimpa.Api\\RotaLimpa.Api.csproj",
+  "projectFilePath": "C:\\Arquivos\\3DS\\RAFAEL\\RotaLimpa\\RotaLimpa.Api\\RotaLimpa.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\etechas\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\etechas\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

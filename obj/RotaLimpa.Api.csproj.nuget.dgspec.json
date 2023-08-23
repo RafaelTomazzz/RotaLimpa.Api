@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "A:\\3DS\\RAFAEL\\RotaLimpa\\RotaLimpa.Api\\RotaLimpa.Api.csproj": {}
+    "C:\\Arquivos\\3DS\\RAFAEL\\RotaLimpa\\RotaLimpa.Api\\RotaLimpa.Api.csproj": {}
   },
   "projects": {
-    "A:\\3DS\\RAFAEL\\RotaLimpa\\RotaLimpa.Api\\RotaLimpa.Api.csproj": {
+    "C:\\Arquivos\\3DS\\RAFAEL\\RotaLimpa\\RotaLimpa.Api\\RotaLimpa.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "A:\\3DS\\RAFAEL\\RotaLimpa\\RotaLimpa.Api\\RotaLimpa.Api.csproj",
+        "projectUniqueName": "C:\\Arquivos\\3DS\\RAFAEL\\RotaLimpa\\RotaLimpa.Api\\RotaLimpa.Api.csproj",
         "projectName": "RotaLimpa.Api",
-        "projectPath": "A:\\3DS\\RAFAEL\\RotaLimpa\\RotaLimpa.Api\\RotaLimpa.Api.csproj",
+        "projectPath": "C:\\Arquivos\\3DS\\RAFAEL\\RotaLimpa\\RotaLimpa.Api\\RotaLimpa.Api.csproj",
         "packagesPath": "C:\\Users\\etechas\\.nuget\\packages\\",
-        "outputPath": "A:\\3DS\\RAFAEL\\RotaLimpa\\RotaLimpa.Api\\obj\\",
+        "outputPath": "C:\\Arquivos\\3DS\\RAFAEL\\RotaLimpa\\RotaLimpa.Api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
