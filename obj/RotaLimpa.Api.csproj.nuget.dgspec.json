@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Arquivos\\3DS\\RAFAEL\\RotaLimpa\\RotaLimpa.Api\\RotaLimpa.Api.csproj": {}
+    "A:\\3DS\\RAFAEL\\RotaLimpa\\RotaLimpa.Api\\RotaLimpa.Api.csproj": {}
   },
   "projects": {
-    "C:\\Arquivos\\3DS\\RAFAEL\\RotaLimpa\\RotaLimpa.Api\\RotaLimpa.Api.csproj": {
+    "A:\\3DS\\RAFAEL\\RotaLimpa\\RotaLimpa.Api\\RotaLimpa.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Arquivos\\3DS\\RAFAEL\\RotaLimpa\\RotaLimpa.Api\\RotaLimpa.Api.csproj",
+        "projectUniqueName": "A:\\3DS\\RAFAEL\\RotaLimpa\\RotaLimpa.Api\\RotaLimpa.Api.csproj",
         "projectName": "RotaLimpa.Api",
-        "projectPath": "C:\\Arquivos\\3DS\\RAFAEL\\RotaLimpa\\RotaLimpa.Api\\RotaLimpa.Api.csproj",
+        "projectPath": "A:\\3DS\\RAFAEL\\RotaLimpa\\RotaLimpa.Api\\RotaLimpa.Api.csproj",
         "packagesPath": "C:\\Users\\etechas\\.nuget\\packages\\",
-        "outputPath": "C:\\Arquivos\\3DS\\RAFAEL\\RotaLimpa\\RotaLimpa.Api\\obj\\",
+        "outputPath": "A:\\3DS\\RAFAEL\\RotaLimpa\\RotaLimpa.Api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -48,7 +48,17 @@
           "dependencies": {
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
-              "version": "[7.0.5, )"
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.10, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
@@ -56,15 +66,7 @@
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[6.4.0, )"
-            },
-            "System.ComponentModel.Annotations": {
-              "target": "Package",
-              "version": "[5.0.0, )"
-            },
-            "System.Diagnostics.Tools": {
-              "target": "Package",
-              "version": "[4.3.0, )"
+              "version": "[6.5.0, )"
             }
           },
           "imports": [
