@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\RotaLimpa.Api.props" />
+</Project>
