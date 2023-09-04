@@ -11,11 +11,11 @@ namespace RotaLimpa.Api.Models
     {
         [Key]
         public int Id_Empresa { get; set; }
-        public string nmEmpresa { get; set; }
-        public string dcEmpresa { get; set; }
-        public int stEmpresa { get; set; }
-        public DateTime diEmpresa { get; set; }
-        public DateTime daEmpresa { get; set; }
+        public string Nm_Empresa { get; set; }
+        public string Dc_Empresa { get; set; }
+        public int St_Empresa { get; set; }
+        public DateTime Di_Empresa { get; set; }
+        public DateTime Da_Empresa { get; set; }
         
         
         
