@@ -13,7 +13,7 @@ namespace RotaLimpa.api.Models
         [Key]
         public int Id_Colaboradores {get; set; }
         public Empresas Id_Empresa { get; set; }
-        public string nmColaborador { get; set;}
-        public string dcColaborador { get; set; }
-        public string stColaborador { get; set; }    }
+        public string Nm_Colaborador { get; set;}
+        public string Dc_Colaborador { get; set; }
+        public string St_Colaborador { get; set; }    }
 }
