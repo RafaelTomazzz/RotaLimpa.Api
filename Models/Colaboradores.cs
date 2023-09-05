@@ -11,16 +11,16 @@ namespace RotaLimpa.Api.Models
     [Table("Colaboradores")]
     public class Colaboradores
     {
-        [Key]
+        [Key()]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("id")]
+        [Column("Id")]
         public int id {get; set; }
 
         //public Empresas Id_Empresa { get; set; }
 
         [Required]
         [StringLength(60)]
-        [Column("nome")]
+        [Column("Nome")]
         [NotNull]
         public string Nome { get; set;}
 

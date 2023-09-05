@@ -9,12 +9,40 @@ namespace RotaLimpa.Api.Models
     [Table("Empresas")]
     public class Empresas
     {
-        [Key]
-        public int Id_Empresa { get; set; }
+        [Key()]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Column("Id")]
+        public int Id { get; set; }
+
+        [Required]
+        [StringLength(40)]
+        [Column("nome_empresa")]
+        [NotNull]
         public string Nm_Empresa { get; set; }
+
+        [Required]
+        [StringLength(18)]
+        [Column("dc_empresa")]
+        [Comment("CNPJ")]
+        [NotNull]
         public string Dc_Empresa { get; set; }
-        public string St_Empresa { get; set; }
+
+        [Required]
+        [Column("st_empresa")]
+        [Comment("SITUAÇÃO DA EMPRESA")]
+        [NotNull]
+        public int St_Empresa { get; set; }
+
+        [Required]
+        [Column("di_empresa")]
+        [Comment("DATA DE INCLUSÃO")]
+        [NotNull]
         public DateTime Di_Empresa { get; set; }
+
+        [Required]
+        [Column("da_empresa")]
+        [Comment("DATA DA ULTIMA ALTERAÇÃO")]
+        [NotNull]
         public DateTime Da_Empresa { get; set; }
         
         
