@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "A:\\3DS\\RAFAEL\\RotaLimpa\\RotaLimpa.Api\\RotaLimpa.Api.csproj": {}
   },
   "projects": {
@@ -12,12 +13,25 @@
         "projectPath": "A:\\3DS\\RAFAEL\\RotaLimpa\\RotaLimpa.Api\\RotaLimpa.Api.csproj",
         "packagesPath": "C:\\Users\\etechas\\.nuget\\packages\\",
         "outputPath": "A:\\3DS\\RAFAEL\\RotaLimpa\\RotaLimpa.Api\\obj\\",
+=======
+    "C:\\Users\\alevi\\OneDrive\\Área de Trabalho\\Estudos\\RotaLimpa.Api\\RotaLimpa.Api.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\alevi\\OneDrive\\Área de Trabalho\\Estudos\\RotaLimpa.Api\\RotaLimpa.Api.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\alevi\\OneDrive\\Área de Trabalho\\Estudos\\RotaLimpa.Api\\RotaLimpa.Api.csproj",
+        "projectName": "RotaLimpa.Api",
+        "projectPath": "C:\\Users\\alevi\\OneDrive\\Área de Trabalho\\Estudos\\RotaLimpa.Api\\RotaLimpa.Api.csproj",
+        "packagesPath": "C:\\Users\\alevi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\alevi\\OneDrive\\Área de Trabalho\\Estudos\\RotaLimpa.Api\\obj\\",
+>>>>>>> Alex
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\etechas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\alevi\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -27,7 +41,7 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Program Files\\dotnet\\library-packs": {},
-          "C:\\Program Files\\dotnet\\sdk\\7.0.305\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
+          "C:\\Program Files\\dotnet\\sdk\\7.0.302\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -60,6 +74,10 @@
               "target": "Package",
               "version": "[7.0.10, )"
             },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[7.0.10, )"
@@ -88,7 +106,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.305\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }
