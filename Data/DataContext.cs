@@ -12,11 +12,11 @@ namespace RotaLimpa.api.Data
 
         public DbSet<Empresa> Empresas { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        /*protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Funcionario>()
                 .HasOne(f => f.Empresa)
                 .WithMany();
-        }
+        }*/
     }
 }

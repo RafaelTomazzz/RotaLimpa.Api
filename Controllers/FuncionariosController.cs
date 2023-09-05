@@ -16,7 +16,7 @@ namespace RotaLimpa.Api.Controllers
             _context = context;
         }
 
-        [HttpGet("GetAll")]
+        [HttpGet]
         public async Task<IActionResult> GetAsync()
         {
             try
