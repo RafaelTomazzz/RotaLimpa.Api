@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using RotaLimpa.api.Data;
+using RotaLimpa.Api.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
