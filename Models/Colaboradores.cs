@@ -6,13 +6,33 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RotaLimpa.Api.Models
 {
+    [Index(nameof(id), IsUnique = true)]
+    [PrimaryKey(nameof(id))]
     [Table("Colaboradores")]
     public class Colaboradores
     {
         [Key]
-        public int Id_Colaborador {get; set; }
-        public Empresas Id_Empresa { get; set; }
-        public string Nm_Colaborador { get; set;}
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Column("id")]
+        public int id {get; set; }
+
+        //public Empresas Id_Empresa { get; set; }
+
+        [Required]
+        [StringLength(60)]
+        [Column("nome")]
+        [NotNull]
+        public string Nome { get; set;}
+
+        [Required]
+        [StringLength(14)]
+        [Column("dbColaborador")]
+        [NotNull]
         public string Dc_Colaborador { get; set; }
-        public string St_Colaborador { get; set; }    }
+        
+        [Required]
+        [StringLength(1)]
+        [Column("stColaborador")]
+        public string St_Colaborador { get; set; }    
+        }
 }
