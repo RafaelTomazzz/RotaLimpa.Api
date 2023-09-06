@@ -12,3 +12,4 @@ namespace RotaLimpa.Api.Models.Enuns
         ColetaMato=3
     }
 }
+

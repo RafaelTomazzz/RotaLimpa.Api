@@ -17,7 +17,7 @@ namespace RotaLimpa.Api.Models
         public int Id_Motorista { get; set; }
 
         [Required]
-        [StringLength(60)]
+        [StringLength(40)]
         [Column("NomeMotorista")]
         [NotNull]
         public string Nm_Motorista { get; set; }

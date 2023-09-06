@@ -19,7 +19,7 @@ namespace RotaLimpa.Api.Models
         //public Empresas Id_Empresa { get; set; }
 
         [Required]
-        [StringLength(60)]
+        [StringLength(40)]
         [Column("nome")]
         [NotNull]
         public string Nome { get; set;}
