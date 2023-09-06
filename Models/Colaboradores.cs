@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.CodeAnalysis;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using RotaLimpa.Api.Models;
 
 namespace RotaLimpa.Api.Models
 {
@@ -16,7 +17,12 @@ namespace RotaLimpa.Api.Models
         [Column("Id")]
         public int id {get; set; }
 
-        //public Empresas Id_Empresa { get; set; }
+        [Required]
+        [ForeignKey("Empresas")]
+        [Column("Id_Empresa")]
+        [NotNull]
+        public Empresas Id_Empresa { get; set; }
+        public virtual Empresas Empresas { get; set; }
 
         [Required]
         [StringLength(60)]

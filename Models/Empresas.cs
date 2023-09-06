@@ -6,6 +6,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RotaLimpa.Api.Models
 {
+    [Index(nameof(Dc_Empresa), IsUnique = true)]
+    [PrimaryKey(nameof(Id))]
     [Table("Empresas")]
     public class Empresas
     {
@@ -16,9 +18,9 @@ namespace RotaLimpa.Api.Models
 
         [Required]
         [StringLength(40)]
-        [Column("nome_empresa")]
+        [Column("Nome")]
         [NotNull]
-        public string Nm_Empresa { get; set; }
+        public string Nome { get; set; }
 
         [Required]
         [StringLength(18)]
