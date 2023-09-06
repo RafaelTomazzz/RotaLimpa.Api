@@ -1,9 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace RotaLimpa.Api.Models
 {
@@ -12,10 +11,23 @@ namespace RotaLimpa.Api.Models
     {
         [Key]
         public int Id_Trajeto { get; set; }
-        public Motoristas Id_Motoristas { get; set; }
+
+        [ForeignKey("Id_Motoristas")]
+        [Required]
+        public Motoristas Id_Motorista { get; set; }
+
+        [ForeignKey("Id_Rota")]
+        [Required]
         public Rotas Id_Rota { get; set; }
+
+        [ForeignKey("Id_Veiculo")]
+        [Required]
         public Frotas Id_Veiculo { get; set; }
+
+        [Required]
         public DateTime Mi_Trajeto { get; set; }
+
+        [Required]
         public DateTime Mj_Trajeto { get; set; }
     }
 }

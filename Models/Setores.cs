@@ -6,8 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.CodeAnalysis;
 using RotaLimpa.Api.Models.Enuns;
 
-
-
 namespace RotaLimpa.Api.Models
 {
     [Index(nameof(Id_Setor), IsUnique = true)]
@@ -30,9 +28,9 @@ namespace RotaLimpa.Api.Models
         public int Id_Empresa { get; set; }
         public Empresas Empresa { get; set; }
 
-        /*[Required]
+        [Required]
         [Column("Servico")]
-        public TiposServicos Servico { get; set; }*/
+        public TiposServicos Servico { get; set; }
 
         [Required]
         [Column("Di_Setor")]
@@ -45,6 +43,8 @@ namespace RotaLimpa.Api.Models
         [Required]
         [StringLength(255)]
         [Column("St_Setor")]
-        public string St_Setor { get; set; }
+        public String St_Setor { get; set; }
     }
 }
+
+

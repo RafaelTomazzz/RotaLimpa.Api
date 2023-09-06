@@ -1,19 +1,36 @@
 using System;
-using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace RotaLimpa.Api.Models
 {
+    [Index(nameof(Id_Rota), IsUnique = true)]
     [Table("Rotas")]
     public class Rotas
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Column("IdRota")]
         public int Id_Rota { get; set; }
+
+        [ForeignKey("Id_Colaborador")]
+        [Required]
         public Colaboradores Id_Colaborador { get; set; }
+
+        [ForeignKey("Id_Periodos")]
+        [Required]
         public Periodos Id_Periodos { get; set; }
+
+        [ForeignKey("Id_Setor")]
+        [Required]
         public Setores Id_Setor { get; set; }
-        public int Dt_Rota { get; set; }
-        public int Tm_Rota { get; set; }
+
+        [Required]
+        public DateTime Dt_Rota { get; set; }
+
+        [Required]
+        public TimeSpan Tm_Rota { get; set; }
     }
 }
