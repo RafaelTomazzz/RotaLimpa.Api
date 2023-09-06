@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RotaLimpa.api.Models;
+using RotaLimpa.Api.Models;
 
-namespace RotaLimpa.api.Data
+namespace RotaLimpa.Api.Data
 {
     public class DataContext : DbContext
     {

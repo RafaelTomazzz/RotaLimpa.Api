@@ -1,6 +1,6 @@
-using Microsoft.AspNetCore.Mvc;
-using RotaLimpa.api.Data;
-using RotaLimpa.api.Models;
+/*using Microsoft.AspNetCore.Mvc;
+using RotaLimpa.Api.Data;
+using RotaLimpa.Api.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace RotaLimpa.Api.Controllers
@@ -50,4 +50,4 @@ namespace RotaLimpa.Api.Controllers
         }
 
     }
-}
+}*/
