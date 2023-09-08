@@ -33,10 +33,12 @@ namespace RotaLimpa.Api.Models
         public Frotas Id_Veiculo { get; set; }
 
         [Required]
+        [Comment("Momento de início do trajeto")]
         [NotNull]
         public DateTime Mi_Trajeto { get; set; }
 
         [Required]
+        [Comment("Momento do fim do trajeto")]
         [NotNull]
         public DateTime Mj_Trajeto { get; set; }
     }

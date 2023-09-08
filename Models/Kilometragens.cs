@@ -23,11 +23,13 @@ namespace RotaLimpa.Api.Models
 
         [Required]
         [Column("seKilometragem")]
+        [Comment("Sentido da Marcação")]
         [NotNull]
         public string Se_Kilometragem { get; set; }
 
         [Required]
         [Column("diKilometragem")]
+        [Comment("Data de início marcação")]
         [NotNull]
         public DateTime Di_Kilometragem { get; set; }
     }

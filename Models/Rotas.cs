@@ -30,11 +30,13 @@ namespace RotaLimpa.Api.Models
 
         [Required]
         [Column("dtRota")]
+        [Comment("Distancia da Rota")]
         [NotNull]
         public DateTime Dt_Rota { get; set; }
 
         [Required]
         [Column("tmRota")]
+        [Comment("Tempo médio da Rota")]
         [NotNull]
         public TimeSpan Tm_Rota { get; set; }
     }

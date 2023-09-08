@@ -33,6 +33,8 @@ namespace RotaLimpa.Api.Models
         public TiposOcorrencias Ocorrencia { get; set; }
         
         [Required]
+        [Column("mtOcorrencia")]
+        [Comment("Momento da ocorrencia")]
         [NotNull]
         public DateTime Mt_Ocorrencia { get; set; }
     }

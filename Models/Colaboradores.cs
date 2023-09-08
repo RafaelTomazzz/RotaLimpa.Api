@@ -26,13 +26,15 @@ namespace RotaLimpa.Api.Models
 
         [Required]
         [StringLength(14)]
-        [Column("dbColaborador")]
+        [Column("dcColaborador")]
+        [Comment("CPF do colaborador")]
         [NotNull]
         public string Dc_Colaborador { get; set; }
         
         [Required]
         [StringLength(1)]
         [Column("stColaborador")]
+        [Comment("Setor do colaborador")]
         public string St_Colaborador { get; set; }    
         }
 }
