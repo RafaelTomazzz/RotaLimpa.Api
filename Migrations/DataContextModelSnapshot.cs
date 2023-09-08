@@ -21,83 +21,41 @@ namespace RotaLimpa.Api.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("RotaLimpa.api.Models.Empresa", b =>
+            modelBuilder.Entity("RotaLimpa.Api.Models.Colaboradores", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("id_Empresa");
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
-                    b.Property<string>("CNPJ")
+                    b.Property<string>("Dc_Colaborador")
                         .IsRequired()
                         .HasMaxLength(14)
                         .HasColumnType("nvarchar(14)")
-                        .HasColumnName("cnpj");
+                        .HasColumnName("dcColaborador")
+                        .HasComment("CPF do colaborador");
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
-                        .HasColumnName("nome_empresa")
-                        .HasComment("Nome da empresa");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Empresa");
-                });
-
-            modelBuilder.Entity("RotaLimpa.api.Models.Funcionario", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("id_funcionario");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CPF")
-                        .IsRequired()
-                        .HasMaxLength(14)
-                        .HasColumnType("nvarchar(14)")
-                        .HasColumnName("cpf");
-
-                    b.Property<int>("Id_Empresa")
-                        .HasColumnType("int")
-                        .HasColumnName("id_Empresa");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)")
                         .HasColumnName("nome");
 
-                    b.Property<string>("Tipo_Funcionario")
+                    b.Property<string>("St_Colaborador")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
-                        .HasColumnName("tipo_funcionario");
+                        .HasMaxLength(1)
+                        .HasColumnType("nvarchar(1)")
+                        .HasColumnName("stColaborador")
+                        .HasComment("Setor do colaborador");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
-                    b.HasIndex("Id")
+                    b.HasIndex("id")
                         .IsUnique();
 
-                    b.HasIndex("Id_Empresa");
-
-                    b.ToTable("funcionario");
-                });
-
-            modelBuilder.Entity("RotaLimpa.api.Models.Funcionario", b =>
-                {
-                    b.HasOne("RotaLimpa.api.Models.Empresa", "Empresa")
-                        .WithMany()
-                        .HasForeignKey("Id_Empresa")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Empresa");
+                    b.ToTable("Colaboradores");
                 });
 #pragma warning restore 612, 618
         }
