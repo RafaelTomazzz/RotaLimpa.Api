@@ -25,11 +25,13 @@ namespace RotaLimpa.Api.Models
 
         [Required]
         [ForeignKey("Empresas")]
+        [NotNull]
         public int Id_Empresa { get; set; }
         public Empresas Empresa { get; set; }
 
         [Required]
         [Column("Servico")]
+        [NotNull]
         public TiposServicos Servico { get; set; }
 
         [Required]

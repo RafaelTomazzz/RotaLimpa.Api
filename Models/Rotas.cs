@@ -13,6 +13,7 @@ namespace RotaLimpa.Api.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("IdRota")]
+        [NotNull]
         public int Id_Rota { get; set; }
 
         [ForeignKey("Id_Colaborador")]
@@ -28,9 +29,13 @@ namespace RotaLimpa.Api.Models
         public Setores Id_Setor { get; set; }
 
         [Required]
+        [Column("dtRota")]
+        [NotNull]
         public DateTime Dt_Rota { get; set; }
 
         [Required]
+        [Column("tmRota")]
+        [NotNull]
         public TimeSpan Tm_Rota { get; set; }
     }
 }

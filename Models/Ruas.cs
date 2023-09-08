@@ -16,15 +16,18 @@ namespace RotaLimpa.Api.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("Id_Ruas")]
+        [NotNull]
         public int Id_Ruas { get; set; }
 
         [Required]
         [ForeignKey("Cep")]
+        [NotNull]
         public int Id_Cep { get; set; }
         public CEP Cep { get; set; }
 
         [Required]
         [ForeignKey("Rotas")]
+        [NotNull]
         public int Id_Rota { get; set; }
         public Rotas Rota { get; set; }
     }

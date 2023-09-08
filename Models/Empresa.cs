@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace RotaLimpa.api.Models
 {
+    
     [Table("Empresa")]
     public class Empresa
     {
