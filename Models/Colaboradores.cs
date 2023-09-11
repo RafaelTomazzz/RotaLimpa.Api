@@ -17,12 +17,12 @@ namespace RotaLimpa.Api.Models
         [Column("Id")]
         public int id {get; set; }
 
-        [Required]
+        /*[Required]
         [ForeignKey("Empresas")]
         [Column("Id_Empresa")]
         [NotNull]
         public Empresas Id_Empresa { get; set; }
-        public virtual Empresas Empresas { get; set; }
+        public virtual Empresas Empresas { get; set; }*/
 
         [Required]
         [StringLength(60)]

@@ -17,5 +17,37 @@ namespace RotaLimpa.Api.Controllers
         {
             _context = context;
         }
+
+        [HttpGet("GetAll")]
+        public async Task<IActionResult> GetAsync()
+        {
+            try
+            {
+                List<Colaboradores> lista = await _context.Colaboradores.ToListAsync();
+                return Ok(lista);
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post(Colaboradores novocolaborador)
+        {   
+            try
+            {
+                await _context.Colaboradores.AddAsync (novocolaborador);
+                await _context.SaveChangesAsync();
+
+                return Ok(novocolaborador);
+            }
+            catch (System.Exception)
+            {
+             
+                throw;
+            }
+        }
     }
 }
