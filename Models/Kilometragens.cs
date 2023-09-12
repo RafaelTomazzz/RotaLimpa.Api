@@ -14,7 +14,7 @@ namespace RotaLimpa.Api.Models
         [Key]
         [ForeignKey("Id_Veiculo")]
         [NotNull]
-        public Frotas Id_Veiculo { get; set; }
+        public int Id_Veiculo { get; set; }
 
         [Required]
         [Column("Kilometragem")]

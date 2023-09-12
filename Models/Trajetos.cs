@@ -17,20 +17,20 @@ namespace RotaLimpa.Api.Models
         [NotNull]
         public int Id_Trajeto { get; set; }
 
-        [ForeignKey("Id_Motoristas")]
+        [ForeignKey("Id_Motorista")]
         [Required]
         [NotNull]
-        public Motoristas Id_Motorista { get; set; }
+        public int Id_Motorista { get; set; }
 
         [ForeignKey("Id_Rota")]
         [Required]
         [NotNull]
-        public Rotas Id_Rota { get; set; }
+        public int Id_Rota { get; set; }
 
         [ForeignKey("Id_Veiculo")]
         [Required]
         [NotNull]
-        public Frotas Id_Veiculo { get; set; }
+        public int Id_Veiculo { get; set; }
 
         [Required]
         [Comment("Momento de início do trajeto")]

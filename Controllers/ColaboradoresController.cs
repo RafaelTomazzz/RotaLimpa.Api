@@ -1,4 +1,4 @@
-/*using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using RotaLimpa.Api.Data;
 using RotaLimpa.Api.Models;
 using Microsoft.EntityFrameworkCore;
@@ -7,11 +7,11 @@ namespace RotaLimpa.Api.Controllers
 {
     [ApiController]
     [Route("[Controller]")]
-    public class FuncionariosController : ControllerBase
+    public class ColaboradoresController : ControllerBase
     {
         private readonly DataContext _context;
 
-        public FuncionariosController(DataContext context)
+        public ColaboradoresController(DataContext context)
         {
             _context = context;
         }
@@ -21,7 +21,7 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                List<Funcionario> lista = await _context.Funcionarios.ToListAsync();
+                List<Colaboradores> lista = await _context.Colaboradores.ToListAsync();
                 // return Ok(lista);
                 return Ok(lista);
             }
@@ -33,14 +33,14 @@ namespace RotaLimpa.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Funcionario novofuncionario)
+        public async Task<IActionResult> Post(Colaboradores novoColaborador)
         {   
             try
             {
-                await _context.Funcionarios.AddAsync (novofuncionario);
+                await _context.Colaboradores.AddAsync (novoColaborador);
                 await _context.SaveChangesAsync();
 
-                return Ok(novofuncionario);
+                return Ok(novoColaborador);
             }
             catch (System.Exception)
             {
@@ -50,4 +50,4 @@ namespace RotaLimpa.Api.Controllers
         }
 
     }
-}*/
+}

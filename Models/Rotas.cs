@@ -18,15 +18,15 @@ namespace RotaLimpa.Api.Models
 
         [ForeignKey("Id_Colaborador")]
         [Required]
-        public Colaboradores Id_Colaborador { get; set; }
+        public int Id_Colaborador { get; set; }
 
         [ForeignKey("Id_Periodos")]
         [Required]
-        public Periodos Id_Periodos { get; set; }
+        public int Id_Periodos { get; set; }
 
         [ForeignKey("Id_Setor")]
         [Required]
-        public Setores Id_Setor { get; set; }
+        public int Id_Setor { get; set; }
 
         [Required]
         [Column("dtRota")]
