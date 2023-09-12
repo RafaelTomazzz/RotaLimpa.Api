@@ -11,11 +11,13 @@ namespace RotaLimpa.Api.Data
         public DbSet<Colaboradores> Colaboradores {get; set;}
         public DbSet<Empresas> Empresas {get; set;}
 
-        /*protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Colaboradores>()
                 .HasOne(c => c.Empresas)
-                .WithMany();
-        }*/
+                .WithMany(e => e.Colaboradores)
+                .HasForeignKey(c => c.Empresa_Id)
+                .OnDelete(DeleteBehavior.Cascade);
+        }
     }
 }

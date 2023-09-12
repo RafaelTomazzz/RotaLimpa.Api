@@ -11,6 +11,8 @@ namespace RotaLimpa.Api.Models
     [Table("Empresas")]
     public class Empresas
     {
+        public ICollection<Colaboradores> Colaboradores { get; set; }
+
         [Key()]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("Id")]

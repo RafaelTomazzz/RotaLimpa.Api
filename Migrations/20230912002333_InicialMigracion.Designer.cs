@@ -12,8 +12,8 @@ using RotaLimpa.Api.Data;
 namespace RotaLimpa.Api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230909012746_ColaboradoresMigrations")]
-    partial class ColaboradoresMigrations
+    [Migration("20230912002333_InicialMigracion")]
+    partial class InicialMigracion
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -7,22 +7,22 @@ using RotaLimpa.Api.Models;
 
 namespace RotaLimpa.Api.Models
 {
-    [Index(nameof(id), IsUnique = true)]
-    [PrimaryKey(nameof(id))]
+    [Index(nameof(Id), IsUnique = true)]
+    [PrimaryKey(nameof(Id))]
     [Table("Colaboradores")]
     public class Colaboradores
     {
         [Key()]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("Id")]
-        public int id {get; set; }
+        public int Id {get; set; }
 
-        /*[Required]
+        [Required]
         [ForeignKey("Empresas")]
         [Column("Id_Empresa")]
         [NotNull]
-        public Empresas Id_Empresa { get; set; }
-        public virtual Empresas Empresas { get; set; }*/
+        public Empresas Empresa_Id { get; set; }
+        public virtual Empresas Empresas { get; set; }
 
         [Required]
         [StringLength(60)]
