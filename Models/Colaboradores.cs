@@ -19,8 +19,8 @@ namespace RotaLimpa.Api.Models
 
         [Required]
         [ForeignKey("Empresas")]
-        [Column("Id_Empresa")]
-        [NotNull]
+        //[NotNull]
+        [NotMapped]
         public Empresas Empresa_Id { get; set; }
         public virtual Empresas Empresas { get; set; }
 

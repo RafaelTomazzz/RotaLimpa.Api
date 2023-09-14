@@ -15,9 +15,9 @@ namespace RotaLimpa.Api.Data
         {
             modelBuilder.Entity<Colaboradores>()
                 .HasOne(c => c.Empresas)
-                .WithMany(e => e.Colaboradores)
+                .WithMany()
                 .HasForeignKey(c => c.Empresa_Id)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
