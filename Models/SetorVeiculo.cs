@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace RotaLimpa.Api.Models
 {
-    [Table("Ruas")]
-    public class Ruas
+    [Table("SetorVeiculos")]
+    public class SetorVeiculo
     {
         [Key]
-        public int Id_Ruas { get; set; }
-        public CEP Cep { get; set; }
-        public Rotas Id_Rota { get; set; }
+        public Setor Id_Setor { get; set; }
+
+        [Key]
+        public Frota Id_Veiculo { get; set; }
     }
 }

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace RotaLimpa.Api.Models.Enuns
 {
-    public enum TiposOcorrencias
+    public enum TiposOcorrencia
     {
         Colisão=1,
         Feita=2,

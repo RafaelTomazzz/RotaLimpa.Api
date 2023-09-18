@@ -3,26 +3,23 @@ using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.CodeAnalysis;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using RotaLimpa.Api.Models;
 
 namespace RotaLimpa.Api.Models
 {
     [Index(nameof(Id), IsUnique = true)]
     [PrimaryKey(nameof(Id))]
     [Table("Colaboradores")]
-    public class Colaboradores
+    public class Colaborador
     {
-        [Key()]
+        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("Id")]
         public int Id {get; set; }
 
         [Required]
-        [ForeignKey("Empresas")]
-        //[NotNull]
-        [NotMapped]
-        public Empresas Empresa_Id { get; set; }
-        public virtual Empresas Empresas { get; set; }
+        [ForeignKey("idEmpresa")]
+        public int Empresa_Id { get; set; }
+        public virtual Empresa Empresas { get; set; }
 
         [Required]
         [StringLength(60)]

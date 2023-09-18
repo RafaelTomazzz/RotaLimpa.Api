@@ -23,7 +23,7 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                List<Colaboradores> lista = await _context.Colaboradores.ToListAsync();
+                List<Colaborador> lista = await _context.Colaboradores.ToListAsync();
                 return Ok(lista);
             }
             catch (System.Exception)
@@ -34,7 +34,7 @@ namespace RotaLimpa.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Colaboradores novocolaborador)
+        public async Task<IActionResult> Post(Colaborador novocolaborador)
         {   
             try
             {

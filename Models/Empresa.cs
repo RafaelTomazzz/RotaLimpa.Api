@@ -9,11 +9,11 @@ namespace RotaLimpa.Api.Models
     [Index(nameof(Dc_Empresa), IsUnique = true)]
     [PrimaryKey(nameof(Id))]
     [Table("Empresas")]
-    public class Empresas
+    public class Empresa
     {
-        public ICollection<Colaboradores> Colaboradores { get; set; }
+        public ICollection<Colaborador>? Colaboradores { get; set; }
 
-        [Key()]
+        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("Id")]
         public int Id { get; set; }
@@ -22,14 +22,14 @@ namespace RotaLimpa.Api.Models
         [StringLength(40)]
         [Column("Nome")]
         [NotNull]
-        public string Nome { get; set; }
+        public string? Nome { get; set; }
 
         [Required]
         [StringLength(18)]
         [Column("dc_empresa")]
         [Comment("CNPJ")]
         [NotNull]
-        public string Dc_Empresa { get; set; }
+        public string? Dc_Empresa { get; set; }
 
         [Required]
         [Column("st_empresa")]

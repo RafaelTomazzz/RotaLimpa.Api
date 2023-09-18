@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 namespace RotaLimpa.Api.Models
 {
     [Table("Trajetos")]
-    public class Trajetos
+    public class Trajeto
     {
         [Key]
         public int Id_Trajeto { get; set; }
-        public Motoristas Id_Motoristas { get; set; }
-        public Rotas Id_Rota { get; set; }
-        public Frotas Id_Veiculo { get; set; }
+        public Motorista Id_Motorista { get; set; }
+        public Rota Id_Rota { get; set; }
+        public Frota Id_Veiculo { get; set; }
         public DateTime Mi_Trajeto { get; set; }
         public DateTime Mj_Trajeto { get; set; }
     }

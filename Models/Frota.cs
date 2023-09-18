@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace RotaLimpa.Api.Models
 {
     [Table("Frotas")]
-    public class Frotas
+    public class Frota
     {
         [Key]
         public int Id_Veiculo { get; set; }

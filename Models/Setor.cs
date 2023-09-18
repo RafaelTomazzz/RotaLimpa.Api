@@ -9,13 +9,13 @@ using RotaLimpa.api.Models.Enuns;
 namespace RotaLimpa.Api.Models
 {
     [Table("Setores")]
-    public class Setores
+    public class Setor
     {
         [Key]
         public int Id_Setor { get; set; }
-        public Colaboradores Id_Colaborador { get; set; }
-        public Empresas Id_Empresa { get; set; }
-        public TiposServicos Servico { get; set; }
+        public Colaborador Id_Colaborador { get; set; }
+        public Empresa Id_Empresa { get; set; }
+        public TiposServico Servico { get; set; }
         public DateTime Di_Setor { get; set; }
         public DateTime Da_Setor { get; set; }
         public string St_Setor { get; set; }

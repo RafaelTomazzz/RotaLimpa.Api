@@ -4,15 +4,18 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace RotaLimpa.Api.Models
 {
     [Table("Kilometragens")]
-    public class Kilometragens
+    [PrimaryKey(nameof(Id_Veiculo))]
+    public class Kilometragem
     {
         [Key]
-        public Frotas Id_Veiculo { get; set; }
-        public int Kilometragem { get; set; }
+        public int Id_Veiculo { get; set; }
+        public virtual Frota Frota {get; set; }
+        public int Km { get; set; }
         public string Se_Kilometragem { get; set; }
         public DateTime Di_Kilometragem { get; set; }
     }

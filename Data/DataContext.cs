@@ -8,16 +8,27 @@ namespace RotaLimpa.Api.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         { }
 
-        public DbSet<Colaboradores> Colaboradores {get; set;}
-        public DbSet<Empresas> Empresas {get; set;}
+        public DbSet<Colaborador> Colaboradores { get; set; }
+        public DbSet<Empresa> Empresas { get; set; }
+        public DbSet<CEP> Ceps { get; set; }
+        public DbSet<Frota> Frotas { get; set; }
+        public DbSet<Kilometragem> Kilometragems { get; set; }
+        public DbSet<Motorista> Motoristas { get; set; }
+        public DbSet<Ocorrencia> Ocorrencias { get; set; }
+        public DbSet<Periodo> Periodos { get; set; }
+        public DbSet<Rota> Rotas { get; set; }
+        public DbSet<Rua> Ruas { get; set; }
+        public DbSet<Setor> Setores { get; set; }
+        public DbSet<SetorVeiculo> SetorVeiculos { get; set; }
+        public DbSet<Trajeto> Trajetos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Colaboradores>()
-                .HasOne(c => c.Empresas)
-                .WithMany()
-                .HasForeignKey(c => c.Empresa_Id)
-                .OnDelete(DeleteBehavior.NoAction);
+            // modelBuilder.Entity<Colaboradores>()
+            //     .HasOne(c => c.Empresas)
+            //     .WithMany()
+            //     .HasForeignKey(c => c.Empresa_Id)
+            //     .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

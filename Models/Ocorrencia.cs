@@ -10,12 +10,12 @@ using RotaLimpa.Api.Models.Enuns;
 namespace RotaLimpa.Api.Models
 {
     [Table("Ocorrencias")]
-    public class Ocorrencias
+    public class Ocorrencia
     {
         [Key]
         public int Id_Ocorrencia { get; set; }
-        public Trajetos Id_Trajeto { get; set; }
-        public TiposOcorrencias Ocorrencia { get; set; }
+        public Trajeto Id_Trajeto { get; set; }
+        public TiposOcorrencia Tipo_Ocorrencia { get; set; }
         public DateTime Mt_Ocorrencia { get; set; }
     }
 }
