@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Runtime.InteropServices;
+using Microsoft.EntityFrameworkCore;
+using RotaLimpa.api.Models.Enuns;
 using RotaLimpa.Api.Models;
 
 namespace RotaLimpa.Api.Data
@@ -21,14 +23,19 @@ namespace RotaLimpa.Api.Data
         public DbSet<Setor> Setores { get; set; }
         public DbSet<SetorVeiculo> SetorVeiculos { get; set; }
         public DbSet<Trajeto> Trajetos { get; set; }
+        public DbSet<TiposServico> TiposServico { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // modelBuilder.Entity<Colaboradores>()
-            //     .HasOne(c => c.Empresas)
-            //     .WithMany()
-            //     .HasForeignKey(c => c.Empresa_Id)
-            //     .OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<Colaborador>()
+                 .HasOne(c => c.Empresas)
+                 .WithMany()
+                 .HasForeignKey(c => c.Empresa_Id)
+                 .OnDelete(DeleteBehavior.NoAction);
+
+            /*modelBuilder.Entity<Setor>()
+                .HasOne(s => s.TipoServico/ s => s.Empresas)
+                .WithMany(s => s.)*/
         }
     }
 }
