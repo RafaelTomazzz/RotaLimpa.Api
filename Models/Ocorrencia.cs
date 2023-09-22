@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
-using RotaLimpa.Api.Models.Enuns;
+using RotaLimpa.Api.Models.Enum;
 
 
 namespace RotaLimpa.Api.Models

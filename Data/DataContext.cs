@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 using Microsoft.EntityFrameworkCore;
-using RotaLimpa.api.Models.Enuns;
+using RotaLimpa.api.Models.Enum;
 using RotaLimpa.Api.Models;
 
 namespace RotaLimpa.Api.Data
@@ -23,7 +23,6 @@ namespace RotaLimpa.Api.Data
         public DbSet<Setor> Setores { get; set; }
         public DbSet<SetorVeiculo> SetorVeiculos { get; set; }
         public DbSet<Trajeto> Trajetos { get; set; }
-        public DbSet<TiposServico> TiposServico { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -33,9 +32,15 @@ namespace RotaLimpa.Api.Data
                  .HasForeignKey(c => c.Empresa_Id)
                  .OnDelete(DeleteBehavior.NoAction);
 
-            /*modelBuilder.Entity<Setor>()
-                .HasOne(s => s.TipoServico/ s => s.Empresas)
-                .WithMany(s => s.)*/
+            modelBuilder.Entity<Setor>()
+                .HasOne(s => s.Empresa)
+                .WithMany()
+                .HasForeignKey( s => s.Id_Empresa);
+        
+            modelBuilder.Entity<Setor>()
+                .HasOne(s => s.Colaborador)
+                .WithMany(s => s.Setores)
+                .HasForeignKey(s => s.Id_Colaborador);
         }
     }
 }

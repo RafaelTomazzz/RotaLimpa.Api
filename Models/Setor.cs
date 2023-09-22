@@ -4,15 +4,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using RotaLimpa.api.Models.Enuns;
+using RotaLimpa.api.Models.Enum;
+using Microsoft.EntityFrameworkCore;
 
 namespace RotaLimpa.Api.Models
 {
     [Table("Setores")]
+    [PrimaryKey(nameof(Id))]
     public class Setor
     {
         [Key]
-        public int Id_Setor { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
         [Required]
         [ForeignKey("idColaborador")]
@@ -24,9 +27,6 @@ namespace RotaLimpa.Api.Models
         public int Id_Empresa { get; set; }
         public Empresa Empresa { get; set; }
 
-        [Required]
-        [ForeignKey("idTipoServico")]
-        public int Id_TipoServico { get; set; }
         public TiposServico TipoServico { get; set; }
         public DateTime Di_Setor { get; set; }
         public DateTime Da_Setor { get; set; }

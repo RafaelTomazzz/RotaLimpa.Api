@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RotaLimpa.Api.Models.Enuns
+namespace RotaLimpa.Api.Models.Enum
 {
     public enum TiposOcorrencia
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RotaLimpa.api.Models.Enuns
+namespace RotaLimpa.api.Models.Enum
 {
     public enum TiposServico
     {

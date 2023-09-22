@@ -11,6 +11,8 @@ namespace RotaLimpa.Api.Models
     [Table("Colaboradores")]
     public class Colaborador
     {
+        public ICollection<Setor>? Setores { get; set; }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("Id")]
