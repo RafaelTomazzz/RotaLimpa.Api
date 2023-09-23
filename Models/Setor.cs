@@ -13,6 +13,8 @@ namespace RotaLimpa.Api.Models
     [PrimaryKey(nameof(Id))]
     public class Setor
     {
+        public ICollection<Rota>? Rotas { get; set; }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }

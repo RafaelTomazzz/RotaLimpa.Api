@@ -9,11 +9,13 @@ using Microsoft.EntityFrameworkCore;
 namespace RotaLimpa.Api.Models
 {
     [Table("Periodos")]
-    [PrimaryKey(nameof(Id_Periodo))]
+    [PrimaryKey(nameof(Id))]
     public class Periodo
     {
+        public ICollection<Rota>? Rotas { get; set; }
+
         [Key]
-        public int Id_Periodo { get; set; }
+        public int Id { get; set; }
         public string Ds_Periodo { get; set; }
         public string Mi_Periodo { get; set; }
         public string Mf_Periodo { get; set; }

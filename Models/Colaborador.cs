@@ -12,6 +12,7 @@ namespace RotaLimpa.Api.Models
     public class Colaborador
     {
         public ICollection<Setor>? Setores { get; set; }
+        public ICollection<Rota>? Rotas { get; set; }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
