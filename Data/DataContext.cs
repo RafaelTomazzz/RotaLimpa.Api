@@ -57,6 +57,11 @@ namespace RotaLimpa.Api.Data
                 .WithMany()
                 .HasForeignKey(r => r.Id_Setor);
 
+            modelBuilder.Entity<Rua>()
+                .HasOne(r => r.CEP)
+                .WithMany()
+                .HasForeignKey(r => r.Id_Cep);
+
         }
     }
 }
