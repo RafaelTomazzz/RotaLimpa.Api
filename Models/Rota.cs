@@ -11,6 +11,8 @@ namespace RotaLimpa.Api.Models
     [PrimaryKey(nameof(Id))]
     public class Rota
     {
+        public ICollection<Rua>? Ruas { get; set; }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("IdRota")]

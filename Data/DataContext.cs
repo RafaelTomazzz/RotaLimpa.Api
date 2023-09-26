@@ -60,6 +60,11 @@ namespace RotaLimpa.Api.Data
             // modelBuilder.Entity<Rua>()
             //     .HasOne(r => r.CEP)
             //     .WithMany();
+
+            modelBuilder.Entity<Rua>()
+                .HasOne(r => r.Rota)
+                .WithMany()
+                .HasForeignKey(r => r.Id_Rota);
         }
     }
 }

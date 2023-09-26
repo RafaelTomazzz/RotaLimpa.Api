@@ -18,6 +18,11 @@ namespace RotaLimpa.Api.Models
         public string Cep { get; set; }
         [NotMapped]
         public virtual CEP CEP { get; set; }
-        //public Rota Id_Rota { get; set; }
+        
+        [Required]
+        [ForeignKey("idRota")]
+        public int Id_Rota { get; set; }
+        [NotMapped]
+        public virtual Rota Rota { get; set; }
     }
 }
