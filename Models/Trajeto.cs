@@ -19,9 +19,13 @@ namespace RotaLimpa.Api.Models
         [NotNull]
         public int Id { get; set; }
 
-        
+        [ForeignKey("idMotorista")]
         public Motorista Id_Motorista { get; set; }
+
+        [ForeignKey("idRota")]
         public Rota Id_Rota { get; set; }
+
+        [ForeignKey("idVeiculo")]
         public Frota Id_Veiculo { get; set; }
         
         [Required]

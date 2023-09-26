@@ -15,6 +15,7 @@ namespace RotaLimpa.Api.Models
     {
         [Key]
         [NotNull]
+        [ForeignKey("idVeiculo")]
         public int Id_Veiculo { get; set; }
         public virtual Frota Frota {get; set; }
         

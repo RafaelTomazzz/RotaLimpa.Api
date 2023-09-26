@@ -27,7 +27,7 @@ namespace RotaLimpa.Api.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Colaborador>()
-                 .HasOne(c => c.Empresas)
+                 .HasOne(c => c.Empresa)
                  .WithMany()
                  .HasForeignKey(c => c.Empresa_Id)
                  .OnDelete(DeleteBehavior.NoAction);
@@ -36,6 +36,7 @@ namespace RotaLimpa.Api.Data
                 .HasOne(s => s.Empresa)
                 .WithMany()
                 .HasForeignKey( s => s.Id_Empresa);
+                .HasKey
         
             modelBuilder.Entity<Setor>()
                 .HasOne(s => s.Colaborador)
@@ -60,6 +61,55 @@ namespace RotaLimpa.Api.Data
             // modelBuilder.Entity<Rua>()
             //     .HasOne(r => r.CEP)
             //     .WithMany();
+
+            modelBuilder.Entity<Trajeto>()
+                .HasOne(s => s.Motorista)
+                .WithMany()
+                .HasForeignKey( s => s.Id_Motorista);
+
+            modelBuilder.Entity<Trajeto>()
+                .HasOne(s => s.Rota)
+                .WithMany()
+                .HasForeignKey( s => s.Id_Rota);
+
+            modelBuilder.Entity<Trajeto>()
+                .HasOne(s => s.Frota)
+                .WithMany()
+                .HasForeignKey( s => s.Id_Veiculo);
+
+                -----------------------------------------------
+
+            modelBuilder.Entity<SetorVeiculo>()
+                .HasOne(s => s.Frota)
+                .WithMany()
+                .HasForeignKey( s => s.Id_Veiculo);
+
+            modelBuilder.Entity<SetorVeiculo>()
+                .HasOne(s => s.Setor)
+                .WithMany()
+                .HasForeignKey( s => s.Id_Setor);
+
+                ------------------------------------------------
+
+            modelBuilder.Entity<Ocorrencia>()
+                .HasOne(s => s.Trajeto)
+                .WithMany()
+                .HasForeignKey( s => s.Id_Trajeto);
+
+            modelBuilder.Entity<Ocorrencia>()
+                .HasOne(s => s.TiposOcorrencia)
+                .WithMany()
+                .HasForeignKey( s => s.Tipo_Ocorrencia);
+
+                ------------------------------------------------
+
+            modelBuilder.Entity<Kilometragem>()
+                .HasOne(s => s.Frota)
+                .WithMany()
+                .HasForeignKey( s => s.Id_Veiculo);
+
+
+
         }
     }
 }
