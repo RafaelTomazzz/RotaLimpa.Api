@@ -12,8 +12,8 @@ using RotaLimpa.Api.Data;
 namespace RotaLimpa.Api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230923032039_FkdeRota")]
-    partial class FkdeRota
+    [Migration("20230926002135_InitialMigrationRuaCepFK")]
+    partial class InitialMigrationRuaCepFK
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,7 +38,7 @@ namespace RotaLimpa.Api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Enderecco")
+                    b.Property<string>("Endereco")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -329,8 +329,6 @@ namespace RotaLimpa.Api.Migrations
 
                     b.HasIndex("Id_Periodo");
 
-                    b.HasIndex("Id_Setor");
-
                     b.HasIndex("SetorId");
 
                     b.ToTable("Rotas");
@@ -338,23 +336,22 @@ namespace RotaLimpa.Api.Migrations
 
             modelBuilder.Entity("RotaLimpa.Api.Models.Rua", b =>
                 {
-                    b.Property<int>("Id_Ruas")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id_Ruas"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Cep")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Cep1")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("Id_RotaId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id_Ruas");
+                    b.HasKey("Id");
 
                     b.HasIndex("Cep1");
-
-                    b.HasIndex("Id_RotaId");
 
                     b.ToTable("Ruas");
                 });
@@ -514,12 +511,6 @@ namespace RotaLimpa.Api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RotaLimpa.Api.Models.Setor", "Setor")
-                        .WithMany()
-                        .HasForeignKey("Id_Setor")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("RotaLimpa.Api.Models.Setor", null)
                         .WithMany("Rotas")
                         .HasForeignKey("SetorId");
@@ -527,25 +518,13 @@ namespace RotaLimpa.Api.Migrations
                     b.Navigation("Colaborador");
 
                     b.Navigation("Periodo");
-
-                    b.Navigation("Setor");
                 });
 
             modelBuilder.Entity("RotaLimpa.Api.Models.Rua", b =>
                 {
-                    b.HasOne("RotaLimpa.Api.Models.CEP", "Cep")
-                        .WithMany()
+                    b.HasOne("RotaLimpa.Api.Models.CEP", null)
+                        .WithMany("Ruas")
                         .HasForeignKey("Cep1");
-
-                    b.HasOne("RotaLimpa.Api.Models.Rota", "Id_Rota")
-                        .WithMany()
-                        .HasForeignKey("Id_RotaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cep");
-
-                    b.Navigation("Id_Rota");
                 });
 
             modelBuilder.Entity("RotaLimpa.Api.Models.Setor", b =>
@@ -615,6 +594,11 @@ namespace RotaLimpa.Api.Migrations
                     b.Navigation("Id_Rota");
 
                     b.Navigation("Id_Veiculo");
+                });
+
+            modelBuilder.Entity("RotaLimpa.Api.Models.CEP", b =>
+                {
+                    b.Navigation("Ruas");
                 });
 
             modelBuilder.Entity("RotaLimpa.Api.Models.Colaborador", b =>

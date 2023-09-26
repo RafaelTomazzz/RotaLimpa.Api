@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RotaLimpa.Api.Migrations
 {
     /// <inheritdoc />
-    public partial class FkdeRota : Migration
+    public partial class InitialMigrationRuaCepFK : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,7 +17,7 @@ namespace RotaLimpa.Api.Migrations
                 {
                     Cep = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Logradouro = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Enderecco = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Endereco = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Bairro = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Cidade = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UF = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -90,6 +90,25 @@ namespace RotaLimpa.Api.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Periodos", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Ruas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Cep = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Cep1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ruas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Ruas_CEP_Cep1",
+                        column: x => x.Cep1,
+                        principalTable: "CEP",
+                        principalColumn: "Cep");
                 });
 
             migrationBuilder.CreateTable(
@@ -206,12 +225,6 @@ namespace RotaLimpa.Api.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Rotas_Setores_Id_Setor",
-                        column: x => x.Id_Setor,
-                        principalTable: "Setores",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_Rotas_Setores_SetorId",
                         column: x => x.SetorId,
                         principalTable: "Setores",
@@ -242,31 +255,6 @@ namespace RotaLimpa.Api.Migrations
                         column: x => x.SetorId,
                         principalTable: "Setores",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Ruas",
-                columns: table => new
-                {
-                    Id_Ruas = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Cep1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Id_RotaId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Ruas", x => x.Id_Ruas);
-                    table.ForeignKey(
-                        name: "FK_Ruas_CEP_Cep1",
-                        column: x => x.Cep1,
-                        principalTable: "CEP",
-                        principalColumn: "Cep");
-                    table.ForeignKey(
-                        name: "FK_Ruas_Rotas_Id_RotaId",
-                        column: x => x.Id_RotaId,
-                        principalTable: "Rotas",
-                        principalColumn: "IdRota",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -375,11 +363,6 @@ namespace RotaLimpa.Api.Migrations
                 column: "Id_Periodo");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Rotas_Id_Setor",
-                table: "Rotas",
-                column: "Id_Setor");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Rotas_SetorId",
                 table: "Rotas",
                 column: "SetorId");
@@ -388,11 +371,6 @@ namespace RotaLimpa.Api.Migrations
                 name: "IX_Ruas_Cep1",
                 table: "Ruas",
                 column: "Cep1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Ruas_Id_RotaId",
-                table: "Ruas",
-                column: "Id_RotaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Setores_EmpresaId",

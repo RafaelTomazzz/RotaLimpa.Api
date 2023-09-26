@@ -30,6 +30,7 @@ namespace RotaLimpa.Api.Models
         [Required]
         [ForeignKey("idSetor")]
         public int Id_Setor {get; set; }
+        [NotMapped]
         public virtual Setor Setor { get; set; }
 
         [Required]
