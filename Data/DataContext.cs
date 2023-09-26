@@ -65,6 +65,20 @@ namespace RotaLimpa.Api.Data
                 .HasOne(r => r.Rota)
                 .WithMany()
                 .HasForeignKey(r => r.Id_Rota);
+
+            modelBuilder.Entity<SetorVeiculo>()
+                .HasOne(s => s.Setor)
+                .WithMany()
+                .HasForeignKey(s => s.Id_Setor);
+
+            /*modelBuilder.Entity<SetorVeiculo>()
+                .HasOne(s => s.Frota)
+                .WithMany()
+                .HasPrincipalKey(s => new {s.Id_Setor, s.Id_Frota})
+                .HasForeignKey(s => s.Id_Frota);*/
+
+            
+
         }
     }
 }

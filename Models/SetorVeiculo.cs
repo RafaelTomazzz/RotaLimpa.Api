@@ -16,8 +16,8 @@ namespace RotaLimpa.Api.Models
         public virtual Setor Setor { get; set; }
 
         [Key]
-        [ForeignKey("idVeiculo")]
-        public int Id_Veiculo { get; set; }
+        [ForeignKey("idFrota")]
+        public int Id_Frota { get; set; }
         public Frota Frota { get; set; }
     }
 }
