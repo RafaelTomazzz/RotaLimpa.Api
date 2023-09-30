@@ -1,31 +1,62 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
+using System;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
-namespace RotaLimpa.api.Models
+namespace RotaLimpa.Api.Models
 {
+<<<<<<< HEAD
     
     [Table("Empresa")]
+=======
+    [Index(nameof(Dc_Empresa), IsUnique = true)]
+    [PrimaryKey(nameof(Id))]
+    [Table("Empresas")]
+>>>>>>> origin/Rafael
     public class Empresa
     {
-        [Key()]
+        public ICollection<Colaborador>? Colaboradores { get; set; }
+        public ICollection<Setor>? Setores { get; set; }
+
+
+        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("id_Empresa")]
+        [Column("Id")]
         public int Id { get; set; }
 
         [Required]
-        [StringLength(100)]
-        [Column("nome_empresa")]
-        [Comment("Nome da empresa")]
+        [StringLength(40)]
+        [Column("Nome")]
         [NotNull]
-        public string Nome { get; set; }
+        public string? Nome { get; set; }
 
         [Required]
-        [StringLength(14)]
-        [Column("cnpj")]
+        [StringLength(18)]
+        [Column("dc_empresa")]
+        [Comment("CNPJ")]
         [NotNull]
-        public string CNPJ { get; set; }
+        public string? Dc_Empresa { get; set; }
 
+        [Required]
+        [Column("st_empresa")]
+        [Comment("SITUAÇÃO DA EMPRESA")]
+        [NotNull]
+        public int St_Empresa { get; set; }
+
+        [Required]
+        [Column("di_empresa")]
+        [Comment("DATA DE INCLUSÃO")]
+        [NotNull]
+        public DateTime Di_Empresa { get; set; }
+
+        [Required]
+        [Column("da_empresa")]
+        [Comment("DATA DA ULTIMA ALTERAÇÃO")]
+        [NotNull]
+        public DateTime Da_Empresa { get; set; }
+        
+        
+        
     }
 }

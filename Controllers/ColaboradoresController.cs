@@ -1,4 +1,8 @@
+<<<<<<< HEAD:Controllers/ColaboradoresController.cs
 using Microsoft.AspNetCore.Mvc;
+=======
+/*using Microsoft.AspNetCore.Mvc;
+>>>>>>> origin/Rafael:Controllers/FuncionariosController.cs
 using RotaLimpa.Api.Data;
 using RotaLimpa.Api.Models;
 using Microsoft.EntityFrameworkCore;
@@ -50,4 +54,4 @@ namespace RotaLimpa.Api.Controllers
         }
 
     }
-}
+}*/

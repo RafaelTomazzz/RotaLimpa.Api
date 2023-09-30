@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 ﻿using Microsoft.EntityFrameworkCore;
 using RotaLimpa.api.Models;
+=======
+﻿using System.Runtime.InteropServices;
+using Microsoft.EntityFrameworkCore;
+using RotaLimpa.api.Models.Enum;
+>>>>>>> origin/Rafael
 using RotaLimpa.Api.Models;
 
 namespace RotaLimpa.Api.Data
@@ -9,6 +15,7 @@ namespace RotaLimpa.Api.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         { }
 
+<<<<<<< HEAD
         public DbSet<CEP> CEPs { get; set; }
         public DbSet<Colaboradores> Colaboradores { get; set; }
         public DbSet<Empresa> Empresa { get; set; }
@@ -51,5 +58,77 @@ namespace RotaLimpa.Api.Data
 
         }
 
+=======
+        public DbSet<Colaborador> Colaboradores { get; set; }
+        public DbSet<Empresa> Empresas { get; set; }
+        public DbSet<CEP> Ceps { get; set; }
+        public DbSet<Frota> Frotas { get; set; }
+        public DbSet<Kilometragem> Kilometragems { get; set; }
+        public DbSet<Motorista> Motoristas { get; set; }
+        public DbSet<Ocorrencia> Ocorrencias { get; set; }
+        public DbSet<Periodo> Periodos { get; set; }
+        public DbSet<Rota> Rotas { get; set; }
+        public DbSet<Rua> Ruas { get; set; }
+        public DbSet<Setor> Setores { get; set; }
+        public DbSet<SetorVeiculo> SetorVeiculos { get; set; }
+        public DbSet<Trajeto> Trajetos { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Colaborador>()
+                 .HasOne(c => c.Empresas)
+                 .WithMany()
+                 .HasForeignKey(c => c.Empresa_Id)
+                 .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Setor>()
+                .HasOne(s => s.Empresa)
+                .WithMany()
+                .HasForeignKey( s => s.Id_Empresa);
+        
+            modelBuilder.Entity<Setor>()
+                .HasOne(s => s.Colaborador)
+                .WithMany(s => s.Setores)
+                .HasForeignKey(s => s.Id_Colaborador);
+
+            modelBuilder.Entity<Rota>()
+                .HasOne(r => r.Colaborador)
+                .WithMany(r => r.Rotas)
+                .HasForeignKey(r => r.Id_Colaborador);
+
+            modelBuilder.Entity<Rota>()
+                .HasOne(r => r.Periodo)
+                .WithMany(r => r.Rotas)
+                .HasForeignKey(r => r.Id_Periodo);
+
+            modelBuilder.Entity<Rota>()
+                 .HasOne(r => r.Setor)
+                 .WithMany()
+                 .HasForeignKey(r => r.Id_Setor);
+
+            // modelBuilder.Entity<Rua>()
+            //     .HasOne(r => r.CEP)
+            //     .WithMany();
+
+            modelBuilder.Entity<Rua>()
+                .HasOne(r => r.Rota)
+                .WithMany()
+                .HasForeignKey(r => r.Id_Rota);
+
+            modelBuilder.Entity<SetorVeiculo>()
+                .HasOne(s => s.Setor)
+                .WithMany()
+                .HasForeignKey(s => s.Id_Setor);
+
+            /*modelBuilder.Entity<SetorVeiculo>()
+                .HasOne(s => s.Frota)
+                .WithMany()
+                .HasPrincipalKey(s => new {s.Id_Setor, s.Id_Frota})
+                .HasForeignKey(s => s.Id_Frota);*/
+
+            
+
+        }
+>>>>>>> origin/Rafael
     }
 }
