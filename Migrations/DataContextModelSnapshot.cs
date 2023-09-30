@@ -22,23 +22,6 @@ namespace RotaLimpa.Api.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-<<<<<<< HEAD
-            modelBuilder.Entity("RotaLimpa.Api.Models.Colaboradores", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<string>("Dc_Colaborador")
-                        .IsRequired()
-                        .HasMaxLength(14)
-                        .HasColumnType("nvarchar(14)")
-                        .HasColumnName("dcColaborador")
-                        .HasComment("CPF do colaborador");
-=======
             modelBuilder.Entity("RotaLimpa.Api.Models.CEP", b =>
                 {
                     b.Property<string>("Cep")
@@ -51,15 +34,9 @@ namespace RotaLimpa.Api.Migrations
                         .HasMaxLength(35)
                         .HasColumnType("nvarchar(35)")
                         .HasColumnName("bairro");
->>>>>>> origin/Rafael
 
                     b.Property<string>("Cidade")
                         .IsRequired()
-<<<<<<< HEAD
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)")
-                        .HasColumnName("nome");
-=======
                         .HasMaxLength(35)
                         .HasColumnType("nvarchar(35)")
                         .HasColumnName("cidade");
@@ -125,27 +102,15 @@ namespace RotaLimpa.Api.Migrations
                         .HasMaxLength(60)
                         .HasColumnType("nvarchar(60)")
                         .HasColumnName("Nome");
->>>>>>> origin/Rafael
 
                     b.Property<string>("St_Colaborador")
                         .IsRequired()
                         .HasMaxLength(1)
                         .HasColumnType("nvarchar(1)")
-<<<<<<< HEAD
-                        .HasColumnName("stColaborador")
-                        .HasComment("Setor do colaborador");
-=======
                         .HasColumnName("stColaborador");
->>>>>>> origin/Rafael
 
                     b.HasKey("id");
 
-<<<<<<< HEAD
-                    b.HasIndex("id")
-                        .IsUnique();
-
-                    b.ToTable("Colaboradores");
-=======
                     b.HasIndex("EmpresaId");
 
                     b.HasIndex("Empresa_Id");
@@ -618,7 +583,6 @@ namespace RotaLimpa.Api.Migrations
                     b.Navigation("Colaborador");
 
                     b.Navigation("Empresa");
->>>>>>> origin/Rafael
                 });
 
             modelBuilder.Entity("RotaLimpa.Api.Models.SetorVeiculo", b =>

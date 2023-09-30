@@ -1,8 +1,4 @@
-<<<<<<< HEAD:Controllers/ColaboradoresController.cs
 using Microsoft.AspNetCore.Mvc;
-=======
-/*using Microsoft.AspNetCore.Mvc;
->>>>>>> origin/Rafael:Controllers/FuncionariosController.cs
 using RotaLimpa.Api.Data;
 using RotaLimpa.Api.Models;
 using Microsoft.EntityFrameworkCore;
@@ -25,7 +21,7 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                List<Colaboradores> lista = await _context.Colaboradores.ToListAsync();
+                List<Colaborador> lista = await _context.Colaboradores.ToListAsync();
                 // return Ok(lista);
                 return Ok(lista);
             }
@@ -36,8 +32,8 @@ namespace RotaLimpa.Api.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Post(Colaboradores novoColaborador)
+        /*[HttpPost]
+        public async Task<IActionResult> Post(Colaborador novoColaborador)
         {   
             try
             {
@@ -52,6 +48,26 @@ namespace RotaLimpa.Api.Controllers
                 throw;
             }
         }
+*/
+        [HttpPost]
+        public async Task<IActionResult> PostColaborador([FromBody] Colaborador colaborador)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
+            try
+            {
+                _context.Colaboradores.Add(colaborador);
+                await _context.SaveChangesAsync();
+
+                return CreatedAtAction("GetColaborador", new { id = colaborador.Id }, colaborador);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Erro interno do servidor: {ex.Message}");
+            }
+        }
     }
-}*/
+}

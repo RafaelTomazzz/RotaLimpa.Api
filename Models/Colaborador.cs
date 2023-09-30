@@ -25,13 +25,8 @@ namespace RotaLimpa.Api.Models
         public virtual Empresa Empresas { get; set; }
 
         [Required]
-<<<<<<< HEAD:Models/Colaboradores.cs
-        [StringLength(40)]
-        [Column("nome")]
-=======
         [StringLength(60)]
         [Column("Nome")]
->>>>>>> origin/Rafael:Models/Colaborador.cs
         [NotNull]
         public string Nome { get; set;}
 

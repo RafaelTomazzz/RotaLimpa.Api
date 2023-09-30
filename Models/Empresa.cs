@@ -6,14 +6,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RotaLimpa.Api.Models
 {
-<<<<<<< HEAD
-    
-    [Table("Empresa")]
-=======
     [Index(nameof(Dc_Empresa), IsUnique = true)]
     [PrimaryKey(nameof(Id))]
     [Table("Empresas")]
->>>>>>> origin/Rafael
     public class Empresa
     {
         public ICollection<Colaborador>? Colaboradores { get; set; }

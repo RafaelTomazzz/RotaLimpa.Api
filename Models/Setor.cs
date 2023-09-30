@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using RotaLimpa.api.Models.Enum;
+using RotaLimpa.Api.Models.Enum;
 using Microsoft.EntityFrameworkCore;
 
 namespace RotaLimpa.Api.Models
@@ -29,7 +29,7 @@ namespace RotaLimpa.Api.Models
         public int Id_Empresa { get; set; }
         public Empresa Empresa { get; set; }
 
-        public TiposServico TipoServico { get; set; }
+        public TiposServico tiposServico { get; set; }
         public DateTime Di_Setor { get; set; }
         public DateTime Da_Setor { get; set; }
         public string St_Setor { get; set; }
