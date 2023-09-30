@@ -11,23 +11,24 @@ using RotaLimpa.Api.Models.Enum;
 
 namespace RotaLimpa.Api.Models
 {
-    [Table("Ocorrencias")]
-    [PrimaryKey(nameof(Id_Ocorrencia))]
-    [Index(nameof(Id_Ocorrencia), IsUnique = true)]
+    [Table("Ocorrencia")]
+    [PrimaryKey(nameof(IdOcorrencia))]
+    [Index(nameof(IdOcorrencia), IsUnique = true)]
     public class Ocorrencia
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("IdOcorrencia")]
+        [Column("Id")]
         [NotNull]
-        public int Id_Ocorrencia { get; set; }
-        public Trajeto Id_Trajeto { get; set; }
-        public TiposOcorrencia Tipo_Ocorrencia { get; set; }
+        public int IdOcorrencia { get; set; }
+        [Column("Id_Trajeto")]
+        public Trajeto IdTrajeto { get; set; }
+        public TiposOcorrencia TipoOcorrencia { get; set; }
         
         [Required]
-        [Column("mtOcorrencia")]
-        [Comment("Momento da ocorrencia")]
+        [Column("MtOcorrencia")]
+        [Comment("Data domento da ocorrência")]
         [NotNull]
-        public DateTime Mt_Ocorrencia { get; set; }
+        public DateTime MtOcorrencia { get; set; }
     }
 }

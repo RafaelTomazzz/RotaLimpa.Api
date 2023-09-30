@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RotaLimpa.Api.Models
 {
-    [Table("Ruas")]
+    [Table("Rua")]
     [PrimaryKey(nameof(Id))]
     public class Rua
     {
@@ -16,13 +16,11 @@ namespace RotaLimpa.Api.Models
         [Required]
         [ForeignKey("Cep")]
         public string Cep { get; set; }
-        [NotMapped]
-        public virtual CEP CEP { get; set; }
+        public CEP CEP { get; set; }
         
         [Required]
-        [ForeignKey("idRota")]
-        public int Id_Rota { get; set; }
-        [NotMapped]
+        [ForeignKey("Id_Rota")]
+        public int RotaId { get; set; }
         public virtual Rota Rota { get; set; }
     }
 }
