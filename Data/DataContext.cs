@@ -65,7 +65,7 @@ namespace RotaLimpa.Api.Data
 
             modelBuilder.Entity<Rua>()
                 .HasOne(r => r.Rota)
-                .WithMany()
+                .WithMany(r => r.Ruas)
                 .HasForeignKey(r => r.RotaId);
 
             modelBuilder.Entity<SetorVeiculo>()
