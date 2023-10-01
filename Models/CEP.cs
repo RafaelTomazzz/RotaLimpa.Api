@@ -24,22 +24,22 @@ namespace RotaLimpa.Api.Models
         
         [Required]
         [StringLength(60)]
-        [Column("endereço")]
+        [Column("Endereço")]
         public string Endereco { get; set; }
         
         [Required]
         [StringLength(35)]
-        [Column("bairro")]
+        [Column("Bairro")]
         public string Bairro { get; set; }
 
         [Required]
         [StringLength(35)]
-        [Column("cidade")]
+        [Column("Cidade")]
         public string Cidade { get; set; }
 
         [Required]
         [StringLength(2)]
-        [Column("uf")]
+        [Column("UF", TypeName="CHAR")]
         public string UF { get; set; }
 
         [Required]

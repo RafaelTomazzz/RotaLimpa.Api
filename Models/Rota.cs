@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
@@ -7,44 +5,43 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace RotaLimpa.Api.Models
 {
-    [Table("Rotas")]
-    [PrimaryKey(nameof(Id))]
+    [Table("Rota")]
+    [PrimaryKey(nameof(IdRota))]
     public class Rota
     {
         public ICollection<Rua>? Ruas { get; set; }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("IdRota")]
+        [Column("Id")]
         [NotNull]
-        public int Id { get; set; }
-        
-        [Required]
-        [ForeignKey("idColaborador")]
-        public int Id_Colaborador { get; set; }
-        public virtual Colaborador Colaborador{ get; set; }
+        public int IdRota { get; set; }
 
         [Required]
-        [ForeignKey("idPeriodo")]
-        public int Id_Periodo { get; set; }
-        public virtual Periodo Periodo { get; set; }
+        [ForeignKey("Id_Colaborador")]
+        public int ColaboradorId { get; set; }
+        public Colaborador Colaborador { get; set; }
 
         [Required]
-        [ForeignKey("idSetor")]
-        public int Id_Setor {get; set; }
+        [ForeignKey("Id_Periodo")]
+        public int IdPeriodo { get; set; }
+        public Periodo Periodo { get; set; }
+        [Required]
+        public int SetorId { get; set; }
+
         [NotMapped]
-        public virtual Setor Setor { get; set; }
+        public Setor Setor { get; set; }
 
         [Required]
-        [Column("dtRota")]
+        [Column("Dt_Rota")]
         [Comment("Distancia da Rota")]
         [NotNull]
-        public int Dt_Rota { get; set; }
+        public int DtRota { get; set; }
 
         [Required]
-        [Column("tmRota")]
+        [Column("Tm_Rota")]
         [Comment("Tempo médio da Rota")]
         [NotNull]
-        public int Tm_Rota { get; set; }
+        public int TmRota { get; set; }
     }
 }

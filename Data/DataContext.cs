@@ -27,58 +27,57 @@ namespace RotaLimpa.Api.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Colaborador>()
-                 .HasOne(c => c.Empresas)
-                 .WithMany()
-                 .HasForeignKey(c => c.Empresa_Id)
-                 .OnDelete(DeleteBehavior.NoAction);
+                 .HasOne(c => c.Empresa)
+                 .WithMany(e => e.Colaboradores)
+                 .HasForeignKey(c => c.EmpresaId)
+                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Setor>()
-                .HasOne(s => s.Empresa)
-                .WithMany()
-                .HasForeignKey( s => s.Id_Empresa);
-        
+            //modelBuilder.Entity<Setor>()
+            //    .HasOne(s => s.Empresa)
+            //    .WithMany()
+            //    .HasForeignKey(s => s.Id_Empresa);
+
             modelBuilder.Entity<Setor>()
                 .HasOne(s => s.Colaborador)
                 .WithMany(s => s.Setores)
-                .HasForeignKey(s => s.Id_Colaborador);
+                .HasForeignKey(s => s.ColaboradorId);
 
             modelBuilder.Entity<Rota>()
                 .HasOne(r => r.Colaborador)
                 .WithMany(r => r.Rotas)
-                .HasForeignKey(r => r.Id_Colaborador);
+                .HasForeignKey(r => r.ColaboradorId);
 
             modelBuilder.Entity<Rota>()
                 .HasOne(r => r.Periodo)
                 .WithMany(r => r.Rotas)
-                .HasForeignKey(r => r.Id_Periodo);
+                .HasForeignKey(r => r.IdPeriodo);
 
             modelBuilder.Entity<Rota>()
                  .HasOne(r => r.Setor)
-                 .WithMany()
-                 .HasForeignKey(r => r.Id_Setor);
+                 .WithMany(s => s.Rotas)
+                 .HasForeignKey(r => r.SetorId)
+                 .OnDelete(DeleteBehavior.Restrict);
 
-            // modelBuilder.Entity<Rua>()
-            //     .HasOne(r => r.CEP)
-            //     .WithMany();
+            modelBuilder.Entity<Rua>()
+                .HasOne(r => r.CEP)
+                .WithMany(c => c.Ruas)
+                .HasForeignKey(r => r.Cep);
 
             modelBuilder.Entity<Rua>()
                 .HasOne(r => r.Rota)
-                .WithMany()
-                .HasForeignKey(r => r.Id_Rota);
+                .WithMany(r => r.Ruas)
+                .HasForeignKey(r => r.RotaId);
 
             modelBuilder.Entity<SetorVeiculo>()
                 .HasOne(s => s.Setor)
                 .WithMany()
-                .HasForeignKey(s => s.Id_Setor);
+                .HasForeignKey(s => s.Id);
 
             /*modelBuilder.Entity<SetorVeiculo>()
                 .HasOne(s => s.Frota)
                 .WithMany()
                 .HasPrincipalKey(s => new {s.Id_Setor, s.Id_Frota})
                 .HasForeignKey(s => s.Id_Frota);*/
-
-            
-
         }
     }
 }

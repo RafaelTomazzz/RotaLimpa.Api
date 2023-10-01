@@ -9,30 +9,30 @@ using Microsoft.EntityFrameworkCore;
 
 namespace RotaLimpa.Api.Models
 {
-    [Table("Kilometragens")]
+    [Table("Kilometragem")]
     [PrimaryKey(nameof(Id_Veiculo))]
     public class Kilometragem
     {
         [Key]
-        [NotNull]
         public int Id_Veiculo { get; set; }
         public virtual Frota Frota {get; set; }
         
         [Required]
-        [Column("Kilometragem")]
+        [Column("Km")]
+        [Comment("Kilometragem do veículo")]
         [NotNull]
         public int Km { get; set; }
 
         [Required]
-        [Column("seKilometragem")]
+        [Column("Se_Kilometragem")]
         [Comment("Sentido da Marcação")]
         [NotNull]
-        public string Se_Kilometragem { get; set; }
+        public string SeKilometragem { get; set; }
 
         [Required]
-        [Column("diKilometragem")]
+        [Column("Di_Kilometragem")]
         [Comment("Data de início marcação")]
         [NotNull]
-        public DateTime Di_Kilometragem { get; set; }
+        public DateTime DiKilometragem { get; set; }
     }
 }
