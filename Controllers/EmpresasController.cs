@@ -5,25 +5,25 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
-namespace RotaLimpa.Api.Controllers 
+namespace RotaLimpa.Api.Controllers
 {
     [ApiController]
     [Route("[Controller]")]
-    public class ColaboaboradoresController : ControllerBase
+    public class EmpresasController : ControllerBase
     {
         private readonly DataContext _context;
 
-        public ColaboaboradoresController(DataContext context)
+        public EmpresasController(DataContext context)
         {
             _context = context;
         }
 
         [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAsynzc()
+        public async Task<IActionResult> GetAsync()
         {
             try
             {
-                List<Colaborador> lista = await _context.Colaboradores.ToListAsync();
+                List<Empresa> lista = await _context.Empresas.ToListAsync();
                 return Ok(lista);
             }
             catch (System.Exception)
@@ -34,14 +34,14 @@ namespace RotaLimpa.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Colaborador novocolaborador)
+        public async Task<IActionResult> Post(Empresa novaEmpresa)
         {   
             try
             {
-                await _context.Colaboradores.AddAsync (novocolaborador);
+                await _context.Empresas.AddAsync (novaEmpresa);
                 await _context.SaveChangesAsync();
 
-                return Ok(novocolaborador);
+                return Ok(novaEmpresa);
             }
             catch (System.Exception)
             {
