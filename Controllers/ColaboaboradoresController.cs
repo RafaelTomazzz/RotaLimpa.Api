@@ -19,7 +19,7 @@ namespace RotaLimpa.Api.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAsync()
+        public async Task<IActionResult> GetAsynzc()
         {
             try
             {

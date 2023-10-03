@@ -8,7 +8,7 @@ namespace RotaLimpa.Api.Models
 {
     [Index(nameof(Id), IsUnique = true)]
     [PrimaryKey(nameof(Id))]
-    [Table("Colaboradores")]
+    [Table("Colaborador")]
     public class Colaborador
     {
         public ICollection<Setor>? Setores { get; set; }
@@ -16,29 +16,25 @@ namespace RotaLimpa.Api.Models
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("Id")]
-        public int Id {get; set; }
+        public int Id { get; set; }
 
         [Required]
-        [ForeignKey("idEmpresa")]
-        public int Empresa_Id { get; set; }
-        public virtual Empresa Empresas { get; set; }
+        public int EmpresaId { get; set; }
+        [NotMapped]
+        public Empresa Empresa { get; set; }
 
         [Required]
         [StringLength(60)]
-        [Column("Nome")]
         [NotNull]
-        public string Nome { get; set;}
+        public string Nome { get; set; }
 
         [Required]
         [StringLength(14)]
-        [Column("dbColaborador")]
         [NotNull]
-        public string Dc_Colaborador { get; set; }
-        
+        public string DcColaborador { get; set; }
+
         [Required]
         [StringLength(1)]
-        [Column("stColaborador")]
-        public string St_Colaborador { get; set; }    
-        }
+        public string StColaborador { get; set; }
+    }
 }

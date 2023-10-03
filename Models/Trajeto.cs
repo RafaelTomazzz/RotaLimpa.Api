@@ -9,16 +9,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace RotaLimpa.Api.Models
 {
-    [Table("Trajetos")]
+    [Table("Trajeto")]
     [PrimaryKey(nameof(Id))]
     public class Trajeto
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("idTrajeto")]
+        [Column("IdTrajeto")]
         [NotNull]
         public int Id { get; set; }
+        public int IdMotorista { get; set; }
+        public Motorista Motorista { get; set; }
+        public int IdRota { get; set; }
+        public Rota Rota { get; set; }
 
+<<<<<<< HEAD
         [ForeignKey("idMotorista")]
         public Motorista Id_Motorista { get; set; }
 
@@ -27,14 +32,20 @@ namespace RotaLimpa.Api.Models
 
         [ForeignKey("idVeiculo")]
         public Frota Id_Veiculo { get; set; }
+=======
+        public int IdFrota { get; set; }
+        public Frota Frota { get; set; }
+>>>>>>> origin/Rafael
         
         [Required]
         [Comment("Momento de início do trajeto")]
+        [Column("Mi_Trajeto")]
         [NotNull]
-        public DateTime Mi_Trajeto { get; set; }
+        public DateTime MiTrajeto { get; set; } = DateTime.Now;
         [Required]
         [Comment("Momento do fim do trajeto")]
+        [Column("Mj_Trajeto")]
         [NotNull]
-        public DateTime Mj_Trajeto { get; set; }
+        public DateTime MjTrajeto { get; set; }
     }
 }

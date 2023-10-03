@@ -28,6 +28,7 @@ namespace RotaLimpa.Api.Data
         {
             modelBuilder.Entity<Colaborador>()
                  .HasOne(c => c.Empresa)
+<<<<<<< HEAD
                  .WithMany()
                  .HasForeignKey(c => c.Empresa_Id)
                  .OnDelete(DeleteBehavior.NoAction);
@@ -38,26 +39,39 @@ namespace RotaLimpa.Api.Data
                 .HasForeignKey( s => s.Id_Empresa);
                 .HasKey
         
+=======
+                 .WithMany(e => e.Colaboradores)
+                 .HasForeignKey(c => c.EmpresaId)
+                 .OnDelete(DeleteBehavior.Cascade);
+
+            //modelBuilder.Entity<Setor>()
+            //    .HasOne(s => s.Empresa)
+            //    .WithMany()
+            //    .HasForeignKey(s => s.Id_Empresa);
+
+>>>>>>> origin/Rafael
             modelBuilder.Entity<Setor>()
                 .HasOne(s => s.Colaborador)
                 .WithMany(s => s.Setores)
-                .HasForeignKey(s => s.Id_Colaborador);
+                .HasForeignKey(s => s.ColaboradorId);
 
             modelBuilder.Entity<Rota>()
                 .HasOne(r => r.Colaborador)
                 .WithMany(r => r.Rotas)
-                .HasForeignKey(r => r.Id_Colaborador);
+                .HasForeignKey(r => r.ColaboradorId);
 
             modelBuilder.Entity<Rota>()
                 .HasOne(r => r.Periodo)
                 .WithMany(r => r.Rotas)
-                .HasForeignKey(r => r.Id_Periodo);
+                .HasForeignKey(r => r.IdPeriodo);
 
-            // modelBuilder.Entity<Rota>()
-            //     .HasOne(r => r.Setor)
-            //     .WithMany()
-            //     .HasForeignKey(r => r.Id_Setor);
+            modelBuilder.Entity<Rota>()
+                 .HasOne(r => r.Setor)
+                 .WithMany(s => s.Rotas)
+                 .HasForeignKey(r => r.SetorId)
+                 .OnDelete(DeleteBehavior.Restrict);
 
+<<<<<<< HEAD
             // modelBuilder.Entity<Rua>()
             //     .HasOne(r => r.CEP)
             //     .WithMany();
@@ -83,10 +97,22 @@ namespace RotaLimpa.Api.Data
                 .HasOne(s => s.Frota)
                 .WithMany()
                 .HasForeignKey( s => s.Id_Veiculo);
+=======
+            modelBuilder.Entity<Rua>()
+                .HasOne(r => r.CEP)
+                .WithMany(c => c.Ruas)
+                .HasForeignKey(r => r.Cep);
+
+            modelBuilder.Entity<Rua>()
+                .HasOne(r => r.Rota)
+                .WithMany(r => r.Ruas)
+                .HasForeignKey(r => r.RotaId);
+>>>>>>> origin/Rafael
 
             modelBuilder.Entity<SetorVeiculo>()
                 .HasOne(s => s.Setor)
                 .WithMany()
+<<<<<<< HEAD
                 .HasForeignKey( s => s.Id_Setor);
 
                 ------------------------------------------------
@@ -110,6 +136,15 @@ namespace RotaLimpa.Api.Data
 
 
 
+=======
+                .HasForeignKey(s => s.Id);
+
+            /*modelBuilder.Entity<SetorVeiculo>()
+                .HasOne(s => s.Frota)
+                .WithMany()
+                .HasPrincipalKey(s => new {s.Id_Setor, s.Id_Frota})
+                .HasForeignKey(s => s.Id_Frota);*/
+>>>>>>> origin/Rafael
         }
     }
 }

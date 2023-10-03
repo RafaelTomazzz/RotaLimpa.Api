@@ -6,18 +6,18 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RotaLimpa.Api.Models
 {
-    [Table("SetorVeiculos")]
-    [PrimaryKey(nameof(Id_Setor))] //Id veiculo tambem é uma pk, perguntar para o bruno como declarar
+    [Table("SetorVeiculo")]
+    [PrimaryKey(nameof(Id))]
     public class SetorVeiculo
     {
         [Key]
-        [ForeignKey("idSetor")]
-        public int Id_Setor { get; set; }
+        [ForeignKey("Id_Setor")]
+        public int Id { get; set; }
         public virtual Setor Setor { get; set; }
 
         [Key]
-        [ForeignKey("idVeiculo")]
-        public int Id_Veiculo { get; set; }
+        [ForeignKey("Id_Frota")]
+        public int IdFrota { get; set; }
         public Frota Frota { get; set; }
     }
 }
