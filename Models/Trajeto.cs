@@ -23,19 +23,8 @@ namespace RotaLimpa.Api.Models
         public int IdRota { get; set; }
         public Rota Rota { get; set; }
 
-<<<<<<< HEAD
-        [ForeignKey("idMotorista")]
-        public Motorista Id_Motorista { get; set; }
-
-        [ForeignKey("idRota")]
-        public Rota Id_Rota { get; set; }
-
-        [ForeignKey("idVeiculo")]
-        public Frota Id_Veiculo { get; set; }
-=======
         public int IdFrota { get; set; }
         public Frota Frota { get; set; }
->>>>>>> origin/Rafael
         
         [Required]
         [Comment("Momento de início do trajeto")]

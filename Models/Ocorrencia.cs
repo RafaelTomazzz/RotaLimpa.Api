@@ -20,24 +20,14 @@ namespace RotaLimpa.Api.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("Id")]
         [NotNull]
-<<<<<<< HEAD
-        public int Id_Ocorrencia { get; set; }
-
-        [ForeignKey("idTrajeto")]
-        public Trajeto Id_Trajeto { get; set; }
-
-        [ForeignKey("tipoOcorrencia")]
-        public TiposOcorrencia Tipo_Ocorrencia { get; set; }
-=======
         public int IdOcorrencia { get; set; }
         [Column("Id_Trajeto")]
         public Trajeto IdTrajeto { get; set; }
         public TiposOcorrencia TipoOcorrencia { get; set; }
->>>>>>> origin/Rafael
         
         [Required]
         [Column("MtOcorrencia")]
-        [Comment("Data domento da ocorrência")]
+        [Comment("Data domento da ocorrï¿½ncia")]
         [NotNull]
         public DateTime MtOcorrencia { get; set; }
     }

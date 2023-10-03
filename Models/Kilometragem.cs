@@ -14,11 +14,6 @@ namespace RotaLimpa.Api.Models
     public class Kilometragem
     {
         [Key]
-<<<<<<< HEAD
-        [NotNull]
-        [ForeignKey("idVeiculo")]
-=======
->>>>>>> origin/Rafael
         public int Id_Veiculo { get; set; }
         public virtual Frota Frota {get; set; }
         
