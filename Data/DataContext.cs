@@ -23,7 +23,7 @@ namespace RotaLimpa.Api.Data
         public DbSet<Setor> Setores { get; set; }
         public DbSet<SetorVeiculo> SetorVeiculos { get; set; }
         public DbSet<Trajeto> Trajetos { get; set; }
-        public DbSet<TiposServico> TiposServico { get; set; }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
