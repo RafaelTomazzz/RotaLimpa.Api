@@ -19,7 +19,7 @@ namespace RotaLimpa.Api.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAsynzc()
+        public async Task<IActionResult> GetAll()
         {
             try
             {
@@ -34,7 +34,7 @@ namespace RotaLimpa.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Colaborador novocolaborador)
+        public async Task<IActionResult> Add(Colaborador novocolaborador)
         {   
             try
             {

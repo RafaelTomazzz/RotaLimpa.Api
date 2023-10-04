@@ -1,20 +1,21 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RotaLimpa.Api.Data;
 using RotaLimpa.Api.Models;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
-namespace RotaLimpa.Api.Controllers
+namespace RotaLimpa.Api.Controllers 
 {
     [ApiController]
     [Route("[Controller]")]
-    public class EmpresasController : ControllerBase
+    public class KilimetragensController : ControllerBase
     {
         private readonly DataContext _context;
 
-        public EmpresasController(DataContext context)
+        public KilimetragensController(DataContext context)
         {
             _context = context;
         }
@@ -24,13 +25,12 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                List<Empresa> lista = await _context.Empresas.ToListAsync();
-                
+                List<Kilometragem> lista = await _context.Kilometragens.ToListAsync();
                 return Ok(lista);
             }
             catch (System.Exception)
             {
-
+                
                 throw;
             }
         }
@@ -40,26 +40,25 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                Empresa empresa = await _context.Empresas.FirstOrDefaultAsync(empreBusca => empreBusca.Id == id);
-
-                return Ok(empresa);
+                Kilometragem kilometragem = await _context.Kilometragens.FirstOrDefaultAsync(kBusca => kBusca.Id_Veiculo == id);
+                return Ok(kilometragem);
             }
             catch (System.Exception)
             {
-
+                
                 throw;
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(Empresa novaEmpresa)
+        public async Task<IActionResult> Add(Kilometragem novaKilometragem)
         {   
             try
             {
-                await _context.Empresas.AddAsync(novaEmpresa);
+                await _context.Kilometragens.AddAsync (novaKilometragem);
                 await _context.SaveChangesAsync();
 
-                return Ok(novaEmpresa);
+                return Ok(novaKilometragem);
             }
             catch (System.Exception)
             {
@@ -69,14 +68,14 @@ namespace RotaLimpa.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(Empresa empresaAlterada)
+        public async Task<IActionResult> Update(Kilometragem kilometragemAlterada)
         {   
             try
             {
-                _context.Empresas.Update(empresaAlterada);
+                _context.Kilometragens.Update(kilometragemAlterada);
                 await _context.SaveChangesAsync();
 
-                return Ok(empresaAlterada);
+                return Ok(kilometragemAlterada);
             }
             catch (System.Exception)
             {
@@ -90,9 +89,9 @@ namespace RotaLimpa.Api.Controllers
         {   
             try
             {
-                Empresa empresa = await _context.Empresas.FirstOrDefaultAsync(empreBusca => empreBusca.Id == id);
+                Kilometragem kilometragem = await _context.Kilometragens.FirstOrDefaultAsync(kBusca => kBusca.Id_Veiculo == id);
 
-                _context.Empresas.Remove(empresa);
+                _context.Kilometragens.Remove(kilometragem);
                 int linhaAfetada = await _context.SaveChangesAsync();
                 
                 return Ok(linhaAfetada);

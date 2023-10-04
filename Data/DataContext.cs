@@ -14,7 +14,7 @@ namespace RotaLimpa.Api.Data
         public DbSet<Empresa> Empresas { get; set; }
         public DbSet<CEP> Ceps { get; set; }
         public DbSet<Frota> Frotas { get; set; }
-        public DbSet<Kilometragem> Kilometragems { get; set; }
+        public DbSet<Kilometragem> Kilometragens { get; set; }
         public DbSet<Motorista> Motoristas { get; set; }
         public DbSet<Ocorrencia> Ocorrencias { get; set; }
         public DbSet<Periodo> Periodos { get; set; }
