@@ -21,8 +21,14 @@ namespace RotaLimpa.Api.Models
         [Column("Id")]
         [NotNull]
         public int IdOcorrencia { get; set; }
+        
         [Column("Id_Trajeto")]
-        public Trajeto IdTrajeto { get; set; }
+        [ForeignKey("Id_Trajeto")]
+        public int IdTrajeto { get; set; }
+        [NotMapped]
+        public Trajeto Trajeto { get; set;}
+
+        [Required]
         public TiposOcorrencia TipoOcorrencia { get; set; }
         
         [Required]

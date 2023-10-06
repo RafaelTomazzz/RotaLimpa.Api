@@ -15,15 +15,23 @@ namespace RotaLimpa.Api.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("IdTrajeto")]
+        [Column("Id")]
         [NotNull]
         public int Id { get; set; }
+
+        [ForeignKey("Id_Motorista")]
         public int IdMotorista { get; set; }
+        [NotMapped]
         public Motorista Motorista { get; set; }
+
+        [ForeignKey("Id_Rota")]
         public int IdRota { get; set; }
+        [NotMapped]
         public Rota Rota { get; set; }
 
+        [ForeignKey("Id_Frota")]
         public int IdFrota { get; set; }
+        [NotMapped]
         public Frota Frota { get; set; }
         
         [Required]
