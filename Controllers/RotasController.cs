@@ -66,6 +66,23 @@ namespace RotaLimpa.Api.Controllers
             }
         }
 
+        [HttpPut]
+        public async Task<IActionResult> Update(Rota rotaAlterada)
+        {   
+            try
+            {
+                _context.Rotas.Update(rotaAlterada);
+                await _context.SaveChangesAsync();
+
+                return Ok(rotaAlterada);
+            }
+            catch (System.Exception)
+            {
+             
+                throw;
+            }
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

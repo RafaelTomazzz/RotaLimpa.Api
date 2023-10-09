@@ -67,6 +67,23 @@ namespace RotaLimpa.Api.Controllers
             }
         }
 
+         [HttpPut]
+        public async Task<IActionResult> Update(Ocorrencia ocorrenciaAlterada)
+        {   
+            try
+            {
+                _context.Ocorrencias.Update(ocorrenciaAlterada);
+                await _context.SaveChangesAsync();
+
+                return Ok(ocorrenciaAlterada);
+            }
+            catch (System.Exception)
+            {
+             
+                throw;
+            }
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
