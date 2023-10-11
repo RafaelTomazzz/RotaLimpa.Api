@@ -267,7 +267,7 @@ namespace RotaLimpa.Api.Migrations
                     b.Property<DateTime>("MtOcorrencia")
                         .HasColumnType("datetime2")
                         .HasColumnName("MtOcorrencia")
-                        .HasComment("Data domento da ocorrência");
+                        .HasComment("Data domento da ocorr�ncia");
 
                     b.Property<int>("TipoOcorrencia")
                         .HasColumnType("int");
@@ -364,16 +364,11 @@ namespace RotaLimpa.Api.Migrations
                     b.Property<int>("RotaId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("RotaIdRota")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Cep");
 
                     b.HasIndex("RotaId");
-
-                    b.HasIndex("RotaIdRota");
 
                     b.ToTable("Rua");
                 });
@@ -555,14 +550,10 @@ namespace RotaLimpa.Api.Migrations
                         .IsRequired();
 
                     b.HasOne("RotaLimpa.Api.Models.Rota", "Rota")
-                        .WithMany()
+                        .WithMany("Ruas")
                         .HasForeignKey("RotaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("RotaLimpa.Api.Models.Rota", null)
-                        .WithMany("Ruas")
-                        .HasForeignKey("RotaIdRota");
 
                     b.Navigation("CEP");
 
