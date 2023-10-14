@@ -143,12 +143,11 @@ namespace RotaLimpa.Api.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ColaboradorId = table.Column<int>(type: "int", nullable: false),
-                    IdEmpresa = table.Column<int>(type: "int", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     TipoServico = table.Column<int>(type: "int", nullable: false),
                     Di_Setor = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Da_Setor = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    St_Setor = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EmpresaId = table.Column<int>(type: "int", nullable: true)
+                    St_Setor = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -163,7 +162,8 @@ namespace RotaLimpa.Api.Migrations
                         name: "FK_Setor_Empresa_EmpresaId",
                         column: x => x.EmpresaId,
                         principalTable: "Empresa",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

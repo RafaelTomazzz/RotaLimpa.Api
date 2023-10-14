@@ -393,10 +393,7 @@ namespace RotaLimpa.Api.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("Di_Setor");
 
-                    b.Property<int?>("EmpresaId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdEmpresa")
+                    b.Property<int>("EmpresaId")
                         .HasColumnType("int");
 
                     b.Property<string>("StSetor")
@@ -556,11 +553,15 @@ namespace RotaLimpa.Api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RotaLimpa.Api.Models.Empresa", null)
+                    b.HasOne("RotaLimpa.Api.Models.Empresa", "Empresa")
                         .WithMany("Setores")
-                        .HasForeignKey("EmpresaId");
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Colaborador");
+
+                    b.Navigation("Empresa");
                 });
 
             modelBuilder.Entity("RotaLimpa.Api.Models.SetorVeiculo", b =>

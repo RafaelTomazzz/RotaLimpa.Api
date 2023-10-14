@@ -12,7 +12,7 @@ using RotaLimpa.Api.Data;
 namespace RotaLimpa.Api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231006193129_InitialMigration")]
+    [Migration("20231014182428_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -396,10 +396,7 @@ namespace RotaLimpa.Api.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("Di_Setor");
 
-                    b.Property<int?>("EmpresaId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdEmpresa")
+                    b.Property<int>("EmpresaId")
                         .HasColumnType("int");
 
                     b.Property<string>("StSetor")
@@ -559,11 +556,15 @@ namespace RotaLimpa.Api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RotaLimpa.Api.Models.Empresa", null)
+                    b.HasOne("RotaLimpa.Api.Models.Empresa", "Empresa")
                         .WithMany("Setores")
-                        .HasForeignKey("EmpresaId");
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Colaborador");
+
+                    b.Navigation("Empresa");
                 });
 
             modelBuilder.Entity("RotaLimpa.Api.Models.SetorVeiculo", b =>

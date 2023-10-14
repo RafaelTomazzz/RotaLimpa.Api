@@ -32,10 +32,10 @@ namespace RotaLimpa.Api.Data
                  .HasForeignKey(c => c.EmpresaId)
                  .OnDelete(DeleteBehavior.Cascade);
 
-            //modelBuilder.Entity<Setor>()
-            //    .HasOne(s => s.Empresa)
-            //    .WithMany()
-            //    .HasForeignKey(s => s.Id_Empresa);
+            /*modelBuilder.Entity<Setor>()
+                .HasOne(s => s.Empresa)
+                .WithMany()
+                .HasForeignKey(s => s.EmpresaId);*/
 
             modelBuilder.Entity<Setor>()
                 .HasOne(s => s.Colaborador)
