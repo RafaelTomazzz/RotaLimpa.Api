@@ -111,7 +111,7 @@ namespace RotaLimpa.Api.Migrations
                         column: x => x.EmpresaId,
                         principalTable: "Empresa",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -163,7 +163,7 @@ namespace RotaLimpa.Api.Migrations
                         column: x => x.EmpresaId,
                         principalTable: "Empresa",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(

@@ -466,7 +466,7 @@ namespace RotaLimpa.Api.Migrations
                     b.HasOne("RotaLimpa.Api.Models.Empresa", "Empresa")
                         .WithMany("Colaboradores")
                         .HasForeignKey("EmpresaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Empresa");
@@ -551,7 +551,7 @@ namespace RotaLimpa.Api.Migrations
                     b.HasOne("RotaLimpa.Api.Models.Empresa", "Empresa")
                         .WithMany("Setores")
                         .HasForeignKey("EmpresaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Colaborador");
