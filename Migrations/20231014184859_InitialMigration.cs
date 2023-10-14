@@ -205,22 +205,15 @@ namespace RotaLimpa.Api.Migrations
                 name: "SetorVeiculo",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    IdFrota = table.Column<int>(type: "int", nullable: false),
-                    FrotaId_Veiculo = table.Column<int>(type: "int", nullable: false)
+                    IdSetor = table.Column<int>(type: "int", nullable: false),
+                    IdFrota = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SetorVeiculo", x => x.Id);
+                    table.PrimaryKey("PK_SetorVeiculo", x => x.IdSetor);
                     table.ForeignKey(
-                        name: "FK_SetorVeiculo_Frota_FrotaId_Veiculo",
-                        column: x => x.FrotaId_Veiculo,
-                        principalTable: "Frota",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_SetorVeiculo_Setor_Id",
-                        column: x => x.Id,
+                        name: "FK_SetorVeiculo_Setor_IdSetor",
+                        column: x => x.IdSetor,
                         principalTable: "Setor",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -374,11 +367,6 @@ namespace RotaLimpa.Api.Migrations
                 name: "IX_Setor_EmpresaId",
                 table: "Setor",
                 column: "EmpresaId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SetorVeiculo_FrotaId_Veiculo",
-                table: "SetorVeiculo",
-                column: "FrotaId_Veiculo");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Trajeto_IdMotorista",

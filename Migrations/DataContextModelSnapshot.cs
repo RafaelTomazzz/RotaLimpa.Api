@@ -415,18 +415,13 @@ namespace RotaLimpa.Api.Migrations
 
             modelBuilder.Entity("RotaLimpa.Api.Models.SetorVeiculo", b =>
                 {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FrotaId_Veiculo")
+                    b.Property<int>("IdSetor")
                         .HasColumnType("int");
 
                     b.Property<int>("IdFrota")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("FrotaId_Veiculo");
+                    b.HasKey("IdSetor");
 
                     b.ToTable("SetorVeiculo");
                 });
@@ -566,19 +561,11 @@ namespace RotaLimpa.Api.Migrations
 
             modelBuilder.Entity("RotaLimpa.Api.Models.SetorVeiculo", b =>
                 {
-                    b.HasOne("RotaLimpa.Api.Models.Frota", "Frota")
-                        .WithMany()
-                        .HasForeignKey("FrotaId_Veiculo")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("RotaLimpa.Api.Models.Setor", "Setor")
                         .WithMany()
-                        .HasForeignKey("Id")
+                        .HasForeignKey("IdSetor")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Frota");
 
                     b.Navigation("Setor");
                 });

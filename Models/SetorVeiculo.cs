@@ -7,17 +7,19 @@ using System.ComponentModel.DataAnnotations;
 namespace RotaLimpa.Api.Models
 {
     [Table("SetorVeiculo")]
-    [PrimaryKey(nameof(Id))]
+    [PrimaryKey(nameof(IdSetor))]
     public class SetorVeiculo
     {
         [Key]
         [ForeignKey("Id_Setor")]
-        public int Id { get; set; }
+        public int IdSetor { get; set; }
+        [NotMapped]
         public virtual Setor Setor { get; set; }
 
         [Key]
         [ForeignKey("Id_Frota")]
         public int IdFrota { get; set; }
+        [NotMapped]
         public Frota Frota { get; set; }
     }
 }
