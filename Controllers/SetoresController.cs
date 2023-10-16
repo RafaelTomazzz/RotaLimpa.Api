@@ -47,5 +47,22 @@ namespace RotaLimpa.Api.Controllers
                 return BadRequest (ex.Message);
             }
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(Setor novosetor)
+        {   
+            try
+            {
+                await _context.Setores.AddAsync(novosetor);
+                await _context.SaveChangesAsync();
+
+                return Ok(novosetor);
+            }
+            catch (System.Exception ex)
+            {
+             
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
