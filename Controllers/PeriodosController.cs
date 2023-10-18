@@ -24,7 +24,7 @@ namespace RotaLimpa.Api.Controllers
             try
             {
                 Periodo periodo = await _context.Periodos
-                    .FirstOrDefaultAsync(Busca => Busca.Id_Periodo == id);
+                    .FirstOrDefaultAsync(Busca => Busca.Id == id);
 
                 return Ok(periodo);
             }
@@ -55,7 +55,7 @@ namespace RotaLimpa.Api.Controllers
             try
             {
                 Periodo rPeriodo = await _context.Periodos
-                    .FirstOrDefaultAsync(delete => delete.Id_Periodo == id);
+                    .FirstOrDefaultAsync(delete => delete.Id == id);
 
                 _context.Periodos.Remove(rPeriodo);
                 int linhaAfetadas = await _context.SaveChangesAsync();

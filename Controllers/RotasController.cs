@@ -24,7 +24,7 @@ namespace RotaLimpa.Api.Controllers
             try
             {
                 Rota rota = await _context.Rotas
-                    .FirstOrDefaultAsync(Busca => Busca.Id == id);
+                    .FirstOrDefaultAsync(Busca => Busca.IdRota == id);
 
                 return Ok(rota);
             }
@@ -89,7 +89,7 @@ namespace RotaLimpa.Api.Controllers
             try
             {
                 Rota rRota = await _context.Rotas
-                    .FirstOrDefaultAsync(delete => delete.Id == id);
+                    .FirstOrDefaultAsync(delete => delete.IdRota == id);
 
                 _context.Rotas.Remove(rRota);
                 int linhaAfetadas = await _context.SaveChangesAsync();

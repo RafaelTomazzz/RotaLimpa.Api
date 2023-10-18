@@ -1,18 +1,26 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace RotaLimpa.Api.Models
 {
-    [Table("Ruas")]
+    [Table("Rua")]
+    [PrimaryKey(nameof(Id))]
     public class Rua
     {
         [Key]
-        public int Id_Ruas { get; set; }
-        public CEP Cep { get; set; }
-        public Rota Id_Rota { get; set; }
+        public int Id { get; set; }
+
+        [Required]
+        [ForeignKey("Cep")]
+        public string Cep { get; set; }
+        public CEP CEP { get; set; }
+        
+        [Required]
+        [ForeignKey("Id_Rota")]
+        public int RotaId { get; set; }
+        public virtual Rota Rota { get; set; }
     }
 }

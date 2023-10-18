@@ -2,20 +2,39 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
-using RotaLimpa.Api.Models.Enuns;
+using Microsoft.EntityFrameworkCore;
+using RotaLimpa.Api.Models.Enum;
 
 
 namespace RotaLimpa.Api.Models
 {
-    [Table("Ocorrencias")]
+    [Table("Ocorrencia")]
+    [PrimaryKey(nameof(IdOcorrencia))]
+    [Index(nameof(IdOcorrencia), IsUnique = true)]
     public class Ocorrencia
     {
         [Key]
-        public int Id_Ocorrencia { get; set; }
-        public Trajeto Id_Trajeto { get; set; }
-        public TiposOcorrencia Tipo_Ocorrencia { get; set; }
-        public DateTime Mt_Ocorrencia { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Column("Id")]
+        [NotNull]
+        public int IdOcorrencia { get; set; }
+        
+        [Column("Id_Trajeto")]
+        [ForeignKey("Id_Trajeto")]
+        public int IdTrajeto { get; set; }
+        [NotMapped]
+        public Trajeto Trajeto { get; set;}
+
+        [Required]
+        public TiposOcorrencia TipoOcorrencia { get; set; }
+        
+        [Required]
+        [Column("MtOcorrencia")]
+        [Comment("Data domento da ocorr�ncia")]
+        [NotNull]
+        public DateTime MtOcorrencia { get; set; }
     }
 }

@@ -24,7 +24,7 @@ namespace RotaLimpa.Api.Controllers
             try
             {
                 Ocorrencia ocorrencia = await _context.Ocorrencias
-                    .FirstOrDefaultAsync(Busca => Busca.Id_Ocorrencia == id);
+                    .FirstOrDefaultAsync(Busca => Busca.IdOcorrencia == id);
 
                 return Ok(ocorrencia);
             }
@@ -90,7 +90,7 @@ namespace RotaLimpa.Api.Controllers
             try
             {
                 Ocorrencia rOcorrencia = await _context.Ocorrencias
-                    .FirstOrDefaultAsync(delete => delete.Id_Ocorrencia == id);
+                    .FirstOrDefaultAsync(delete => delete.IdOcorrencia == id);
 
                 _context.Ocorrencias.Remove(rOcorrencia);
                 int linhaAfetadas = await _context.SaveChangesAsync();

@@ -9,17 +9,17 @@ namespace RotaLimpa.Api.Controllers
 {
     [ApiController]
     [Route("[Controller]")]
-    public class ColaboaboradoresController : ControllerBase
+    public class ColaboradoresController : ControllerBase
     {
         private readonly DataContext _context;
 
-        public ColaboaboradoresController(DataContext context)
+        public ColaboradoresController(DataContext context)
         {
             _context = context;
         }
 
         [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAsync()
+        public async Task<IActionResult> GetAll()
         {
             try
             {
@@ -34,7 +34,7 @@ namespace RotaLimpa.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Colaborador novocolaborador)
+        public async Task<IActionResult> Add(Colaborador novocolaborador)
         {   
             try
             {
