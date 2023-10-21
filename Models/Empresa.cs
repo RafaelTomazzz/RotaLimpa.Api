@@ -6,52 +6,47 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RotaLimpa.Api.Models
 {
-    [Index(nameof(Dc_Empresa), IsUnique = true)]
+    [Index(nameof(DcEmpresa), IsUnique = true)]
     [PrimaryKey(nameof(Id))]
-    [Table("Empresas")]
+    [Table("Empresa")]
     public class Empresa
     {
         public ICollection<Colaborador>? Colaboradores { get; set; }
         public ICollection<Setor>? Setores { get; set; }
 
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("Id")]
         public int Id { get; set; }
 
         [Required]
         [StringLength(40)]
-        [Column("Nome")]
         [NotNull]
         public string? Nome { get; set; }
 
         [Required]
         [StringLength(18)]
-        [Column("dc_empresa")]
+        [Column("Dc_Empresa")]
         [Comment("CNPJ")]
         [NotNull]
-        public string? Dc_Empresa { get; set; }
+        public string? DcEmpresa { get; set; }
 
         [Required]
-        [Column("st_empresa")]
+        [Column("St_empresa")]
         [Comment("SITUAÇÃO DA EMPRESA")]
         [NotNull]
-        public int St_Empresa { get; set; }
+        public int StEmpresa { get; set; }
 
         [Required]
-        [Column("di_empresa")]
+        [Column("Di_empresa")]
         [Comment("DATA DE INCLUSÃO")]
         [NotNull]
-        public DateTime Di_Empresa { get; set; }
+        public DateTime DiEmpresa { get; set; }
 
         [Required]
-        [Column("da_empresa")]
+        [Column("Da_empresa")]
         [Comment("DATA DA ULTIMA ALTERAÇÃO")]
         [NotNull]
-        public DateTime Da_Empresa { get; set; }
-        
-        
-        
+        public DateTime DaEmpresa { get; set; }
+
     }
 }

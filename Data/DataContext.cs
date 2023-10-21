@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using RotaLimpa.Api.Models.Enum;
 using RotaLimpa.Api.Models;
+using RpgApi.Utils;
 
 namespace RotaLimpa.Api.Data
 {
@@ -14,7 +15,7 @@ namespace RotaLimpa.Api.Data
         public DbSet<Empresa> Empresas { get; set; }
         public DbSet<CEP> Ceps { get; set; }
         public DbSet<Frota> Frotas { get; set; }
-        public DbSet<Kilometragem> Kilometragems { get; set; }
+        public DbSet<Kilometragem> Kilometragens { get; set; }
         public DbSet<Motorista> Motoristas { get; set; }
         public DbSet<Ocorrencia> Ocorrencias { get; set; }
         public DbSet<Periodo> Periodos { get; set; }
@@ -27,49 +28,51 @@ namespace RotaLimpa.Api.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Colaborador>()
-                 .HasOne(c => c.Empresas)
-                 .WithMany()
-                 .HasForeignKey(c => c.Empresa_Id)
-                 .OnDelete(DeleteBehavior.NoAction);
+                 .HasOne(c => c.Empresa)
+                 .WithMany(e => e.Colaboradores)
+                 .HasForeignKey(c => c.EmpresaId)
+                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Setor>()
                 .HasOne(s => s.Empresa)
-                .WithMany()
-                .HasForeignKey( s => s.Id_Empresa);
-        
+                .WithMany(e => e.Setores)
+                .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.Entity<Setor>()
                 .HasOne(s => s.Colaborador)
                 .WithMany(s => s.Setores)
-                .HasForeignKey(s => s.Id_Colaborador);
+                .HasForeignKey(s => s.ColaboradorId);
 
             modelBuilder.Entity<Rota>()
                 .HasOne(r => r.Colaborador)
                 .WithMany(r => r.Rotas)
-                .HasForeignKey(r => r.Id_Colaborador);
+                .HasForeignKey(r => r.ColaboradorId);
 
             modelBuilder.Entity<Rota>()
                 .HasOne(r => r.Periodo)
                 .WithMany(r => r.Rotas)
-                .HasForeignKey(r => r.Id_Periodo);
+                .HasForeignKey(r => r.IdPeriodo);
 
             modelBuilder.Entity<Rota>()
                  .HasOne(r => r.Setor)
-                 .WithMany()
-                 .HasForeignKey(r => r.Id_Setor);
+                 .WithMany(s => s.Rotas)
+                 .HasForeignKey(r => r.SetorId)
+                 .OnDelete(DeleteBehavior.Restrict);
 
-            // modelBuilder.Entity<Rua>()
-            //     .HasOne(r => r.CEP)
-            //     .WithMany();
+            modelBuilder.Entity<Rua>()
+                .HasOne(r => r.CEP)
+                .WithMany(c => c.Ruas)
+                .HasForeignKey(r => r.Cep);
 
             modelBuilder.Entity<Rua>()
                 .HasOne(r => r.Rota)
-                .WithMany()
-                .HasForeignKey(r => r.Id_Rota);
+                .WithMany(r => r.Ruas)
+                .HasForeignKey(r => r.RotaId);
 
             modelBuilder.Entity<SetorVeiculo>()
                 .HasOne(s => s.Setor)
                 .WithMany()
-                .HasForeignKey(s => s.Id_Setor);
+                .HasForeignKey(s => s.IdSetor);
 
             /*modelBuilder.Entity<SetorVeiculo>()
                 .HasOne(s => s.Frota)
@@ -77,8 +80,43 @@ namespace RotaLimpa.Api.Data
                 .HasPrincipalKey(s => new {s.Id_Setor, s.Id_Frota})
                 .HasForeignKey(s => s.Id_Frota);*/
 
-            
+            modelBuilder.Entity<Ocorrencia>()
+                .HasOne(c => c.Trajeto)
+                .WithMany()
+                .HasForeignKey(c => c.IdTrajeto);
 
+            modelBuilder.Entity<Trajeto>()
+                .HasOne(t => t.Motorista)
+                .WithMany()
+                .HasForeignKey(t => t.IdMotorista);
+
+            modelBuilder.Entity<Trajeto>()
+                .HasOne(t => t.Rota)
+                .WithMany()
+                .HasForeignKey(t => t.IdRota);
+
+            modelBuilder.Entity<Trajeto>()
+                .HasOne(t => t.Frota)
+                .WithMany()
+                .HasForeignKey(t => t.Id);
+
+                Colaborador user = new Colaborador();
+            Criptografia.CriarPasswordHash("123456", out byte[] hash, out byte[]salt);
+            user.Id = 1;
+            user.Username = "ColaboradorAdmin";
+            user.PasswordString = string.Empty;
+            user.PasswordHash = hash;
+            user.PasswordSalt = salt;
+            user.Perfil = "Admin";
+            user.Email = "seuEmail@gmail.com";
+            user.Latitude = -23.5200241;
+            user.Longitude = -46.596498;
+
+            modelBuilder.Entity<Colaborador>().HasData(user);            
+            //Fim da criação do usuário padrão.   
+
+            //Define que se o Perfil não for informado, o valor padrão será jogador
+            modelBuilder.Entity<Colaborador>().Property(u => u.Perfil).HasDefaultValue("Colaborador");
         }
     }
 }

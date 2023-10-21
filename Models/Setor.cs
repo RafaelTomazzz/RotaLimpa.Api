@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace RotaLimpa.Api.Models
 {
-    [Table("Setores")]
+    [Table("Setor")]
     [PrimaryKey(nameof(Id))]
     public class Setor
     {
@@ -20,18 +20,21 @@ namespace RotaLimpa.Api.Models
         public int Id { get; set; }
 
         [Required]
-        [ForeignKey("idColaborador")]
-        public int Id_Colaborador { get; set; }
-        public virtual Colaborador Colaborador { get; set; }
+        [ForeignKey("Id_Colaborador")]
+        public int ColaboradorId { get; set; }
+        public Colaborador Colaborador { get; set; }
         
         [Required]
-        [ForeignKey("idEmpresa")]
-        public int Id_Empresa { get; set; }
+        public int EmpresaId { get; set; }
+        [NotMapped]
         public Empresa Empresa { get; set; }
 
-        public TiposServico tiposServico { get; set; }
-        public DateTime Di_Setor { get; set; }
-        public DateTime Da_Setor { get; set; }
-        public string St_Setor { get; set; }
+        public TiposServico TipoServico { get; set; }
+        [Column("Di_Setor")]
+        public DateTime DiSetor { get; private set; } = DateTime.Now;
+        [Column("Da_Setor")]
+        public DateTime DaSetor { get; set; }
+        [Column("St_Setor")]
+        public string StSetor { get; set; }
     }
 }

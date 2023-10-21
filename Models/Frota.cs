@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using System;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.CodeAnalysis;
@@ -6,15 +7,21 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RotaLimpa.Api.Models
 {
-    [Index(nameof(Id_Veiculo), IsUnique = true)]
-    [PrimaryKey(nameof(Id_Veiculo))]
-    [Table("Frotas")]
+    [Table("Frota")]
     public class Frota
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("IdVeiculo")]
+        [Column("Id")]
         public int Id_Veiculo { get; set; }
+        [Column("P_Veiculo")]
+        public string PVeiculo { get; set; }
+        [Comment("Tamanho do ve�culo")]
+        [Column("Tmn_Veiculo")]
+        public double TmnVeiculo { get; set; }
+        [Column("Di_Veiculo")]
+        public DateTime DiVeiculo { get; set; }
+        [Column("St_Veiculo")]
+        public string StVeiculo { get; set; }
 
         [Required]
         [Column("pVeiculo")]
