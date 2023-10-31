@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using RotaLimpa.Api.Models.inputs;
+using RotaLimpa.Api.DTO;
 
 namespace RotaLimpa.Api.Controllers
 {
@@ -50,7 +51,7 @@ namespace RotaLimpa.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(SetorInput novosetor)
+        public async Task<IActionResult> Add(Setor novosetor)
         {   
             try
             {

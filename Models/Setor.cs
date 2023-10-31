@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using RotaLimpa.api.Models.Enum;
+using RotaLimpa.Api.Models.Enum;
 using Microsoft.EntityFrameworkCore;
+using RotaLimpa.Api.DTO;
+using RotaLimpa.Api.DTO.Builder;
 
 namespace RotaLimpa.Api.Models
 {
@@ -33,8 +35,46 @@ namespace RotaLimpa.Api.Models
         [Column("Di_Setor")]
         public DateTime DiSetor { get; private set; } = DateTime.Now;
         [Column("Da_Setor")]
-        public DateTime DaSetor { get; set; }
+        public DateTime DaSetor { get; set; } = DateTime.Now;
         [Column("St_Setor")]
         public string StSetor { get; set; }
+
+        public Setor()
+        {}
+
+        public Setor(int id)
+        {
+            Id = id;
+        }
+        public Setor(int id, int colaboradorid)
+        {
+            Id = id;
+            ColaboradorId = colaboradorid;
+        }
+        public Setor(int id, int colaboradorid, int empresaid)
+        {
+            Id = id;
+            ColaboradorId = colaboradorid;
+            EmpresaId = empresaid;
+        }
+        public Setor(int id, int colaboradorid, int empresaid, TiposServico tipoServico)
+        {
+            Id = id;
+            ColaboradorId = colaboradorid;
+            EmpresaId = empresaid;
+            TipoServico = tipoServico;
+        }
+        public SetorDTO ToSetor()
+        {
+            SetorDTO setorDTO = new SetorDTOBuilder()
+                .WithId(Id)
+                .WithColaboradorId(ColaboradorId)
+                .WithEmpresaId(EmpresaId)
+                .WithTipoServico(TipoServico)
+                .Build();
+            return setorDTO;
+        }
+
+
     }
 }

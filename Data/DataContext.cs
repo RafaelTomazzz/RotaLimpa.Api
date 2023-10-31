@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 using Microsoft.EntityFrameworkCore;
-using RotaLimpa.api.Models.Enum;
+using RotaLimpa.Api.Models.Enum;
 using RotaLimpa.Api.Models;
 
 namespace RotaLimpa.Api.Data
