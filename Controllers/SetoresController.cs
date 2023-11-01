@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using RotaLimpa.Api.Models.inputs;
 using RotaLimpa.Api.DTO;
+using RotaLimpa.Api.Services.Setores;
 
 namespace RotaLimpa.Api.Controllers
 {
@@ -14,10 +15,12 @@ namespace RotaLimpa.Api.Controllers
     public class SetoresController : ControllerBase
     {
         private readonly DataContext _context;
+        private readonly ISetoresService _setoresService;
 
-        public SetoresController(DataContext context)
+        public SetoresController(DataContext context, ISetoresService setoresService)
         {
             _context = context;
+            _setoresService = setoresService;
         }
 
         [HttpGet("GetAll")]
@@ -25,8 +28,9 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                List<Setor> lista = await _context.Setores.ToListAsync();
-                return Ok(lista);
+                IEnumerable<Setor> setores = await _setoresService.GetAllAsync();
+                IEnumerable<SetorDTO> setoresDTO = setores.Select(setor => setor.ToSetor());
+                return Ok(setoresDTO);
             }
             catch (System.Exception ex)
             {
