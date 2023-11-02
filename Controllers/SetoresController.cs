@@ -30,7 +30,7 @@ namespace RotaLimpa.Api.Controllers
             {
                 IEnumerable<Setor> setores = await _setoresService.GetAllAsync();
                 IEnumerable<SetorDTO> setoresDTO = setores.Select(setor => setor.ToSetor());
-                return Ok(setores);
+                return Ok(setoresDTO);
             }
             catch (System.Exception ex)
             {
