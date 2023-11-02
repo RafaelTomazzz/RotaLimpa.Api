@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using RotaLimpa.Api.Data;
+using RotaLimpa.Api.Repositores.Setores;
+using RotaLimpa.Api.Services.Setores;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +11,10 @@ builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("LocalRafael"));
 });
+
+builder.Services.AddScoped<ISetoresRepository, SetoresRepository>();
+builder.Services.AddScoped<ISetoresService, SetoresService>();
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
