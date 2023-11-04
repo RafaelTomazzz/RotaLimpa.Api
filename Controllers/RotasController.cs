@@ -23,8 +23,12 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                Rota rota = await _context.Rotas
-                    .FirstOrDefaultAsync(Busca => Busca.IdRota == id);
+                var rota = await _context.Rotas.FirstOrDefaultAsync(b => b.IdRota == id);
+
+                if (rota == null)
+                {
+                    return NotFound("Rota não encontrada.");
+                }
 
                 return Ok(rota);
             }
@@ -40,7 +44,12 @@ namespace RotaLimpa.Api.Controllers
             try
             {
                 List<Rota> lista = await _context.Rotas.ToListAsync();
-                
+
+                if (lista.Count == 0)
+                {
+                    return NotFound("Nenhuma rota encontrada.");
+                }
+
                 return Ok(lista);
             }
             catch (Exception ex)
@@ -53,8 +62,6 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                // Aqui você pode adicionar lógica para salvar a rua no seu banco de dados.
-
                 await _context.Rotas.AddAsync(rota);
                 int linhaAfetadas = await _context.SaveChangesAsync();
 
@@ -93,8 +100,6 @@ namespace RotaLimpa.Api.Controllers
 
                 _context.Rotas.Remove(rRota);
                 int linhaAfetadas = await _context.SaveChangesAsync();
-
-                //Criar regra de negócio para lidar com o OK
 
                 return Ok(linhaAfetadas);
             }

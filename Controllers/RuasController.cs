@@ -23,8 +23,12 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                Rua rua = await _context.Ruas
-                    .FirstOrDefaultAsync(Busca => Busca.Id == id);
+                var rua = await _context.Ruas.FirstOrDefaultAsync(b => b.Id == id);
+
+                if (rua == null)
+                {
+                    return NotFound("Rua não encontrada.");
+                }
 
                 return Ok(rua);
             }
@@ -40,7 +44,12 @@ namespace RotaLimpa.Api.Controllers
             try
             {
                 List<Rua> lista = await _context.Ruas.ToListAsync();
-                
+
+                if (lista.Count == 0)
+                {
+                    return NotFound("Nenhuma rua encontrada.");
+                }
+
                 return Ok(lista);
             }
             catch (Exception ex)
@@ -54,19 +63,27 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                // Aqui você pode adicionar lógica para salvar a rua no seu banco de dados.
+                var existingRua = await _context.Ruas.FirstOrDefaultAsync(b => b.Id == rua.Id);
+
+                if (existingRua != null)
+                {
+                    throw new Exception("Esta rua já existe.");
+                }
 
                 await _context.Ruas.AddAsync(rua);
+
                 int linhaAfetadas = await _context.SaveChangesAsync();
 
                 return Ok(linhaAfetadas);
             }
+
+
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
-        
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -77,8 +94,6 @@ namespace RotaLimpa.Api.Controllers
 
                 _context.Ruas.Remove(rRua);
                 int linhaAfetadas = await _context.SaveChangesAsync();
-
-                //Criar regra de negócio para lidar com o OK
 
                 return Ok(linhaAfetadas);
             }

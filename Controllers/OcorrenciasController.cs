@@ -23,8 +23,12 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                Ocorrencia ocorrencia = await _context.Ocorrencias
-                    .FirstOrDefaultAsync(Busca => Busca.IdOcorrencia == id);
+                var ocorrencia = await _context.Ocorrencias.FirstOrDefaultAsync(b => b.IdOcorrencia == id);
+
+                if (ocorrencia == null)
+                {
+                    return NotFound("Ocorrencia não encontrada.");
+                }
 
                 return Ok(ocorrencia);
             }
@@ -40,7 +44,12 @@ namespace RotaLimpa.Api.Controllers
             try
             {
                 List<Ocorrencia> lista = await _context.Ocorrencias.ToListAsync();
-                
+
+                if (lista.Count == 0)
+                {
+                    return NotFound("Nenhuma ocorrencia encontrada.");
+                }
+
                 return Ok(lista);
             }
             catch (Exception ex)
@@ -54,7 +63,6 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                // Aqui você pode adicionar lógica para salvar a rua no seu banco de dados.
 
                 await _context.Ocorrencias.AddAsync(ocorrencia);
                 int linhaAfetadas = await _context.SaveChangesAsync();
