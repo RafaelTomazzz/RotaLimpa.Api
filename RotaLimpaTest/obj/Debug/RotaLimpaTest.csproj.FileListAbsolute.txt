@@ -1,0 +1,15 @@
+C:\Users\USUARIO\Desktop\Glennancy\RotaLimpaTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\USUARIO\Desktop\Glennancy\RotaLimpaTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\USUARIO\Desktop\Glennancy\RotaLimpaTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\USUARIO\Desktop\Glennancy\RotaLimpaTest\bin\Debug\Microsoft.TestPlatform.AdapterUtilities.dll
+C:\Users\USUARIO\Desktop\Glennancy\RotaLimpaTest\bin\Debug\RotaLimpaTest.dll
+C:\Users\USUARIO\Desktop\Glennancy\RotaLimpaTest\bin\Debug\RotaLimpaTest.pdb
+C:\Users\USUARIO\Desktop\Glennancy\RotaLimpaTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\Users\USUARIO\Desktop\Glennancy\RotaLimpaTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\USUARIO\Desktop\Glennancy\RotaLimpaTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+C:\Users\USUARIO\Desktop\Glennancy\RotaLimpaTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\Users\USUARIO\Desktop\Glennancy\RotaLimpaTest\obj\Debug\RotaLimpaTest.csproj.AssemblyReference.cache
+C:\Users\USUARIO\Desktop\Glennancy\RotaLimpaTest\obj\Debug\RotaLimpaTest.csproj.CoreCompileInputs.cache
+C:\Users\USUARIO\Desktop\Glennancy\RotaLimpaTest\obj\Debug\RotaLimpaTest.csproj.CopyComplete
+C:\Users\USUARIO\Desktop\Glennancy\RotaLimpaTest\obj\Debug\RotaLimpaTest.dll
+C:\Users\USUARIO\Desktop\Glennancy\RotaLimpaTest\obj\Debug\RotaLimpaTest.pdb

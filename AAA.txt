@@ -1,0 +1,3 @@
+Arrange -> inicializar variáveis
+Act 	-> Invocar o método para testar
+Assert 	-> Verificar a Ação
