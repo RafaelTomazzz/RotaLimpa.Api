@@ -34,10 +34,15 @@ namespace RotaLimpa.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(Colaborador novocolaborador)
+        public async Task<IActionResult> Add(Colaborador novocolaborador, int empresaId)
         {   
             try
             {
+                Colaborador c = new Colaborador();
+
+                c.Empresa = await _context.Empresas.FirstOrDefaultAsync(empreBusca => empreBusca.Id == c.EmpresaId);
+
+
                 await _context.Colaboradores.AddAsync (novocolaborador);
                 await _context.SaveChangesAsync();
 
