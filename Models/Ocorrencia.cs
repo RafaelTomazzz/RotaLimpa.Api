@@ -26,7 +26,7 @@ namespace RotaLimpa.Api.Models
         [ForeignKey("Id_Trajeto")]
         public int IdTrajeto { get; set; }
         [NotMapped]
-        public Trajeto Trajeto { get; set;}
+        public Trajeto? Trajeto { get; set;}
 
         [Required]
         public TiposOcorrencia TipoOcorrencia { get; set; }

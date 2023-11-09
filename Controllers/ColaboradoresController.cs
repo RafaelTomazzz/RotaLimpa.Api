@@ -33,16 +33,26 @@ namespace RotaLimpa.Api.Controllers
             }
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            try
+            {
+                Colaborador c = await _context.Colaboradores.FirstOrDefaultAsync(c => c.Id == id);
+                return Ok(c);
+                
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest (ex.Message);
+            }
+        }
+
         [HttpPost]
-        public async Task<IActionResult> Add(Colaborador novocolaborador, int empresaId)
+        public async Task<IActionResult> Add([FromBody] Colaborador novocolaborador)
         {   
             try
             {
-                Colaborador c = new Colaborador();
-
-                c.Empresa = await _context.Empresas.FirstOrDefaultAsync(empreBusca => empreBusca.Id == c.EmpresaId);
-
-
                 await _context.Colaboradores.AddAsync (novocolaborador);
                 await _context.SaveChangesAsync();
 

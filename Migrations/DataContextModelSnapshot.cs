@@ -201,7 +201,7 @@ namespace RotaLimpa.Api.Migrations
                         .HasColumnName("Di_Kilometragem")
                         .HasComment("Data de início marcação");
 
-                    b.Property<int>("FrotaId_Veiculo")
+                    b.Property<int?>("FrotaId_Veiculo")
                         .HasColumnType("int");
 
                     b.Property<int>("Km")
@@ -385,7 +385,7 @@ namespace RotaLimpa.Api.Migrations
                     b.Property<int>("ColaboradorId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DaSetor")
+                    b.Property<DateTime?>("DaSetor")
                         .HasColumnType("datetime2")
                         .HasColumnName("Da_Setor");
 
@@ -476,9 +476,7 @@ namespace RotaLimpa.Api.Migrations
                 {
                     b.HasOne("RotaLimpa.Api.Models.Frota", "Frota")
                         .WithMany()
-                        .HasForeignKey("FrotaId_Veiculo")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("FrotaId_Veiculo");
 
                     b.Navigation("Frota");
                 });

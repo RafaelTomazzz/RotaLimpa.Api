@@ -15,7 +15,7 @@ namespace RotaLimpa.Api.Models
     {
         [Key]
         public int Id_Veiculo { get; set; }
-        public virtual Frota Frota {get; set; }
+        public virtual Frota? Frota {get; set; }
         
         [Required]
         [Column("Km")]

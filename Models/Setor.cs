@@ -24,20 +24,20 @@ namespace RotaLimpa.Api.Models
         [Required]
         [ForeignKey("Id_Colaborador")]
         public int ColaboradorId { get; set; }
-        public Colaborador Colaborador { get; set; }
+        public Colaborador? Colaborador { get; set; }
         
         [Required]
         public int EmpresaId { get; set; }
         [NotMapped]
-        public Empresa Empresa { get; set; }
+        public Empresa? Empresa { get; set; }
 
         public TiposServico TipoServico { get; set; }
         [Column("Di_Setor")]
         public DateTime DiSetor { get; private set; } = DateTime.Now;
         [Column("Da_Setor")]
-        public DateTime DaSetor { get; set; } = DateTime.Now;
+        public DateTime? DaSetor { get; set; }
         [Column("St_Setor")]
-        public string StSetor { get; set; }
+        public string StSetor { get; set; } = "1";
 
         public Setor()
         {}

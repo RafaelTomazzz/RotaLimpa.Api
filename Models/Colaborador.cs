@@ -21,7 +21,7 @@ namespace RotaLimpa.Api.Models
         [Required]
         public int EmpresaId { get; set; }
         [NotMapped]
-        public Empresa Empresa { get; set; }
+        public Empresa? Empresa { get; set; }
 
         [Required]
         [StringLength(60)]
