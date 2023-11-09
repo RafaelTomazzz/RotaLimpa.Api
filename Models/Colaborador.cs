@@ -35,6 +35,6 @@ namespace RotaLimpa.Api.Models
 
         [Required]
         [StringLength(1)]
-        public string StColaborador { get; set; }
+        public string StColaborador { get; set; } = "1";
     }
 }
