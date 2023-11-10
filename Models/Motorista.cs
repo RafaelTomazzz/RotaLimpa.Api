@@ -20,10 +20,10 @@ namespace RotaLimpa.Api.Models
         [Comment("Nome do motorista")]
         [NotNull]
         public string NomeMotorista { get; set; }
-        [Comment("Data de criação do Motorista")]
+        [Comment("Data de criaï¿½ï¿½o do Motorista")]
         [Column("Dc_Motorista")]
         public DateTime Dc_Motorista { get; set; } = DateTime.Now;
         [Column("St_Motorista")]
-        public string StMotorista { get; set; }
+        public string StMotorista { get; set; } = "1";
     }
 }
