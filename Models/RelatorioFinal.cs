@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace RotaLimpa.Api.Models
 {
-    [Table("Motorista")]
+    [Table("RelatorioFinal")]
     [PrimaryKey(nameof(IdRelatorio))]
     public class RelatorioFinal
     {

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace RotaLimpa.Api.Models
 {
     [Table("CEP")]
-    [PrimaryKey(nameof(Cep))]
+    [PrimaryKey(nameof(IdCep))]
     public class CEP
     {
         public ICollection<Rua>? Ruas { get; set; }

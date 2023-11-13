@@ -139,7 +139,7 @@ namespace RotaLimpa.Api.Data
                 .HasOne(r => r.Setor)
                 .WithMany(s => s.RelatoriosFinais)
                 .HasForeignKey(r => r.IdSetor)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<RelatorioFinal>()
                 .HasOne(r => r.Ocorrencia)
@@ -157,7 +157,7 @@ namespace RotaLimpa.Api.Data
                 .HasOne(r => r.Setor)
                 .WithMany(s => s.Rotas)
                 .HasForeignKey(r => r.SetorId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<HisLoginC>()
                 .HasOne(h => h.Colaborador)

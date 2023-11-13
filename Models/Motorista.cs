@@ -60,11 +60,5 @@ namespace RotaLimpa.Api.Models
         [StringLength(12)]
         [NotNull]
         public string Senha { get; set; }
-
-        [Required]
-        [Column("Historico_Login")]
-        [StringLength(25)]
-        [NotNull]
-        public string IdHisLoginM { get; set; }
     }
 }
