@@ -52,8 +52,8 @@ namespace RotaLimpa.Api.Models
         [NotNull]
         public string Rg { get; set; }
 
-        public string Chave { get; set; }
-        public string IV { get; set; }
+        private string Chave { get; set; }
+        private string IV { get; set; }
 
         [Required]
         [Column("Login")]
