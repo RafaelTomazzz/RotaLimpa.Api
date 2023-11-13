@@ -10,6 +10,7 @@ namespace RotaLimpa.Api.Models
     public class Rota
     {
         public ICollection<Rua>? Ruas { get; set; }
+        public ICollection<Trajeto>? Trajetos { get; set; } 
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -19,7 +20,7 @@ namespace RotaLimpa.Api.Models
 
         [Required]
         [ForeignKey("Id_Colaborador")]
-        public int ColaboradorId { get; set; }
+        public int IdColaborador { get; set; }
         public Colaborador Colaborador { get; set; }
 
         [Required]

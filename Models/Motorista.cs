@@ -14,6 +14,9 @@ namespace RotaLimpa.Api.Models
     [PrimaryKey(nameof(IdMotorista))]
     public class Motorista
     {
+        public ICollection<HisLoginM>? HisLoginMs { get; set; }
+        public ICollection<Trajeto>? Trajetos { get; set; }        
+
         [Key]
         [Column("Id_Motorista")]
         public int IdMotorista { get; set; }

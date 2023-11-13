@@ -13,6 +13,9 @@ namespace RotaLimpa.Api.Models
     [PrimaryKey(nameof(IdVeiculo))]
     public class Frota
     {
+        public ICollection<SetorVeiculo>? SetorVeiculos { get; set; }
+        public ICollection<Trajeto>? Trajetos { get; set; } 
+
         [Key]
         [Column("Id_Veiculo")]
         [NotNull]
@@ -31,6 +34,6 @@ namespace RotaLimpa.Api.Models
         [Column("St_Veiculo")]
         [StringLength(1)]
         public string StVeiculo { get; set; }
-
+        public Kilometragem Kilometragem { get; internal set; }
     }
 }

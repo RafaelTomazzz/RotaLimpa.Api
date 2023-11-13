@@ -13,6 +13,8 @@ namespace RotaLimpa.Api.Models
     [PrimaryKey(nameof(IdTrajeto))]
     public class Trajeto
     {
+        public ICollection<Ocorrencia> Ocorrencias { get; set; }
+        
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("Id_Trajeto")]

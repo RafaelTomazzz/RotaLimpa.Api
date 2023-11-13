@@ -14,6 +14,8 @@ namespace RotaLimpa.Api.Models
     public class Setor
     {
         public ICollection<Rota>? Rotas { get; set; }
+        public ICollection<RelatorioFinal>? RelatoriosFinais { get; set; }
+        public ICollection<SetorVeiculo>? SetorVeiculos { get; set; }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -22,7 +24,7 @@ namespace RotaLimpa.Api.Models
 
         [Required]
         [ForeignKey("Id_Colaborador")]
-        public int ColaboradorId { get; set; }
+        public int IdColaborador { get; set; }
         public Colaborador Colaborador { get; set; }
         
         [Required]

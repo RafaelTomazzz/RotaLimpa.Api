@@ -10,6 +10,7 @@ namespace RotaLimpa.Api.Models
     [PrimaryKey(nameof(IdSetorVeiculo))]
     public class SetorVeiculo
     {
+        
         [Key]
         [ForeignKey("Id_Setor_Veiculo")]
         public int IdSetorVeiculo { get; set; }

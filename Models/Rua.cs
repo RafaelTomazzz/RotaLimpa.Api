@@ -16,7 +16,7 @@ namespace RotaLimpa.Api.Models
 
         [Required]
         [ForeignKey("Cep")]
-        public string CepId { get; set; }
+        public string IdCep { get; set; }
         public CEP CEP { get; set; }
         
         [Required]

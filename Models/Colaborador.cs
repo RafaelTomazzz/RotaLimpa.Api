@@ -13,6 +13,7 @@ namespace RotaLimpa.Api.Models
     {
         public ICollection<Setor>? Setores { get; set; }
         public ICollection<Rota>? Rotas { get; set; }
+        public ICollection<HisLoginC>? HisLoginCs { get; set; }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -21,7 +22,7 @@ namespace RotaLimpa.Api.Models
 
         [Required]
         [ForeignKey("Id_Empresa")]
-        public int EmpresaId { get; set; }
+        public int IdEmpresa { get; set; }
 
         [NotMapped]
         public Empresa Empresa { get; set; }
