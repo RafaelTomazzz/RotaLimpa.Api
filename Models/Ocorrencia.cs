@@ -30,6 +30,6 @@ namespace RotaLimpa.Api.Models
         [Column("MtOcorrencia")]
         [Comment("Data domento da ocorr�ncia")]
         [NotNull]
-        public DateTime MtOcorrencia { get; set; }
+        public DateTime MtOcorrencia { get; set; } = DateTime.Now;
     }
 }

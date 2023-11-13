@@ -27,6 +27,6 @@ namespace RotaLimpa.Api.Models
         [Required]
         [ForeignKey("Id_Ocorrencia")]
         public int IdOcorrencia { get; set; }
-        public Ocorrencia Ocorrencia { get; set; }
+        public virtual Ocorrencia Ocorrencia { get; set; }
     }
 }

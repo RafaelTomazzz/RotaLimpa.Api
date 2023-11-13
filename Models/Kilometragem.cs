@@ -28,6 +28,6 @@ namespace RotaLimpa.Api.Models
         [Column("Di_Kilometragem")]
         [Comment("Data de início marcação")]
         [NotNull]
-        public DateTime DiKilometragem { get; set; }
+        public DateTime DiKilometragem { get; set; } = DateTime.Now;
     }
 }

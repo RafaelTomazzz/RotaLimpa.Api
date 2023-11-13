@@ -47,9 +47,9 @@ namespace RotaLimpa.Api.Data
                 .WithMany(r => r.Rotas)
                 .HasForeignKey(r => r.ColaboradorId);
 
-            modelBuilder.Entity<Rota>()
+            modelBuilder.Entity<Trajeto>()
                 .HasOne(r => r.Periodo)
-                .WithMany(r => r.Rotas)
+                .WithMany(r => r.Trajetos)
                 .HasForeignKey(r => r.IdPeriodo);
 
             modelBuilder.Entity<Rota>()

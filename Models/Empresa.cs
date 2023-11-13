@@ -42,7 +42,7 @@ namespace RotaLimpa.Api.Models
         [Column("Di_empresa")]
         [Comment("DATA DE INCLUSÃO")]
         [NotNull]
-        public DateTime DiEmpresa { get; set; }
+        public DateTime DiEmpresa { get; set; } = DateTime.Now;
 
         [Required]
         [Column("Da_empresa")]

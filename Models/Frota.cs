@@ -26,7 +26,7 @@ namespace RotaLimpa.Api.Models
         public double TmnVeiculo { get; set; }
 
         [Column("Di_Veiculo")]
-        public DateTime DiVeiculo { get; set; }
+        public DateTime DiVeiculo { get; set; } = DateTime.Now;
         
         [Column("St_Veiculo")]
         [StringLength(1)]

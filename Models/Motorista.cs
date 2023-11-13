@@ -24,7 +24,7 @@ namespace RotaLimpa.Api.Models
         public string NomeMotorista { get; set; }
         
         [Comment("Data de cria��o do Motorista")]
-        [Column("Dc_Motorista")]
+        [Column("Di_Motorista")]
         public DateTime Di_Motorista { get; set; } = DateTime.Now;
 
         [Column("St_Motorista")]

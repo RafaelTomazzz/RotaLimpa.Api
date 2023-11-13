@@ -33,7 +33,7 @@ namespace RotaLimpa.Api.Models
 
         public TiposServico TipoServico { get; set; }
         [Column("Di_Setor")]
-        public DateTime DiSetor { get; set; }
+        public DateTime DiSetor { get; set; } = DateTime.Now;
         [Column("Da_Setor")]
         public DateTime DaSetor { get; set; }
         [Column("St_Setor")]
