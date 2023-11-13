@@ -10,14 +10,15 @@ using Microsoft.EntityFrameworkCore;
 namespace RotaLimpa.Api.Models
 {
     [Table("Setor")]
-    [PrimaryKey(nameof(Id))]
+    [PrimaryKey(nameof(IdSetor))]
     public class Setor
     {
         public ICollection<Rota>? Rotas { get; set; }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        [Column("Id_Setor")]
+        public int IdSetor { get; set; }
 
         [Required]
         [ForeignKey("Id_Colaborador")]

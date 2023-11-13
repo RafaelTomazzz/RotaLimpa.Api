@@ -7,15 +7,16 @@ using System.ComponentModel.DataAnnotations;
 namespace RotaLimpa.Api.Models
 {
     [Table("Rua")]
-    [PrimaryKey(nameof(Id))]
+    [PrimaryKey(nameof(IdRua))]
     public class Rua
     {
         [Key]
-        public int Id { get; set; }
+        [Column("Id_Rua")]
+        public int IdRua { get; set; }
 
         [Required]
         [ForeignKey("Cep")]
-        public string Cep { get; set; }
+        public string CepId { get; set; }
         public CEP CEP { get; set; }
         
         [Required]

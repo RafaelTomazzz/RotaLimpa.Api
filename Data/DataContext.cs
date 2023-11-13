@@ -61,7 +61,7 @@ namespace RotaLimpa.Api.Data
             modelBuilder.Entity<Rua>()
                 .HasOne(r => r.CEP)
                 .WithMany(c => c.Ruas)
-                .HasForeignKey(r => r.Cep);
+                .HasForeignKey(r => r.IdRua);
 
             modelBuilder.Entity<Rua>()
                 .HasOne(r => r.Rota)
@@ -71,7 +71,7 @@ namespace RotaLimpa.Api.Data
             modelBuilder.Entity<SetorVeiculo>()
                 .HasOne(s => s.Setor)
                 .WithMany()
-                .HasForeignKey(s => s.Id);
+                .HasForeignKey(s => s.IdSetorVeiculo);
 
             /*modelBuilder.Entity<SetorVeiculo>()
                 .HasOne(s => s.Frota)

@@ -40,7 +40,7 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                Empresa empresa = await _context.Empresas.FirstOrDefaultAsync(empreBusca => empreBusca.Id == id);
+                Empresa empresa = await _context.Empresas.FirstOrDefaultAsync(empreBusca => empreBusca.IdEmpresa == id);
 
                 return Ok(empresa);
             }
@@ -90,7 +90,7 @@ namespace RotaLimpa.Api.Controllers
         {   
             try
             {
-                Empresa empresa = await _context.Empresas.FirstOrDefaultAsync(empreBusca => empreBusca.Id == id);
+                Empresa empresa = await _context.Empresas.FirstOrDefaultAsync(empreBusca => empreBusca.IdEmpresa == id);
 
                 _context.Empresas.Remove(empresa);
                 int linhaAfetada = await _context.SaveChangesAsync();

@@ -18,9 +18,10 @@ namespace RotaLimpa.Api.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("Id")]
+        [Column("Id_Ocorrencia")]
         [NotNull]
         public int IdOcorrencia { get; set; }
+        
         [Column("Id_Trajeto")]
         public Trajeto IdTrajeto { get; set; }
         public TiposOcorrencia TipoOcorrencia { get; set; }
