@@ -16,19 +16,23 @@ namespace RotaLimpa.Api.Models
     [Index(nameof(IdOcorrencia), IsUnique = true)]
     public class Ocorrencia
     {
+        public ICollection<RelatorioFinal>? RelatoriosFinais { get; set; }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("Id")]
+        [Column("Id_Ocorrencia")]
         [NotNull]
         public int IdOcorrencia { get; set; }
+        
         [Column("Id_Trajeto")]
-        public Trajeto IdTrajeto { get; set; }
+        public int IdTrajeto { get; set; }
+        public Trajeto Trajeto { get; set; }
         public TiposOcorrencia TipoOcorrencia { get; set; }
         
         [Required]
         [Column("MtOcorrencia")]
         [Comment("Data domento da ocorr�ncia")]
         [NotNull]
-        public DateTime MtOcorrencia { get; set; }
+        public DateTime MtOcorrencia { get; set; } = DateTime.Now;
     }
 }

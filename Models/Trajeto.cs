@@ -10,31 +10,43 @@ using Microsoft.EntityFrameworkCore;
 namespace RotaLimpa.Api.Models
 {
     [Table("Trajeto")]
-    [PrimaryKey(nameof(Id))]
+    [PrimaryKey(nameof(IdTrajeto))]
     public class Trajeto
     {
+        public ICollection<Ocorrencia> Ocorrencias { get; set; }
+        
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("IdTrajeto")]
+        [Column("Id_Trajeto")]
         [NotNull]
-        public int Id { get; set; }
+        public int IdTrajeto { get; set; }
+        
         public int IdMotorista { get; set; }
         public Motorista Motorista { get; set; }
+
         public int IdRota { get; set; }
         public Rota Rota { get; set; }
 
+
         public int IdFrota { get; set; }
         public Frota Frota { get; set; }
+
+        
+        [Required]
+        [ForeignKey("Id_Periodo")]
+        public int IdPeriodo { get; set; }
+        public Periodo Periodo { get; set; }
         
         [Required]
         [Comment("Momento de início do trajeto")]
         [Column("Mi_Trajeto")]
         [NotNull]
         public DateTime MiTrajeto { get; set; } = DateTime.Now;
+
         [Required]
         [Comment("Momento do fim do trajeto")]
-        [Column("Mj_Trajeto")]
+        [Column("Mf_Trajeto")]
         [NotNull]
-        public DateTime MjTrajeto { get; set; }
+        public DateTime MfTrajeto { get; set; }
     }
 }

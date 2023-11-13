@@ -11,19 +11,60 @@ using System.Threading.Tasks;
 namespace RotaLimpa.Api.Models
 {
     [Table("Motorista")]
+    [PrimaryKey(nameof(IdMotorista))]
     public class Motorista
     {
+        public ICollection<HisLoginM>? HisLoginMs { get; set; }
+        public ICollection<Trajeto>? Trajetos { get; set; }        
+
         [Key]
-        [Column("Id")]
+        [Column("Id_Motorista")]
         public int IdMotorista { get; set; }
+
         [Column("Nm_Motorista")]
         [Comment("Nome do motorista")]
         [NotNull]
         public string NomeMotorista { get; set; }
-        [Comment("Data de criação do Motorista")]
-        [Column("Dc_Motorista")]
-        public DateTime Dc_Motorista { get; set; } = DateTime.Now;
+        
+        [Comment("Data de criaï¿½ï¿½o do Motorista")]
+        [Column("Di_Motorista")]
+        public DateTime Di_Motorista { get; set; } = DateTime.Now;
+
         [Column("St_Motorista")]
+        [StringLength(1)]
         public string StMotorista { get; set; }
+        
+        [Required]
+        [Column("CPF")]
+        [StringLength(15)]
+        [NotNull]
+        public string Cpf { get; set; }
+
+        [Required]
+        [Column("RG")]
+        [StringLength(15)]
+        [NotNull]
+        public string Rg { get; set; }
+
+        private string Chave { get; set; }
+        private string IV { get; set; }
+
+        [Required]
+        [Column("Login")]
+        [StringLength(20)]
+        [NotNull]
+        public string Login { get; set; }
+
+        [Required]
+        [Column("Senha")]
+        [StringLength(12)]
+        [NotNull]
+        public string Senha { get; set; }
+
+        [Required]
+        [Column("Historico_Login")]
+        [StringLength(25)]
+        [NotNull]
+        public string IdHisLoginM { get; set; }
     }
 }

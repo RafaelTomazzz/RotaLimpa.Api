@@ -10,18 +10,21 @@ using Microsoft.EntityFrameworkCore;
 namespace RotaLimpa.Api.Models
 {
     [Table("Setor")]
-    [PrimaryKey(nameof(Id))]
+    [PrimaryKey(nameof(IdSetor))]
     public class Setor
     {
         public ICollection<Rota>? Rotas { get; set; }
+        public ICollection<RelatorioFinal>? RelatoriosFinais { get; set; }
+        public ICollection<SetorVeiculo>? SetorVeiculos { get; set; }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        [Column("Id_Setor")]
+        public int IdSetor { get; set; }
 
         [Required]
         [ForeignKey("Id_Colaborador")]
-        public int ColaboradorId { get; set; }
+        public int IdColaborador { get; set; }
         public Colaborador Colaborador { get; set; }
         
         [Required]
@@ -32,7 +35,7 @@ namespace RotaLimpa.Api.Models
 
         public TiposServico TipoServico { get; set; }
         [Column("Di_Setor")]
-        public DateTime DiSetor { get; set; }
+        public DateTime DiSetor { get; set; } = DateTime.Now;
         [Column("Da_Setor")]
         public DateTime DaSetor { get; set; }
         [Column("St_Setor")]

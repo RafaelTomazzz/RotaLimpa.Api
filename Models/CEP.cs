@@ -13,6 +13,11 @@ namespace RotaLimpa.Api.Models
         public ICollection<Rua>? Ruas { get; set; }
         
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Column("Id_Cep")]
+        public int IdCep { get; set; }
+
+
         [Column("Cep")]
         [StringLength(8)]
         public string Cep { get; set; }
@@ -44,12 +49,12 @@ namespace RotaLimpa.Api.Models
 
         [Required]
         [StringLength(25)]
-        [Column("latitude")]
+        [Column("Latitude")]
         public string Latitude { get; set; }
         
         [Required]
         [StringLength(25)]
-        [Column("longitude")]
+        [Column("Longitude")]
         public string Longitude { get; set; }
     }
 }

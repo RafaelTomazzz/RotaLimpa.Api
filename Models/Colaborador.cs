@@ -6,20 +6,24 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RotaLimpa.Api.Models
 {
-    [Index(nameof(Id), IsUnique = true)]
-    [PrimaryKey(nameof(Id))]
+    [Index(nameof(IdColaborador), IsUnique = true)]
+    [PrimaryKey(nameof(IdColaborador))]
     [Table("Colaborador")]
     public class Colaborador
     {
         public ICollection<Setor>? Setores { get; set; }
         public ICollection<Rota>? Rotas { get; set; }
+        public ICollection<HisLoginC>? HisLoginCs { get; set; }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        [Column("Id_Colaborador")]
+        public int IdColaborador { get; set; }
 
         [Required]
-        public int EmpresaId { get; set; }
+        [ForeignKey("Id_Empresa")]
+        public int IdEmpresa { get; set; }
+
         [NotMapped]
         public Empresa Empresa { get; set; }
 
@@ -28,13 +32,46 @@ namespace RotaLimpa.Api.Models
         [NotNull]
         public string Nome { get; set; }
 
-        [Required]
-        [StringLength(14)]
-        [NotNull]
-        public string DcColaborador { get; set; }
+        [Comment("Data de inserção do Motorista")]
+        [Column("Di_Motorista")]
+        public DateTime Di_Colaborador { get; set; } = DateTime.Now;
 
         [Required]
+        [Column("St_Colaborador")]
         [StringLength(1)]
         public string StColaborador { get; set; }
+
+        [Required]
+        [Column("CPF")]
+        [StringLength(15)]
+        [NotNull]
+        public string Cpf { get; set; }
+
+        [Required]
+        [Column("RG")]
+        [StringLength(15)]
+        [NotNull]
+        public string Rg { get; set; }
+
+        private string Chave { get; set; }
+        private string IV { get; set; }
+
+        [Required]
+        [Column("Login")]
+        [StringLength(20)]
+        [NotNull]
+        public string Login { get; set; }
+
+        [Required]
+        [Column("Senha")]
+        [StringLength(12)]
+        [NotNull]
+        public string Senha { get; set; }
+
+        [Required]
+        [Column("Historico_Login")]
+        [StringLength(25)]
+        [NotNull]
+        public string His_Login { get; set; }
     }
 }
