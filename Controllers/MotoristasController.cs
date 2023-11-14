@@ -9,6 +9,8 @@ using RotaLimpa.Api.Models;
 
 namespace RotaLimpa.Api.Controllers 
 {
+    [ApiController]
+    [Route("[Controller]")]
     public class MotoristasController : ControllerBase
     {
         private readonly DataContext _context;
@@ -33,7 +35,7 @@ namespace RotaLimpa.Api.Controllers
             }
         }
 
-        [HttpGet("GetById/{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             try

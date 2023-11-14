@@ -21,10 +21,17 @@ namespace RotaLimpa.Api.Models
         [Column("Id_Motorista")]
         public int IdMotorista { get; set; }
 
-        [Column("Nm_Motorista")]
-        [Comment("Nome do motorista")]
+        [Required]
+        [StringLength(20)]
+        [Column("Primeiro_Nome")]
         [NotNull]
-        public string NomeMotorista { get; set; }
+        public string PNome { get; set; }
+
+        [Required]
+        [StringLength(20)]
+        [Column("Sobre_Nome")]
+        [NotNull]
+        public string SNome { get; set; }
         
         [Comment("Data de cria��o do Motorista")]
         [Column("Di_Motorista")]

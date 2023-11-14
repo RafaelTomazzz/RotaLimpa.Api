@@ -28,18 +28,25 @@ namespace RotaLimpa.Api.Models
         public Empresa Empresa { get; set; }
 
         [Required]
-        [StringLength(60)]
+        [StringLength(20)]
+        [Column("Primeiro_Nome")]
         [NotNull]
-        public string Nome { get; set; }
+        public string PNome { get; set; }
 
-        [Comment("Data de inserção do Motorista")]
-        [Column("Di_Motorista")]
+        [Required]
+        [StringLength(20)]
+        [Column("Sobre_Nome")]
+        [NotNull]
+        public string SNome { get; set; }
+
+        [Comment("Data de inserção do Colaborador")]
+        [Column("Di_Colaborador")]
         public DateTime Di_Colaborador { get; set; } = DateTime.Now;
 
         [Required]
         [Column("St_Colaborador")]
         [StringLength(1)]
-        public string StColaborador { get; set; }
+        public string StColaborador { get; set; } = "1";
 
         [Required]
         [Column("CPF")]
