@@ -17,7 +17,6 @@ namespace RotaLimpa.Api.Models
         [Column("Id_Cep")]
         public int IdCep { get; set; }
 
-
         [Column("Cep")]
         [StringLength(8)]
         public string Cep { get; set; }
@@ -49,12 +48,12 @@ namespace RotaLimpa.Api.Models
 
         [Required]
         [StringLength(25)]
-        [Column("Latitude")]
+        [Column("latitude")]
         public string Latitude { get; set; }
         
         [Required]
         [StringLength(25)]
-        [Column("Longitude")]
+        [Column("longitude")]
         public string Longitude { get; set; }
     }
 }

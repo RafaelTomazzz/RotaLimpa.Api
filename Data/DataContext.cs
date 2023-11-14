@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 using Microsoft.EntityFrameworkCore;
-using RotaLimpa.api.Models.Enum;
+using RotaLimpa.Api.Models.Enum;
 using RotaLimpa.Api.Models;
 
 namespace RotaLimpa.Api.Data
@@ -52,7 +52,7 @@ namespace RotaLimpa.Api.Data
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Rua>()
-                .HasKey(r => r.IdRua);
+                .HasKey(r => r.Id);
 
             modelBuilder.Entity<Rua>()
                 .HasOne(r => r.CEP)
@@ -63,11 +63,11 @@ namespace RotaLimpa.Api.Data
             modelBuilder.Entity<Rua>()
                 .HasOne(r => r.Rota)
                 .WithMany(rota => rota.Ruas)
-                .HasForeignKey(r => r.RotaId)
+                .HasForeignKey(r => r.IdRota)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Setor>()
-                .HasKey(s => s.IdSetor);
+                .HasKey(s => s.Id);
 
             modelBuilder.Entity<Setor>()
                 .HasOne(s => s.Colaborador)
@@ -84,7 +84,7 @@ namespace RotaLimpa.Api.Data
             modelBuilder.Entity<Setor>()
                 .HasMany(s => s.Rotas)
                 .WithOne(r => r.Setor)
-                .HasForeignKey(r => r.SetorId)
+                .HasForeignKey(r => r.IdSetor)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Setor>()
@@ -94,12 +94,12 @@ namespace RotaLimpa.Api.Data
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<SetorVeiculo>()
-                .HasKey(sv => new { sv.IdSetorVeiculo, sv.IdFrota });
+                .HasKey(sv => new { sv.IdSetor, sv.IdFrota });
 
             modelBuilder.Entity<SetorVeiculo>()
                 .HasOne(sv => sv.Setor)
                 .WithMany(s => s.SetorVeiculos)
-                .HasForeignKey(sv => sv.IdSetorVeiculo)
+                .HasForeignKey(sv => sv.IdSetor)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<SetorVeiculo>()
@@ -109,7 +109,7 @@ namespace RotaLimpa.Api.Data
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Trajeto>()
-                .HasKey(t => t.IdTrajeto);
+                .HasKey(t => t.Id);
 
             modelBuilder.Entity<Trajeto>()
                 .HasOne(t => t.Motorista)
@@ -139,7 +139,7 @@ namespace RotaLimpa.Api.Data
                 .HasOne(r => r.Setor)
                 .WithMany(s => s.RelatoriosFinais)
                 .HasForeignKey(r => r.IdSetor)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<RelatorioFinal>()
                 .HasOne(r => r.Ocorrencia)
@@ -156,8 +156,8 @@ namespace RotaLimpa.Api.Data
             modelBuilder.Entity<Rota>()
                 .HasOne(r => r.Setor)
                 .WithMany(s => s.Rotas)
-                .HasForeignKey(r => r.SetorId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .HasForeignKey(r => r.IdSetor)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<HisLoginC>()
                 .HasOne(h => h.Colaborador)

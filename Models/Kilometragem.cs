@@ -14,9 +14,9 @@ namespace RotaLimpa.Api.Models
     public class Kilometragem
     {
         [Key]
-        [Column("Id_Veiculo")]
+        [Column("Id")]
         public int IdVeiculo { get; set; }
-        public virtual Frota Frota {get; set; }
+        public virtual Frota? Frota {get; set; }
         
         [Required]
         [Column("Km")]
@@ -28,6 +28,6 @@ namespace RotaLimpa.Api.Models
         [Column("Di_Kilometragem")]
         [Comment("Data de início marcação")]
         [NotNull]
-        public DateTime DiKilometragem { get; set; } = DateTime.Now;
+        public DateTime DiKilometragem { get; set; }
     }
 }

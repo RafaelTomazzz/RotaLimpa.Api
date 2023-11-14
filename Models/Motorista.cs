@@ -11,16 +11,13 @@ using System.Threading.Tasks;
 namespace RotaLimpa.Api.Models
 {
     [Table("Motorista")]
-    [PrimaryKey(nameof(IdMotorista))]
     public class Motorista
     {
         public ICollection<HisLoginM>? HisLoginMs { get; set; }
-        public ICollection<Trajeto>? Trajetos { get; set; }        
-
+        public ICollection<Trajeto>? Trajetos { get; set; } 
         [Key]
-        [Column("Id_Motorista")]
-        public int IdMotorista { get; set; }
-
+        [Column("Id")]
+        public int Id { get; set; }
         [Required]
         [StringLength(20)]
         [Column("Primeiro_Nome")]
@@ -39,7 +36,7 @@ namespace RotaLimpa.Api.Models
 
         [Column("St_Motorista")]
         [StringLength(1)]
-        public string StMotorista { get; set; }
+        public string StMotorista { get; set; } = "1";
         
         [Required]
         [Column("CPF")]

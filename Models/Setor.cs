@@ -4,13 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using RotaLimpa.api.Models.Enum;
+using RotaLimpa.Api.Models.Enum;
 using Microsoft.EntityFrameworkCore;
 
 namespace RotaLimpa.Api.Models
 {
     [Table("Setor")]
-    [PrimaryKey(nameof(IdSetor))]
+    [PrimaryKey(nameof(Id))]
     public class Setor
     {
         public ICollection<Rota>? Rotas { get; set; }
@@ -19,26 +19,24 @@ namespace RotaLimpa.Api.Models
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("Id_Setor")]
-        public int IdSetor { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [ForeignKey("Id_Colaborador")]
         public int IdColaborador { get; set; }
-        public Colaborador Colaborador { get; set; }
+        public Colaborador? Colaborador { get; set; }
         
         [Required]
-        [ForeignKey("Id_Empresa")]
         public int IdEmpresa { get; set; }
         [NotMapped]
-        public Empresa Empresa { get; set; }
+        public Empresa? Empresa { get; set; }
 
         public TiposServico TipoServico { get; set; }
         [Column("Di_Setor")]
-        public DateTime DiSetor { get; set; } = DateTime.Now;
+        public DateTime DiSetor { get; private set; } = DateTime.Now;
         [Column("Da_Setor")]
-        public DateTime DaSetor { get; set; }
+        public DateTime? DaSetor { get; set; }
         [Column("St_Setor")]
-        public string StSetor { get; set; }
+        public string StSetor { get; set; } = "1";
     }
 }

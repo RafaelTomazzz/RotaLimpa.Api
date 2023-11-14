@@ -12,21 +12,24 @@ using RotaLimpa.Api.Models.Enum;
 namespace RotaLimpa.Api.Models
 {
     [Table("Ocorrencia")]
-    [PrimaryKey(nameof(IdOcorrencia))]
-    [Index(nameof(IdOcorrencia), IsUnique = true)]
+    [PrimaryKey(nameof(Id))]
+    [Index(nameof(Id), IsUnique = true)]
     public class Ocorrencia
     {
         public ICollection<RelatorioFinal>? RelatoriosFinais { get; set; }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("Id_Ocorrencia")]
         [NotNull]
-        public int IdOcorrencia { get; set; }
+        public int Id { get; set; }
         
         [Column("Id_Trajeto")]
+        [ForeignKey("Id_Trajeto")]
         public int IdTrajeto { get; set; }
-        public Trajeto Trajeto { get; set; }
+        [NotMapped]
+        public Trajeto? Trajeto { get; set;}
+
+        [Required]
         public TiposOcorrencia TipoOcorrencia { get; set; }
         
         [Required]
