@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.CodeAnalysis;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using RotaLimpa.Api.DTO;
+using RotaLimpa.Api.DTO.Builder;
 
 namespace RotaLimpa.Api.Models
 {
@@ -47,5 +49,33 @@ namespace RotaLimpa.Api.Models
         [Comment("DATA DA ULTIMA ALTERAÇÃO")]
         public DateTime? DaEmpresa { get; set; } = DateTime.Now;
 
+        public Empresa(int id)
+        {
+            Id = id;
+        }
+
+        public Empresa(int id, string nome)
+        {
+            Id = id;
+            Nome = nome;
+        }
+
+        public Empresa(int id, string nome, string dcEmpresa)
+        {
+            Id = id;
+            Nome = nome;
+            DcEmpresa = dcEmpresa;
+        }
+        
+        public EmpresaDTO ToEmpresa()
+        {
+            EmpresaDTO empresaDTO = new EmpresaDTOBuilder()
+                .WithId(Id) 
+                .WithNome(Nome)
+                .WithDcEmpresa(DcEmpresa)
+                .Build();
+            return empresaDTO;
+        }
+        
     }
 }
