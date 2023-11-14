@@ -7,12 +7,15 @@ using Microsoft.EntityFrameworkCore;
 namespace RotaLimpa.Api.Models
 {
     [Table("CEP")]
-    [PrimaryKey(nameof(Cep))]
+    [PrimaryKey(nameof(Id))]
     public class CEP
     {
         public ICollection<Rua>? Ruas { get; set; }
         
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+
         [Column("Cep")]
         [StringLength(8)]
         public string Cep { get; set; }

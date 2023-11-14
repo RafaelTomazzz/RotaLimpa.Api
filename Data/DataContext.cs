@@ -23,81 +23,161 @@ namespace RotaLimpa.Api.Data
         public DbSet<Setor> Setores { get; set; }
         public DbSet<SetorVeiculo> SetorVeiculos { get; set; }
         public DbSet<Trajeto> Trajetos { get; set; }
+        public DbSet<HisLoginC> HisLoginCs { get; set; }
+        public DbSet<HisLoginM> HisLoginMs { get; set; }
+        public DbSet<RelatorioFinal> RelatoriosFinais { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Colaborador>()
-                 .HasOne(c => c.Empresa)
-                 .WithMany(e => e.Colaboradores)
-                 .HasForeignKey(c => c.EmpresaId)
-                 .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<CEP>()
+                .HasKey(c => c.Id);
+
+            modelBuilder.Entity<CEP>()
+                .HasMany(c => c.Ruas)
+                .WithOne(r => r.CEP)
+                .HasForeignKey(r => r.Id)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Kilometragem>()
+                .HasKey(k => k.IdVeiculo);
+
+            modelBuilder.Entity<Kilometragem>()
+                .Property(k => k.IdVeiculo)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Kilometragem>()
+                .HasOne(k => k.Frota)
+                .WithOne(f => f.Kilometragem)
+                .HasForeignKey<Kilometragem>(k => k.IdVeiculo)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Rua>()
+                .HasKey(r => r.Id);
+
+            modelBuilder.Entity<Rua>()
+                .HasOne(r => r.CEP)
+                .WithMany(cep => cep.Ruas)
+                .HasForeignKey(r => r.IdCep)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Rua>()
+                .HasOne(r => r.Rota)
+                .WithMany(rota => rota.Ruas)
+                .HasForeignKey(r => r.IdRota)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Setor>()
+                .HasKey(s => s.Id);
+
+            modelBuilder.Entity<Setor>()
+                .HasOne(s => s.Colaborador)
+                .WithMany(c => c.Setores)
+                .HasForeignKey(s => s.IdColaborador)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Setor>()
                 .HasOne(s => s.Empresa)
                 .WithMany(e => e.Setores)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasForeignKey(s => s.IdEmpresa)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Setor>()
-                .HasOne(s => s.Colaborador)
-                .WithMany(s => s.Setores)
-                .HasForeignKey(s => s.ColaboradorId);
+                .HasMany(s => s.Rotas)
+                .WithOne(r => r.Setor)
+                .HasForeignKey(r => r.IdSetor)
+                .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Rota>()
-                .HasOne(r => r.Colaborador)
-                .WithMany(r => r.Rotas)
-                .HasForeignKey(r => r.ColaboradorId);
-
-            modelBuilder.Entity<Rota>()
-                .HasOne(r => r.Periodo)
-                .WithMany(r => r.Rotas)
-                .HasForeignKey(r => r.IdPeriodo);
-
-            modelBuilder.Entity<Rota>()
-                 .HasOne(r => r.Setor)
-                 .WithMany(s => s.Rotas)
-                 .HasForeignKey(r => r.SetorId)
-                 .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Rua>()
-                .HasOne(r => r.CEP)
-                .WithMany(c => c.Ruas)
-                .HasForeignKey(r => r.Cep);
-
-            modelBuilder.Entity<Rua>()
-                .HasOne(r => r.Rota)
-                .WithMany(r => r.Ruas)
-                .HasForeignKey(r => r.RotaId);
+            modelBuilder.Entity<Setor>()
+                .HasMany(s => s.RelatoriosFinais)
+                .WithOne(rf => rf.Setor)
+                .HasForeignKey(rf => rf.IdSetor)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<SetorVeiculo>()
-                .HasOne(s => s.Setor)
-                .WithMany()
-                .HasForeignKey(s => s.IdSetor);
+                .HasKey(sv => new { sv.IdSetor, sv.IdFrota });
 
-            /*modelBuilder.Entity<SetorVeiculo>()
-                .HasOne(s => s.Frota)
-                .WithMany()
-                .HasPrincipalKey(s => new {s.Id_Setor, s.Id_Frota})
-                .HasForeignKey(s => s.Id_Frota);*/
+            modelBuilder.Entity<SetorVeiculo>()
+                .HasOne(sv => sv.Setor)
+                .WithMany(s => s.SetorVeiculos)
+                .HasForeignKey(sv => sv.IdSetor)
+                .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Ocorrencia>()
-                .HasOne(c => c.Trajeto)
-                .WithMany()
-                .HasForeignKey(c => c.IdTrajeto);
+            modelBuilder.Entity<SetorVeiculo>()
+                .HasOne(sv => sv.Frota)
+                .WithMany(f => f.SetorVeiculos)
+                .HasForeignKey(sv => sv.IdFrota)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Trajeto>()
+                .HasKey(t => t.Id);
 
             modelBuilder.Entity<Trajeto>()
                 .HasOne(t => t.Motorista)
-                .WithMany()
-                .HasForeignKey(t => t.IdMotorista);
+                .WithMany(m => m.Trajetos)
+                .HasForeignKey(t => t.IdMotorista)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Trajeto>()
                 .HasOne(t => t.Rota)
-                .WithMany()
-                .HasForeignKey(t => t.IdRota);
+                .WithMany(r => r.Trajetos)
+                .HasForeignKey(t => t.IdRota)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Trajeto>()
                 .HasOne(t => t.Frota)
-                .WithMany()
-                .HasForeignKey(t => t.Id);
+                .WithMany(f => f.Trajetos)
+                .HasForeignKey(t => t.IdFrota)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Trajeto>()
+                .HasOne(t => t.Periodo)
+                .WithMany(p => p.Trajetos)
+                .HasForeignKey(t => t.IdPeriodo)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<RelatorioFinal>()
+                .HasOne(r => r.Setor)
+                .WithMany(s => s.RelatoriosFinais)
+                .HasForeignKey(r => r.IdSetor)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<RelatorioFinal>()
+                .HasOne(r => r.Ocorrencia)
+                .WithMany(o => o.RelatoriosFinais)
+                .HasForeignKey(r => r.IdOcorrencia)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Rota>()
+                .HasOne(r => r.Colaborador)
+                .WithMany(c => c.Rotas)
+                .HasForeignKey(r => r.IdColaborador)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Rota>()
+                .HasOne(r => r.Setor)
+                .WithMany(s => s.Rotas)
+                .HasForeignKey(r => r.IdSetor)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<HisLoginC>()
+                .HasOne(h => h.Colaborador)
+                .WithMany(c => c.HisLoginCs)
+                .HasForeignKey(h => h.IdColaborador)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<HisLoginM>()
+                .HasOne(h => h.Motorista)
+                .WithMany(m => m.HisLoginMs)
+                .HasForeignKey(h => h.IdMotorista)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Ocorrencia>()
+                .HasOne(o => o.Trajeto)
+                .WithMany(t => t.Ocorrencias)
+                .HasForeignKey(o => o.IdTrajeto)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

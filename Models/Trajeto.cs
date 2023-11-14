@@ -13,9 +13,10 @@ namespace RotaLimpa.Api.Models
     [PrimaryKey(nameof(Id))]
     public class Trajeto
     {
+        public ICollection<Ocorrencia> Ocorrencias { get; set; }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("Id")]
         [NotNull]
         public int Id { get; set; }
 
@@ -28,6 +29,11 @@ namespace RotaLimpa.Api.Models
         public int IdRota { get; set; }
         [NotMapped]
         public Rota Rota { get; set; }
+
+        [Required]
+        [ForeignKey("Id_Periodo")]
+        public int IdPeriodo { get; set; }
+        public Periodo? Periodo { get; set; }
 
         [ForeignKey("Id_Frota")]
         public int IdFrota { get; set; }
