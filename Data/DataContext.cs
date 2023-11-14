@@ -29,6 +29,11 @@ namespace RotaLimpa.Api.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Empresa>()
+                .HasMany(c => c.Colaboradores)
+                .WithOne(c => c.Empresa)
+                .OnDelete(DeleteBehavior.Cascade);
+
             modelBuilder.Entity<CEP>()
                 .HasKey(c => c.Id);
 
@@ -81,17 +86,17 @@ namespace RotaLimpa.Api.Data
                 .HasForeignKey(s => s.IdEmpresa)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Setor>()
+            /*modelBuilder.Entity<Setor>()
                 .HasMany(s => s.Rotas)
                 .WithOne(r => r.Setor)
                 .HasForeignKey(r => r.IdSetor)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Cascade);*/
 
-            modelBuilder.Entity<Setor>()
+            /*modelBuilder.Entity<Setor>()
                 .HasMany(s => s.RelatoriosFinais)
                 .WithOne(rf => rf.Setor)
                 .HasForeignKey(rf => rf.IdSetor)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Cascade);*/
 
             modelBuilder.Entity<SetorVeiculo>()
                 .HasKey(sv => new { sv.IdSetor, sv.IdFrota });
@@ -135,11 +140,11 @@ namespace RotaLimpa.Api.Data
                 .HasForeignKey(t => t.IdPeriodo)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<RelatorioFinal>()
+            /*modelBuilder.Entity<RelatorioFinal>()
                 .HasOne(r => r.Setor)
                 .WithMany(s => s.RelatoriosFinais)
                 .HasForeignKey(r => r.IdSetor)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Cascade);*/
 
             modelBuilder.Entity<RelatorioFinal>()
                 .HasOne(r => r.Ocorrencia)
@@ -153,11 +158,11 @@ namespace RotaLimpa.Api.Data
                 .HasForeignKey(r => r.IdColaborador)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Rota>()
+            /*modelBuilder.Entity<Rota>()
                 .HasOne(r => r.Setor)
                 .WithMany(s => s.Rotas)
                 .HasForeignKey(r => r.IdSetor)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Cascade);*/
 
             modelBuilder.Entity<HisLoginC>()
                 .HasOne(h => h.Colaborador)

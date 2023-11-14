@@ -27,7 +27,7 @@ namespace RotaLimpa.Api.Models
         [ForeignKey("Id_Setor")]
         public int IdSetor { get; set; }
         [NotMapped]
-        public Setor Setor { get; set; }
+        public Setor? Setor { get; set; }
 
         [Required]
         [Column("Dt_Rota")]

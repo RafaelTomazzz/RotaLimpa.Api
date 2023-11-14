@@ -1,6 +1,8 @@
 using RotaLimpa.Api.Services.Setores;
 using RotaLimpa.Api.Repositores.Setores;
 using RotaLimpa.Api.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
+using System.Reflection.Metadata.Ecma335;
 
 
 namespace RotaLimpa.Api.Services.Setores
@@ -17,6 +19,19 @@ namespace RotaLimpa.Api.Services.Setores
         public async Task<IEnumerable<Setor>> GetAllAsync()
         {
             return await _setoresRepository.GetAllAsync();
+        }
+
+        public async Task<Setor> GetByIdAsync(int id)
+        {
+            Setor  setor = await _setoresRepository.GetByIdAsync(id);
+
+
+            if (setor is null)
+            {
+                
+            }
+
+            return setor;
         }
     }
 }

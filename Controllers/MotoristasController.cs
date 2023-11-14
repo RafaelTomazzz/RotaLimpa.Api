@@ -38,7 +38,7 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                Motorista motorista = await _context.Motoristas.FirstOrDefaultAsync(motoriBusca => motoriBusca.IdMotorista == id);
+                Motorista motorista = await _context.Motoristas.FirstOrDefaultAsync(motoriBusca => motoriBusca.Id == id);
                 return Ok(motorista);
             }
             catch (System.Exception)
@@ -87,7 +87,7 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                Motorista motorista = await _context.Motoristas.FirstOrDefaultAsync(motoriBusca => motoriBusca.IdMotorista == id);
+                Motorista motorista = await _context.Motoristas.FirstOrDefaultAsync(motoriBusca => motoriBusca.Id == id);
 
                 _context.Motoristas.Remove(motorista);
                 int linhaAfetada = await _context.SaveChangesAsync();

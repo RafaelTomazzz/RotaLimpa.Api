@@ -19,7 +19,11 @@ namespace RotaLimpa.Api.Repositores.Setores
         {
             return await _dataContext.Setores.ToListAsync();
         }
-
+        
+        public async Task<Setor> GetByIdAsync(int id)
+        {
+            return await _dataContext.Setores.FirstOrDefaultAsync(c => c.Id == id);
+        }
 
 
     }

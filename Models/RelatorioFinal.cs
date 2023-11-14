@@ -10,23 +10,24 @@ using Microsoft.EntityFrameworkCore;
 namespace RotaLimpa.Api.Models
 {
     [Table("RelatorioFinal")]
-    [PrimaryKey(nameof(IdRelatorio))]
+    [PrimaryKey(nameof(Id))]
     public class RelatorioFinal
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("Id_Relatorio")]
         [NotNull]
-        public int IdRelatorio { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [ForeignKey("Id_Setor")]
         public int IdSetor { get; set; }
-        public Setor Setor { get; set; }
+        [NotMapped]
+        public virtual Setor? Setor { get; set; }
 
         [Required]
         [ForeignKey("Id_Ocorrencia")]
         public int IdOcorrencia { get; set; }
-        public virtual Ocorrencia Ocorrencia { get; set; }
+        public virtual Ocorrencia? Ocorrencia { get; set; }
     }
 }
