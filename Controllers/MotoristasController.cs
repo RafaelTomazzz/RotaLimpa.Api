@@ -9,6 +9,8 @@ using RotaLimpa.Api.Models;
 
 namespace RotaLimpa.Api.Controllers 
 {
+    [ApiController]
+    [Route("[Controller]")]
     public class MotoristasController : ControllerBase
     {
         private readonly DataContext _context;

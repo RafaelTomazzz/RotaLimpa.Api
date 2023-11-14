@@ -26,6 +26,8 @@ namespace RotaLimpa.Api.Models
         [ForeignKey("Id_Periodo")]
         public int IdPeriodo { get; set; }
         public Periodo? Periodo { get; set; }
+        
+        
         [Required]
         public int SetorId { get; set; }
 
