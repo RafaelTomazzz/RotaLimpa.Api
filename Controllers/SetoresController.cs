@@ -55,7 +55,7 @@ namespace RotaLimpa.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(Setor novosetor)
+        public async Task<IActionResult> Add([FromBody] Setor novosetor)
         {   
             try
             {
@@ -67,7 +67,7 @@ namespace RotaLimpa.Api.Controllers
             catch (System.Exception ex)
             {
              
-                return BadRequest(ex.Message);
+                return BadRequest(ex.Message + "-"+ ex.InnerException);
             }
         }
     }

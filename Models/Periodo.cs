@@ -8,7 +8,7 @@ namespace RotaLimpa.Api.Models
     [PrimaryKey(nameof(Id))]
     public class Periodo
     {
-        public ICollection<Rota>? Rotas { get; set; }
+        public ICollection<Trajeto>? Trajetos { get; set; }
 
         [Key]
         public int Id { get; set; }

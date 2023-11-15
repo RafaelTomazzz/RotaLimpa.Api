@@ -14,12 +14,12 @@ namespace RotaLimpa.Api.Models
         [ForeignKey("Id_Setor")]
         public int IdSetor { get; set; }
         [NotMapped]
-        public virtual Setor Setor { get; set; }
+        public virtual Setor? Setor { get; set; }
 
         [Key]
         [ForeignKey("Id_Frota")]
         public int IdFrota { get; set; }
         [NotMapped]
-        public Frota Frota { get; set; }
+        public Frota? Frota { get; set; }
     }
 }

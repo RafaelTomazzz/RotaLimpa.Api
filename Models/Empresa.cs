@@ -34,19 +34,18 @@ namespace RotaLimpa.Api.Models
         [Column("St_empresa")]
         [Comment("SITUAÇÃO DA EMPRESA")]
         [NotNull]
-        public int StEmpresa { get; set; }
+        public int StEmpresa { get; set; } = 1;
 
         [Required]
         [Column("Di_empresa")]
         [Comment("DATA DE INCLUSÃO")]
         [NotNull]
-        public DateTime DiEmpresa { get; set; }
+        public DateTime DiEmpresa { get ; private set ; } = DateTime.Now;
 
         [Required]
         [Column("Da_empresa")]
         [Comment("DATA DA ULTIMA ALTERAÇÃO")]
-        [NotNull]
-        public DateTime DaEmpresa { get; set; }
+        public DateTime? DaEmpresa { get; set; } = DateTime.Now;
 
     }
 }

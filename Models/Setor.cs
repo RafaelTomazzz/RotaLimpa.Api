@@ -16,6 +16,8 @@ namespace RotaLimpa.Api.Models
     public class Setor
     {
         public ICollection<Rota>? Rotas { get; set; }
+        public ICollection<RelatorioFinal>? RelatoriosFinais { get; set; }
+        public ICollection<SetorVeiculo>? SetorVeiculos { get; set; }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -23,21 +25,21 @@ namespace RotaLimpa.Api.Models
 
         [Required]
         [ForeignKey("Id_Colaborador")]
-        public int ColaboradorId { get; set; }
-        public Colaborador Colaborador { get; set; }
+        public int IdColaborador { get; set; }
+        public Colaborador? Colaborador { get; set; }
         
         [Required]
-        public int EmpresaId { get; set; }
+        public int IdEmpresa { get; set; }
         [NotMapped]
-        public Empresa Empresa { get; set; }
+        public Empresa? Empresa { get; set; }
 
         public TiposServico TipoServico { get; set; }
         [Column("Di_Setor")]
         public DateTime DiSetor { get; private set; } = DateTime.Now;
         [Column("Da_Setor")]
-        public DateTime DaSetor { get; set; } = DateTime.Now;
+        public DateTime? DaSetor { get; set; }
         [Column("St_Setor")]
-        public string StSetor { get; set; }
+        public string StSetor { get; set; } = "1";
 
         public Setor()
         {}
@@ -49,27 +51,27 @@ namespace RotaLimpa.Api.Models
         public Setor(int id, int colaboradorid)
         {
             Id = id;
-            ColaboradorId = colaboradorid;
+            IdColaborador = colaboradorid;
         }
         public Setor(int id, int colaboradorid, int empresaid)
         {
             Id = id;
-            ColaboradorId = colaboradorid;
-            EmpresaId = empresaid;
+            IdColaborador = colaboradorid;
+            IdEmpresa = empresaid;
         }
         public Setor(int id, int colaboradorid, int empresaid, TiposServico tipoServico)
         {
             Id = id;
-            ColaboradorId = colaboradorid;
-            EmpresaId = empresaid;
+            IdColaborador = colaboradorid;
+            IdEmpresa = empresaid;
             TipoServico = tipoServico;
         }
         public SetorDTO ToSetor()
         {
             SetorDTO setorDTO = new SetorDTOBuilder()
                 .WithId(Id)
-                .WithColaboradorId(ColaboradorId)
-                .WithEmpresaId(EmpresaId)
+                .WithColaboradorId(IdColaborador)
+                .WithEmpresaId(IdEmpresa)
                 .WithTipoServico(TipoServico)
                 .Build();
             return setorDTO;

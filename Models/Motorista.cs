@@ -13,17 +13,56 @@ namespace RotaLimpa.Api.Models
     [Table("Motorista")]
     public class Motorista
     {
+        public ICollection<HisLoginM>? HisLoginMs { get; set; }
+        public ICollection<Trajeto>? Trajetos { get; set; } 
         [Key]
         [Column("Id")]
-        public int IdMotorista { get; set; }
-        [Column("Nm_Motorista")]
-        [Comment("Nome do motorista")]
+        public int Id { get; set; }
+        [Required]
+        [StringLength(20)]
+        [Column("Primeiro_Nome")]
         [NotNull]
-        public string NomeMotorista { get; set; }
-        [Comment("Data de criação do Motorista")]
-        [Column("Dc_Motorista")]
-        public DateTime Dc_Motorista { get; set; } = DateTime.Now;
+        public string PNome { get; set; }
+
+        [Required]
+        [StringLength(20)]
+        [Column("Sobre_Nome")]
+        [NotNull]
+        public string SNome { get; set; }
+        
+        [Comment("Data de criaï¿½ï¿½o do Motorista")]
+        [Column("Di_Motorista")]
+        public DateTime Di_Motorista { get; set; } = DateTime.Now;
+
         [Column("St_Motorista")]
-        public string StMotorista { get; set; }
+        [StringLength(1)]
+        public string StMotorista { get; set; } = "1";
+        
+        [Required]
+        [Column("CPF")]
+        [StringLength(15)]
+        [NotNull]
+        public string Cpf { get; set; }
+
+        [Required]
+        [Column("RG")]
+        [StringLength(15)]
+        [NotNull]
+        public string Rg { get; set; }
+
+        private string Chave { get; set; }
+        private string IV { get; set; }
+
+        [Required]
+        [Column("Login")]
+        [StringLength(20)]
+        [NotNull]
+        public string Login { get; set; }
+
+        [Required]
+        [Column("Senha")]
+        [StringLength(12)]
+        [NotNull]
+        public string Senha { get; set; }
     }
 }
