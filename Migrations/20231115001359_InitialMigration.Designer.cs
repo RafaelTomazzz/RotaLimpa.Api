@@ -12,8 +12,8 @@ using RotaLimpa.Api.Data;
 namespace RotaLimpa.Api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231114205226_InitalMigrations")]
-    partial class InitalMigrations
+    [Migration("20231115001359_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -105,9 +105,6 @@ namespace RotaLimpa.Api.Migrations
                         .HasColumnName("Di_Colaborador")
                         .HasComment("Data de inserção do Colaborador");
 
-                    b.Property<int?>("EmpresaId")
-                        .HasColumnType("int");
-
                     b.Property<int>("IdEmpresa")
                         .HasColumnType("int");
 
@@ -149,10 +146,10 @@ namespace RotaLimpa.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EmpresaId");
-
                     b.HasIndex("Id")
                         .IsUnique();
+
+                    b.HasIndex("IdEmpresa");
 
                     b.ToTable("Colaborador");
                 });
@@ -428,14 +425,11 @@ namespace RotaLimpa.Api.Migrations
                     b.Property<int>("IdSetor")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SetorId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("IdOcorrencia");
 
-                    b.HasIndex("SetorId");
+                    b.HasIndex("IdSetor");
 
                     b.ToTable("RelatorioFinal");
                 });
@@ -459,9 +453,6 @@ namespace RotaLimpa.Api.Migrations
                     b.Property<int>("IdSetor")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SetorId")
-                        .HasColumnType("int");
-
                     b.Property<int>("TmRota")
                         .HasColumnType("int")
                         .HasColumnName("Tm_Rota")
@@ -471,7 +462,7 @@ namespace RotaLimpa.Api.Migrations
 
                     b.HasIndex("IdColaborador");
 
-                    b.HasIndex("SetorId");
+                    b.HasIndex("IdSetor");
 
                     b.ToTable("Rota");
                 });
@@ -600,8 +591,9 @@ namespace RotaLimpa.Api.Migrations
                 {
                     b.HasOne("RotaLimpa.Api.Models.Empresa", "Empresa")
                         .WithMany("Colaboradores")
-                        .HasForeignKey("EmpresaId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("IdEmpresa")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Empresa");
                 });
@@ -658,11 +650,15 @@ namespace RotaLimpa.Api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RotaLimpa.Api.Models.Setor", null)
+                    b.HasOne("RotaLimpa.Api.Models.Setor", "Setor")
                         .WithMany("RelatoriosFinais")
-                        .HasForeignKey("SetorId");
+                        .HasForeignKey("IdSetor")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Ocorrencia");
+
+                    b.Navigation("Setor");
                 });
 
             modelBuilder.Entity("RotaLimpa.Api.Models.Rota", b =>
@@ -673,11 +669,15 @@ namespace RotaLimpa.Api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RotaLimpa.Api.Models.Setor", null)
+                    b.HasOne("RotaLimpa.Api.Models.Setor", "Setor")
                         .WithMany("Rotas")
-                        .HasForeignKey("SetorId");
+                        .HasForeignKey("IdSetor")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Colaborador");
+
+                    b.Navigation("Setor");
                 });
 
             modelBuilder.Entity("RotaLimpa.Api.Models.Rua", b =>
