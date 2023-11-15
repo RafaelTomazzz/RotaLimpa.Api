@@ -27,6 +27,7 @@ namespace RotaLimpa.Api.Models
         public Colaborador? Colaborador { get; set; }
         
         [Required]
+        [ForeignKey("Id_Empresa")]
         public int IdEmpresa { get; set; }
         [NotMapped]
         public Empresa? Empresa { get; set; }

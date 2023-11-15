@@ -30,12 +30,12 @@ namespace RotaLimpa.Api.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CEP>()
-                .HasKey(c => c.IdCep);
+                .HasKey(c => c.Id);
 
             modelBuilder.Entity<CEP>()
                 .HasMany(c => c.Ruas)
                 .WithOne(r => r.CEP)
-                .HasForeignKey(r => r.IdCep)
+                .HasForeignKey(r => r.Id)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Kilometragem>()
@@ -175,6 +175,12 @@ namespace RotaLimpa.Api.Data
                 .HasOne(o => o.Trajeto)
                 .WithMany(t => t.Ocorrencias)
                 .HasForeignKey(o => o.IdTrajeto)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Colaborador>()
+                .HasOne(s => s.Empresa)
+                .WithMany(e => e.Colaboradores)
+                .HasForeignKey(s => s.IdEmpresa)
                 .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(modelBuilder);
