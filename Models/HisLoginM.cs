@@ -10,12 +10,12 @@ using Microsoft.EntityFrameworkCore;
 namespace RotaLimpa.Api.Models
 {
     [Table("HistoLonginMotorista")]
-    [PrimaryKey(nameof(IdHisLoginM))]
+    [PrimaryKey(nameof(Id))]
     public class HisLoginM
     {
         [Key]
         [Column("Historico_Login")]
-        public string IdHisLoginM { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [ForeignKey("Id_Motorista")]

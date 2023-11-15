@@ -12,7 +12,7 @@ namespace RotaLimpa.Api.Data
 
         public DbSet<Colaborador> Colaboradores { get; set; }
         public DbSet<Empresa> Empresas { get; set; }
-        public DbSet<CEP> Ceps { get; set; }
+        public DbSet<CEP> CEPs { get; set; }
         public DbSet<Frota> Frotas { get; set; }
         public DbSet<Kilometragem> Kilometragens { get; set; }
         public DbSet<Motorista> Motoristas { get; set; }
