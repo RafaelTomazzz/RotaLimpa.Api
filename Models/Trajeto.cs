@@ -47,8 +47,8 @@ namespace RotaLimpa.Api.Models
         public DateTime MiTrajeto { get; set; } = DateTime.Now;
         [Required]
         [Comment("Momento do fim do trajeto")]
-        [Column("Mj_Trajeto")]
+        [Column("Mf_Trajeto")]
         [NotNull]
-        public DateTime MjTrajeto { get; set; }
+        public DateTime MfTrajeto { get; set; }
     }
 }
