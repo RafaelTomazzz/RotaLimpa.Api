@@ -3,6 +3,7 @@ using RotaLimpa.Api.Repositores.Setores;
 using RotaLimpa.Api.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
 using System.Reflection.Metadata.Ecma335;
+using RotaLimpa.Api.Exceptions;
 
 
 namespace RotaLimpa.Api.Services.Setores
@@ -25,10 +26,9 @@ namespace RotaLimpa.Api.Services.Setores
         {
             Setor  setor = await _setoresRepository.GetByIdAsync(id);
 
-
             if (setor is null)
             {
-                
+                throw new NotFoundException("Setor");
             }
 
             return setor;

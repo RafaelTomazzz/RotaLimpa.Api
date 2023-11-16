@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using RotaLimpa.Api.http;
 
-namespace OsDsII.api.Exceptions
+namespace RotaLimpa.Api.Exceptions
 {
     public class BaseException : Exception
     {
