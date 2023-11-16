@@ -5,16 +5,16 @@ using RotaLimpa.Api.Models;
 using RotaLimpa.Api.Repositories.Interfaces;
 
 
-namespace RotaLimpa.Api.Services.Periodos
+namespace RotaLimpa.Api.Services
 {
-    public class PeriodoService : IPeriodosService
+    public class PeriodosService : IPeriodosService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IPeriodosRepository _periodoRepository;
 
       
 
-        public PeriodoService(IPeriodosRepository periodoRepository, IUnitOfWork unitOfWork ) 
+        public PeriodosService(IPeriodosRepository periodoRepository, IUnitOfWork unitOfWork ) 
         {
             _periodoRepository = periodoRepository;
             _unitOfWork = unitOfWork;

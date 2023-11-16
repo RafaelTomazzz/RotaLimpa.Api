@@ -2,7 +2,7 @@
 
 namespace RotaLimpa.Api.Services
 {
-    public interface ISetorVeiculosServices
+    public interface ISetoresVeiculosService
     {
         public Task<IEnumerable<SetorVeiculo>> GetAllSetoresVeiculosAsync();
         public Task<SetorVeiculo> GetSetorVeiculoByIdAsync(int id);

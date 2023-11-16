@@ -5,11 +5,11 @@ using RotaLimpa.Api.Repositories.Interfaces;
 
 namespace RotaLimpa.Api.Repositories
 {
-    public class PeriodoRepository : IPeriodosRepository
+    public class PeriodosRepository : IPeriodosRepository
     {
         private readonly DataContext _context;
 
-        public PeriodoRepository(DataContext context)
+        public PeriodosRepository(DataContext context)
         {
             _context = context;
         }

@@ -2,18 +2,18 @@
 using RotaLimpa.Api.Repositories.UnitOfWork;
 using RotaLimpa.Api.Models;
 using RotaLimpa.Api.Repositories.Interfaces;
-using RotaLimpa.Api.Repositories.Ruas;
+using RotaLimpa.Api.Repositories;
 using System.Security.Cryptography;
 
-namespace RotaLimpa.Api.Services.SetorVeiculos
+namespace RotaLimpa.Api.Services
 {
-    public class SetorVeiculosServices : ISetorVeiculosServices
+    public class SetoresVeiculosService : ISetoresVeiculosService
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        private readonly ISetorVeiculosRepository _setorVeiculosRepository;
+        private readonly ISetoresVeiculosRepository _setorVeiculosRepository;
 
-        public SetorVeiculosServices(ISetorVeiculosRepository setorVeiculosRepository, IUnitOfWork unitOfWork)
+        public SetoresVeiculosService(ISetoresVeiculosRepository setorVeiculosRepository, IUnitOfWork unitOfWork)
         {
             _setorVeiculosRepository = setorVeiculosRepository;
             _unitOfWork = unitOfWork;

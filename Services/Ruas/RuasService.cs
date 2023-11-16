@@ -4,15 +4,15 @@ using RotaLimpa.Api.Models;
 using RotaLimpa.Api.Repositories;
 using RotaLimpa.Api.Repositories.Interfaces;
 
-namespace RotaLimpa.Api.Services.Ruas
+namespace RotaLimpa.Api.Services
 {
-    public class RuasServices : IRuasServices
+    public class RuasService : IRuasService
     {
         private readonly IUnitOfWork _unitOfWork;
 
         private readonly IRuasRepository _ruasRepository;
 
-        public RuasServices(IRuasRepository ruasRepository, IUnitOfWork unitOfWork)
+        public RuasService(IRuasRepository ruasRepository, IUnitOfWork unitOfWork)
         {
             _ruasRepository = ruasRepository;
             _unitOfWork = unitOfWork;

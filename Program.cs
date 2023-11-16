@@ -19,6 +19,39 @@ builder.Services.AddScoped<ICEPsService, CEPsService>();
 builder.Services.AddScoped<IFrotasRepository, FrotasRepository>();
 builder.Services.AddScoped<IFrotasService, FrotasService>();
 
+builder.Services.AddScoped<IHisLoginCsRepository, HisLoginCsRepository>();
+builder.Services.AddScoped<IHisLoginCsService, HisLoginCsService>();
+
+builder.Services.AddScoped<IHisLoginMsRepository, HisLoginMsRepository>();
+builder.Services.AddScoped<IHisLoginMsService, HisLoginMsService>();
+
+builder.Services.AddScoped<IKilometragensRepository, KilometragensRepository>();
+builder.Services.AddScoped<IKilometragensService, KilometragensService>();
+
+builder.Services.AddScoped<IMotoristasRepository, MotoristasRepository>();
+builder.Services.AddScoped<IMotoristasService, MotoristasService>();
+
+builder.Services.AddScoped<IOcorrenciasRepository, OcorrenciasRepository>();
+builder.Services.AddScoped<IOcorrenciasService, OcorrenciasService>();
+
+builder.Services.AddScoped<IPeriodosRepository, PeriodosRepository>();
+builder.Services.AddScoped<IPeriodosService, PeriodosService>();
+
+builder.Services.AddScoped<IRelatoriosFinaisRepository, RelatoriosFinaisRepository>();
+builder.Services.AddScoped<IRelatoriosFinaisService, RelatoriosFinaisService>();
+
+builder.Services.AddScoped<IRotasRepository, RotasRepository>();
+builder.Services.AddScoped<IRotasService, RotasService>();
+
+builder.Services.AddScoped<IRuasRepository, RuasRepository>();
+builder.Services.AddScoped<IRuasService, RuasService>();
+
+builder.Services.AddScoped<ISetoresVeiculosRepository, SetoresVeiculosRepository>();
+builder.Services.AddScoped<ISetoresVeiculosService, SetoresVeiculosService>();
+
+builder.Services.AddScoped<ITrajetosRepository, TrajetosRepository>();
+builder.Services.AddScoped<ITrajetosService, TrajetosService>();
+
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddControllers();

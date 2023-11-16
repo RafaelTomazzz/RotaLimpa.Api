@@ -3,12 +3,12 @@ using RotaLimpa.Api.Data;
 using RotaLimpa.Api.Models;
 using RotaLimpa.Api.Repositories.Interfaces;
 
-namespace RotaLimpa.Api.Repositories.Ruas
+namespace RotaLimpa.Api.Repositories
 {
-    public class RuaRepository : IRuasRepository
+    public class RuasRepository : IRuasRepository
     {
         private readonly DataContext _context;
-        public RuaRepository(DataContext context) 
+        public RuasRepository(DataContext context) 
         {
             _context = context;
         }

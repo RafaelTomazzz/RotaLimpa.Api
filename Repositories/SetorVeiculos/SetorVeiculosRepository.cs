@@ -3,13 +3,13 @@ using RotaLimpa.Api.Data;
 using RotaLimpa.Api.Models;
 using RotaLimpa.Api.Repositories.Interfaces;
 
-namespace RotaLimpa.Api.Repositories.SetorVeiculos
+namespace RotaLimpa.Api.Repositories
 {
-    public class SetorVeiculosRepository : ISetorVeiculosRepository
+    public class SetoresVeiculosRepository : ISetoresVeiculosRepository
     {
         private readonly DataContext _context;
 
-        public SetorVeiculosRepository(DataContext context)
+        public SetoresVeiculosRepository(DataContext context)
         {
             _context = context;
         }

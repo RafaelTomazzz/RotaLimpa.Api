@@ -2,7 +2,7 @@
 
 namespace RotaLimpa.Api.Services
 {
-    public interface IRuasServices
+    public interface IRuasService
     {
         public Task<IEnumerable<Rua>> GetAllRuasAsync();
         public Task<Rua> GetRuaByIdAsync(int id);

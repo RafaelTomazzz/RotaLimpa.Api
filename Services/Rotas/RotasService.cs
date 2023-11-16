@@ -4,7 +4,7 @@ using RotaLimpa.Api.Models;
 using RotaLimpa.Api.Repositories;
 using RotaLimpa.Api.Repositories.Interfaces;
 
-namespace RotaLimpa.Api.Services.Rotas
+namespace RotaLimpa.Api.Services
 {
     public class RotasService : IRotasService
     {
