@@ -4,7 +4,7 @@ namespace RotaLimpa.Api.Repositories.Interfaces
 {
     public interface IRotasRepository
     {
-        public Task<ICollection<Rota>> GetAllRotasAsync();
+        public Task<IEnumerable<Rota>> GetAllRotasAsync();
         public Task<Rota> GetRotaByIdAsync(int id);
         public Task CreateRotaAsync(Rota rota);
         public Task RemoveRota(Rota rota);

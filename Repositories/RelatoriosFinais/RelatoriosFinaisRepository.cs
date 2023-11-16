@@ -15,9 +15,9 @@ namespace RotaLimpa.Api.Repositories
         }
 
      
-        public async Task<List<RelatorioFinal>> GetAllRelatoriosFinaisAsync()
+        public async Task<IEnumerable<RelatorioFinal>> GetAllRelatoriosFinaisAsync()
         {
-            List<RelatorioFinal> relatorioFinal = await _context.RelatoriosFinais.ToListAsync();
+            IEnumerable<RelatorioFinal> relatorioFinal = await _context.RelatoriosFinais.ToListAsync();
             return relatorioFinal;
         }
 

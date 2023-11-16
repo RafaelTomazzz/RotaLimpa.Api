@@ -15,9 +15,9 @@ namespace RotaLimpa.Api.Repositories
         }
 
 
-        public async Task<ICollection<Rota>> GetAllRotasAsync()
+        public async Task<IEnumerable<Rota>> GetAllRotasAsync()
         {
-            ICollection<Rota> rota = await _context.Rotas.ToListAsync();
+            IEnumerable<Rota> rota = await _context.Rotas.ToListAsync();
             return rota;
         }
 

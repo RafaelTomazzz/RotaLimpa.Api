@@ -15,9 +15,9 @@ namespace RotaLimpa.Api.Repositories.SetorVeiculos
         }
 
 
-        public async Task<List<SetorVeiculo>> GetAllSetoresVeiculosAsync()
+        public async Task<IEnumerable<SetorVeiculo>> GetAllSetoresVeiculosAsync()
         {
-            List<SetorVeiculo> setorVeiculos = await _context.SetorVeiculos.ToListAsync();
+            IEnumerable<SetorVeiculo> setorVeiculos = await _context.SetorVeiculos.ToListAsync();
             return setorVeiculos;
         }
         public async Task<SetorVeiculo> GetSetorVeiculoByIdAsync(int id)

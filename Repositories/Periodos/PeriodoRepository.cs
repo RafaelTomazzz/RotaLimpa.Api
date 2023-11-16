@@ -14,9 +14,9 @@ namespace RotaLimpa.Api.Repositories
             _context = context;
         }
 
-        public async Task<List<Periodo>> GetAllPeriodosAsync()
+        public async Task<IEnumerable<Periodo>> GetAllPeriodosAsync()
         {
-            List<Periodo> periodo = await _context.Periodos.ToListAsync();
+            IEnumerable<Periodo> periodo = await _context.Periodos.ToListAsync();
             return periodo;
         }
 

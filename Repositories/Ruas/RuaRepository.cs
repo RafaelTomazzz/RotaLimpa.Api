@@ -12,9 +12,9 @@ namespace RotaLimpa.Api.Repositories.Ruas
         {
             _context = context;
         }
-        public async Task<List<Rua>> GetAllRuasAsync()
+        public async Task<IEnumerable<Rua>> GetAllRuasAsync()
         {
-            List<Rua> rua = await _context.Ruas.ToListAsync();
+            IEnumerable<Rua> rua = await _context.Ruas.ToListAsync();
             return rua;
         }
         public async Task<Rua> GetRuaByIdAsync(int id)
