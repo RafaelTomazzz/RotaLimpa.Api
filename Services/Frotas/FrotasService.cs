@@ -9,7 +9,7 @@ using RotaLimpa.Api.Exceptions;
 
 namespace RotaLimpa.Api.Services
 {
-    public class FrotasService : IFrotasRepository
+    public class FrotasService : IFrotasService
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -75,14 +75,5 @@ namespace RotaLimpa.Api.Services
             return frota;
         }
 
-        Task IFrotasRepository.CreateFrotaAsync(Frota cep)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task RemoveFrota(Frota cep)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

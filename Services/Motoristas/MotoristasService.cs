@@ -69,9 +69,13 @@ namespace RotaLimpa.Api.Services
             return motorista;
         }
 
-        public Task<Motorista> RemoveMotorista(int id, Motorista motorista)
+        public async Task<Motorista> RemoveMotorista(int id, Motorista motorista)
         {
-            throw new NotImplementedException();
+            Motorista currentMotorista = await _motoristasRepository.GetMotoristaByIdAsync(id);
+            await _motoristasRepository.RemoveMotorista(motorista);
+            await _unitOfWork.SaveChangesAsync();
+
+            return motorista;
         }
 
     }

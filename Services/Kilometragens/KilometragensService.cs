@@ -64,25 +64,13 @@ namespace RotaLimpa.Api.Services
             return Kilometragem;
         }
 
-        public Task<Kilometragem> GetKilometragenByIdAsync(int id)
+        public async Task<Kilometragem> RemoveKilometragem(int id, Kilometragem kilometragem)
         {
-            throw new NotImplementedException();
-        }
+            Kilometragem currentKilometragem = await _kilimetragensRepository.GetKilometragemByIdAsync(id);
+            await _kilimetragensRepository.RemoveKilometragem(kilometragem);
+            await _unitOfWork.SaveChangesAsync();
 
-        public Task<Kilometragem> CreateKilometragenAsync(Kilometragem kilometragem)
-        {
-            throw new NotImplementedException();
+            return kilometragem;
         }
-
-        public Task<Kilometragem> UpdateKilometragenAsync(int id, Kilometragem kilometragem)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Kilometragem> RemoveKilometragen(int id, Kilometragem kilometragem)
-        {
-            throw new NotImplementedException();
-        }
-
     }
 }
