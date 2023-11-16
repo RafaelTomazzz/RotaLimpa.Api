@@ -12,8 +12,8 @@ using RotaLimpa.Api.Data;
 namespace RotaLimpa.Api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231115001359_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20231115145152_InitalMigration")]
+    partial class InitalMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -105,6 +105,9 @@ namespace RotaLimpa.Api.Migrations
                         .HasColumnName("Di_Colaborador")
                         .HasComment("Data de inserção do Colaborador");
 
+                    b.Property<int?>("EmpresaId")
+                        .HasColumnType("int");
+
                     b.Property<int>("IdEmpresa")
                         .HasColumnType("int");
 
@@ -146,10 +149,10 @@ namespace RotaLimpa.Api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EmpresaId");
+
                     b.HasIndex("Id")
                         .IsUnique();
-
-                    b.HasIndex("IdEmpresa");
 
                     b.ToTable("Colaborador");
                 });
@@ -591,9 +594,8 @@ namespace RotaLimpa.Api.Migrations
                 {
                     b.HasOne("RotaLimpa.Api.Models.Empresa", "Empresa")
                         .WithMany("Colaboradores")
-                        .HasForeignKey("IdEmpresa")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Empresa");
                 });
@@ -653,7 +655,7 @@ namespace RotaLimpa.Api.Migrations
                     b.HasOne("RotaLimpa.Api.Models.Setor", "Setor")
                         .WithMany("RelatoriosFinais")
                         .HasForeignKey("IdSetor")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Ocorrencia");
@@ -672,7 +674,7 @@ namespace RotaLimpa.Api.Migrations
                     b.HasOne("RotaLimpa.Api.Models.Setor", "Setor")
                         .WithMany("Rotas")
                         .HasForeignKey("IdSetor")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Colaborador");
@@ -710,7 +712,7 @@ namespace RotaLimpa.Api.Migrations
                     b.HasOne("RotaLimpa.Api.Models.Empresa", "Empresa")
                         .WithMany("Setores")
                         .HasForeignKey("IdEmpresa")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Colaborador");
