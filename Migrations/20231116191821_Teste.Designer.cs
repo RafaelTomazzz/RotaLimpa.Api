@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RotaLimpa.Api.Data;
 
@@ -11,9 +12,11 @@ using RotaLimpa.Api.Data;
 namespace RotaLimpa.Api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20231116191821_Teste")]
+    partial class Teste
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -102,6 +105,9 @@ namespace RotaLimpa.Api.Migrations
                         .HasColumnName("Di_Colaborador")
                         .HasComment("Data de inserção do Colaborador");
 
+                    b.Property<int?>("EmpresaId")
+                        .HasColumnType("int");
+
                     b.Property<int>("IdEmpresa")
                         .HasColumnType("int");
 
@@ -143,10 +149,10 @@ namespace RotaLimpa.Api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EmpresaId");
+
                     b.HasIndex("Id")
                         .IsUnique();
-
-                    b.HasIndex("IdEmpresa");
 
                     b.ToTable("Colaborador");
                 });
@@ -586,13 +592,9 @@ namespace RotaLimpa.Api.Migrations
 
             modelBuilder.Entity("RotaLimpa.Api.Models.Colaborador", b =>
                 {
-                    b.HasOne("RotaLimpa.Api.Models.Empresa", "Empresa")
+                    b.HasOne("RotaLimpa.Api.Models.Empresa", null)
                         .WithMany("Colaboradores")
-                        .HasForeignKey("IdEmpresa")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Empresa");
+                        .HasForeignKey("EmpresaId");
                 });
 
             modelBuilder.Entity("RotaLimpa.Api.Models.HisLoginC", b =>

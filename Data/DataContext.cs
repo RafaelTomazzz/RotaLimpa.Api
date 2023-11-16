@@ -29,13 +29,14 @@ namespace RotaLimpa.Api.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Empresa>()
-                .HasMany(c => c.Colaboradores)
-                .WithOne(c => c.Empresa)
-                .OnDelete(DeleteBehavior.Cascade);
-
             modelBuilder.Entity<CEP>()
                 .HasKey(c => c.Id);
+
+            modelBuilder.Entity<Colaborador>()
+                .HasOne(c => c.Empresa)
+                .WithMany(c => c.Colaboradores)
+                .HasForeignKey(c => c.IdEmpresa)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<CEP>()
                 .HasMany(c => c.Ruas)
@@ -140,11 +141,11 @@ namespace RotaLimpa.Api.Data
                 .HasForeignKey(t => t.IdPeriodo)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            /*modelBuilder.Entity<RelatorioFinal>()
+            modelBuilder.Entity<RelatorioFinal>()
                 .HasOne(r => r.Setor)
                 .WithMany(s => s.RelatoriosFinais)
                 .HasForeignKey(r => r.IdSetor)
-                .OnDelete(DeleteBehavior.Cascade);*/
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<RelatorioFinal>()
                 .HasOne(r => r.Ocorrencia)
@@ -158,11 +159,11 @@ namespace RotaLimpa.Api.Data
                 .HasForeignKey(r => r.IdColaborador)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            /*modelBuilder.Entity<Rota>()
+            modelBuilder.Entity<Rota>()
                 .HasOne(r => r.Setor)
                 .WithMany(s => s.Rotas)
                 .HasForeignKey(r => r.IdSetor)
-                .OnDelete(DeleteBehavior.Cascade);*/
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<HisLoginC>()
                 .HasOne(h => h.Colaborador)
