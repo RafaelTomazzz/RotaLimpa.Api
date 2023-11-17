@@ -3,6 +3,7 @@ using RotaLimpa.Api.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using RotaLimpa.Api.Services;
 
 namespace RotaLimpa.Api.Controllers
 {
@@ -12,9 +13,12 @@ namespace RotaLimpa.Api.Controllers
     {
         private readonly DataContext _context;
 
-        public RotasController(DataContext context)
+        private readonly IRotasService _rotasService;
+
+        public RotasController(DataContext context, IRotasService rotasService)
         {
             _context = context;
+            _rotasService = rotasService;
         }
 
         [HttpGet("GetAll")]
@@ -22,12 +26,12 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                List<Rota> lista = await _context.Rotas.ToListAsync();
+                IEnumerable<Rota> lista = await _rotasService.GetAllRotasAsync();
                 return Ok(lista);
             }
             catch (System.Exception)
             {
-
+                
                 throw;
             }
         }
@@ -37,46 +41,44 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                Rota rota = await _context.Rotas.FirstOrDefaultAsync(rotaBusca => rotaBusca.Id == id);
+                Rota rota = await _rotasService.GetRotaByIdAsync(id);
                 return Ok(rota);
             }
             catch (System.Exception)
             {
-
+                
                 throw;
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(Rota novaRota)
+        public async Task<IActionResult> Add([FromBody] Rota novoRota)
         {
             try
             {
-                await _context.Rotas.AddAsync(novaRota);
-                await _context.SaveChangesAsync();
+                await _rotasService.CreateRotaAsync(novoRota);
 
-                return Ok(novaRota);
+                return Ok(novoRota);
             }
             catch (System.Exception)
             {
-
+                
                 throw;
             }
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(Rota rotaAlterada)
+        public async Task<IActionResult> Update(int id, [FromBody] Rota rotaAlterado)
         {
             try
             {
-                _context.Rotas.Update(rotaAlterada);
-                await _context.SaveChangesAsync();
+                Rota currentRota = await _rotasService.UpdateRotaAsync(id, rotaAlterado);
 
-                return Ok(rotaAlterada);
+                return Ok(currentRota);
             }
             catch (System.Exception)
             {
-
+                
                 throw;
             }
         }
@@ -86,16 +88,16 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                Rota rota = await _context.Rotas.FirstOrDefaultAsync(rotabusca => rotabusca.Id == id);
+                Rota rota = await _rotasService.GetRotaByIdAsync(id);
 
-                _context.Rotas.Remove(rota);
+                await _rotasService.RemoveRota(id, rota);
                 int linhaAfetada = await _context.SaveChangesAsync();
-
+                
                 return Ok(linhaAfetada);
             }
             catch (System.Exception)
             {
-
+                
                 throw;
             }
         }

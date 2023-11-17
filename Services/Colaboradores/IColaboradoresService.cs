@@ -18,5 +18,7 @@ namespace RotaLimpa.Api.Services
         public Task<Colaborador> UpdateColaboradorAsync(int id, Colaborador colaborador);
 
         public Task<Colaborador> RemoveColaborador(int id, Colaborador colaborador);
+
+        public Task<string> GerarUnicoLoginAsync();
     }
 }

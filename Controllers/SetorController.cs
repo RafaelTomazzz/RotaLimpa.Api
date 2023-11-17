@@ -1,22 +1,23 @@
-using System;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RotaLimpa.Api.Data;
 using RotaLimpa.Api.Models;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
+using RotaLimpa.Api.Services;
 
 namespace RotaLimpa.Api.Controllers
 {
     [ApiController]
     [Route("[Controller]")]
-    public class HisLoginMsController : ControllerBase
+    public class SetorsController : ControllerBase
     {
-         private readonly DataContext _context;
+        private readonly DataContext _context;
 
-        public HisLoginMsController(DataContext context)
+        private readonly ISetoresService _setoressService;
+
+        public SetorsController(DataContext context, ISetoresService setoressService)
         {
             _context = context;
+            _setoressService = setoressService;
         }
 
         [HttpGet("GetAll")]
@@ -24,7 +25,7 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                List<HisLoginM> lista = await _context.HisLoginMs.ToListAsync();
+                IEnumerable<Setor> lista = await _setoressService.GetAllSetoresAsync();
                 return Ok(lista);
             }
             catch (System.Exception)
@@ -39,8 +40,8 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                HisLoginM hisLoginM = await _context.HisLoginMs.FirstOrDefaultAsync(hislBusca => hislBusca.Id == id);
-                return Ok(hisLoginM);
+                Setor setor = await _setoressService.GetSetorByIdAsync(id);
+                return Ok(setor);
             }
             catch (System.Exception)
             {
@@ -50,14 +51,13 @@ namespace RotaLimpa.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(HisLoginM novoHisLoginM)
+        public async Task<IActionResult> Add([FromBody] Setor novoSetor)
         {
             try
             {
-                await _context.HisLoginMs.AddAsync(novoHisLoginM);
-                await _context.SaveChangesAsync();
+                await _setoressService.CreateSetorAsync(novoSetor);
 
-                return Ok(novoHisLoginM);
+                return Ok(novoSetor);
             }
             catch (System.Exception)
             {
@@ -67,14 +67,13 @@ namespace RotaLimpa.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(HisLoginM hisLoginMAlterado)
+        public async Task<IActionResult> Update(int id, [FromBody] Setor setorAlterado)
         {
             try
             {
-                _context.HisLoginMs.Update(hisLoginMAlterado);
-                await _context.SaveChangesAsync();
+                Setor currentSetor = await _setoressService.UpdateSetorAsync(id, setorAlterado);
 
-                return Ok(hisLoginMAlterado);
+                return Ok(currentSetor);
             }
             catch (System.Exception)
             {
@@ -88,9 +87,9 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                HisLoginM hisLoginM = await _context.HisLoginMs.FirstOrDefaultAsync(hislBusca => hislBusca.Id == id);
+                Setor setor = await _setoressService.GetSetorByIdAsync(id);
 
-                _context.HisLoginMs.Remove(hisLoginM);
+                await _setoressService.RemoveSetor(id, setor);
                 int linhaAfetada = await _context.SaveChangesAsync();
                 
                 return Ok(linhaAfetada);

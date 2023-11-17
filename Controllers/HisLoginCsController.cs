@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using RotaLimpa.Api.Services;
 
 namespace RotaLimpa.Api.Controllers
 {
@@ -14,9 +15,12 @@ namespace RotaLimpa.Api.Controllers
     {
          private readonly DataContext _context;
 
-        public HisLoginCsController(DataContext context)
+         private readonly IHisLoginCsService _hisLoginCsService;
+
+        public HisLoginCsController(DataContext context, IHisLoginCsService hisLoginCsService)
         {
             _context = context;
+            _hisLoginCsService = hisLoginCsService;
         }
 
         [HttpGet("GetAll")]
@@ -24,7 +28,7 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                List<HisLoginC> lista = await _context.HisLoginCs.ToListAsync();
+                IEnumerable<HisLoginC> lista = await _hisLoginCsService.GetAllHisLoginCsAsync();
                 return Ok(lista);
             }
             catch (System.Exception)
@@ -39,7 +43,7 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                HisLoginC hisLoginC = await _context.HisLoginCs.FirstOrDefaultAsync(hislBusca => hislBusca.Id == id);
+                HisLoginC hisLoginC = await _hisLoginCsService.GetHisLoginCByIdAsync(id);
                 return Ok(hisLoginC);
             }
             catch (System.Exception)
@@ -50,12 +54,11 @@ namespace RotaLimpa.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(HisLoginC novoHisLoginC)
+        public async Task<IActionResult> Add([FromBody] HisLoginC novoHisLoginC)
         {
             try
             {
-                await _context.HisLoginCs.AddAsync(novoHisLoginC);
-                await _context.SaveChangesAsync();
+                await _hisLoginCsService.CreateHisLoginCAsync(novoHisLoginC);
 
                 return Ok(novoHisLoginC);
             }
@@ -67,14 +70,13 @@ namespace RotaLimpa.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(HisLoginC hisLoginCAlterado)
+        public async Task<IActionResult> Update(int id, [FromBody] HisLoginC hisLoginCAlterado)
         {
             try
             {
-                _context.HisLoginCs.Update(hisLoginCAlterado);
-                await _context.SaveChangesAsync();
+                HisLoginC currentHisLoginC = await _hisLoginCsService.UpdateHisLoginCAsync(id, hisLoginCAlterado);
 
-                return Ok(hisLoginCAlterado);
+                return Ok(currentHisLoginC);
             }
             catch (System.Exception)
             {
@@ -88,9 +90,9 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                HisLoginC hisLoginC = await _context.HisLoginCs.FirstOrDefaultAsync(hislBusca => hislBusca.Id == id);
+                HisLoginC hisLoginC = await _hisLoginCsService.GetHisLoginCByIdAsync(id);
 
-                _context.HisLoginCs.Remove(hisLoginC);
+                await _hisLoginCsService.RemoveHisLoginC(id, hisLoginC);
                 int linhaAfetada = await _context.SaveChangesAsync();
                 
                 return Ok(linhaAfetada);

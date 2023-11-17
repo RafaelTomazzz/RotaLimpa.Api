@@ -78,5 +78,28 @@ namespace RotaLimpa.Api.Services
             return motorista;
         }
 
+        public async Task<string> GerarUnicoLoginAsync()
+        {
+            int currentYear = DateTime.Now.Year;
+            int ultimoNumeroLogin = await _motoristasRepository.ObterUltimoNumeroLoginAsync(currentYear);
+
+            if (!await ExisteMotoristaNoAnoAtualAsync(currentYear))
+            {
+                return $"1{DateTime.Now.ToString("MMyy")}";
+            }
+
+            if (ultimoNumeroLogin >= 999)
+            {
+                return $"1{DateTime.Now.ToString("MMyy")}";
+            }
+
+            return $"{ultimoNumeroLogin + 1:D3}{DateTime.Now.ToString("MMyy")}";
+        }
+
+        private async Task<bool> ExisteMotoristaNoAnoAtualAsync(int currentYear)
+        {
+            return await _motoristasRepository.ObterUltimoNumeroLoginAsync(currentYear) > 0;
+        }
+
     }
 }

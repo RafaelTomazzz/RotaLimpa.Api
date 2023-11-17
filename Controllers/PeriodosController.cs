@@ -3,6 +3,7 @@ using RotaLimpa.Api.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using RotaLimpa.Api.Services;
 namespace RotaLimpa.Api.Controllers
 {
     [ApiController]
@@ -11,9 +12,12 @@ namespace RotaLimpa.Api.Controllers
     {
         private readonly DataContext _context;
 
-        public PeriodosController(DataContext context)
+        private readonly IPeriodosService _periodosService;
+
+        public PeriodosController(DataContext context, IPeriodosService periodosService)
         {
             _context = context;
+            _periodosService = periodosService;
         }
 
         [HttpGet("GetAll")]
@@ -21,12 +25,12 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                List<Periodo> lista = await _context.Periodos.ToListAsync();
+                IEnumerable<Periodo> lista = await _periodosService.GetAllPeriodosAsync();
                 return Ok(lista);
             }
             catch (System.Exception)
             {
-
+                
                 throw;
             }
         }
@@ -36,46 +40,44 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                Periodo periodo = await _context.Periodos.FirstOrDefaultAsync(motoriBusca => motoriBusca.Id == id);
+                Periodo periodo = await _periodosService.GetPeriodoByIdAsync(id);
                 return Ok(periodo);
             }
             catch (System.Exception)
             {
-
+                
                 throw;
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(Periodo novoPeriodo)
+        public async Task<IActionResult> Add([FromBody] Periodo novoPeriodo)
         {
             try
             {
-                await _context.Periodos.AddAsync(novoPeriodo);
-                await _context.SaveChangesAsync();
+                await _periodosService.CreatePeriodoAsync(novoPeriodo);
 
                 return Ok(novoPeriodo);
             }
             catch (System.Exception)
             {
-
+                
                 throw;
             }
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(Periodo periodoAlterado)
+        public async Task<IActionResult> Update(int id, [FromBody] Periodo periodoAlterado)
         {
             try
             {
-                _context.Periodos.Update(periodoAlterado);
-                await _context.SaveChangesAsync();
+                Periodo currentPeriodo = await _periodosService.UpdatePeriodoAsync(id, periodoAlterado);
 
-                return Ok(periodoAlterado);
+                return Ok(currentPeriodo);
             }
             catch (System.Exception)
             {
-
+                
                 throw;
             }
         }
@@ -85,16 +87,16 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                Periodo periodo = await _context.Periodos.FirstOrDefaultAsync(periodobusca => periodobusca.Id == id);
+                Periodo periodo = await _periodosService.GetPeriodoByIdAsync(id);
 
-                _context.Periodos.Remove(periodo);
+                await _periodosService.RemovePeriodo(id, periodo);
                 int linhaAfetada = await _context.SaveChangesAsync();
-
+                
                 return Ok(linhaAfetada);
             }
             catch (System.Exception)
             {
-
+                
                 throw;
             }
         }

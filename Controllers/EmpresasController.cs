@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using RotaLimpa.Api.Services;
 
 namespace RotaLimpa.Api.Controllers
 {
@@ -14,9 +15,12 @@ namespace RotaLimpa.Api.Controllers
     {
         private readonly DataContext _context;
 
-        public EmpresasController(DataContext context)
+        private readonly IEmpresasService _empresasService;
+
+        public EmpresasController(DataContext context, IEmpresasService empresasService)
         {
             _context = context;
+            _empresasService = empresasService;
         }
 
         [HttpGet("GetAll")]
@@ -24,82 +28,78 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                List<Empresa> lista = await _context.Empresas.ToListAsync();
-                
+                IEnumerable<Empresa> lista = await _empresasService.GetAllEmpresasAsync();
                 return Ok(lista);
             }
             catch (System.Exception)
             {
-
+                
                 throw;
             }
         }
 
-        [HttpGet("GetById/{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             try
             {
-                Empresa empresa = await _context.Empresas.FirstOrDefaultAsync(empreBusca => empreBusca.Id == id);
-
+                Empresa empresa = await _empresasService.GetEmpresaByIdAsync(id);
                 return Ok(empresa);
             }
             catch (System.Exception)
             {
-
+                
                 throw;
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(Empresa novaEmpresa)
-        {   
+        public async Task<IActionResult> Add([FromBody] Empresa novoEmpresa)
+        {
             try
             {
-                await _context.Empresas.AddAsync(novaEmpresa);
-                await _context.SaveChangesAsync();
+                await _empresasService.CreateEmpresaAsync(novoEmpresa);
 
-                return Ok(novaEmpresa);
+                return Ok(novoEmpresa);
             }
             catch (System.Exception)
             {
-             
+                
                 throw;
             }
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(Empresa empresaAlterada)
-        {   
+        public async Task<IActionResult> Update(int id, [FromBody] Empresa empresaAlterado)
+        {
             try
             {
-                _context.Empresas.Update(empresaAlterada);
-                await _context.SaveChangesAsync();
+                Empresa currentEmpresa = await _empresasService.UpdateEmpresaAsync(id, empresaAlterado);
 
-                return Ok(empresaAlterada);
+                return Ok(currentEmpresa);
             }
             catch (System.Exception)
             {
-             
+                
                 throw;
             }
         }
 
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
-        {   
+        {
             try
             {
-                Empresa empresa = await _context.Empresas.FirstOrDefaultAsync(empreBusca => empreBusca.Id == id);
+                Empresa empresa = await _empresasService.GetEmpresaByIdAsync(id);
 
-                _context.Empresas.Remove(empresa);
+                await _empresasService.RemoveEmpresa(id, empresa);
                 int linhaAfetada = await _context.SaveChangesAsync();
                 
                 return Ok(linhaAfetada);
             }
             catch (System.Exception)
             {
-             
+                
                 throw;
             }
         }

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using RotaLimpa.Api.Data;
 using RotaLimpa.Api.Models;
+using RotaLimpa.Api.Services;
 
 namespace RotaLimpa.Api.Controllers
 {
@@ -11,9 +12,12 @@ namespace RotaLimpa.Api.Controllers
     {
         private readonly DataContext _context;
 
-        public SetorVeiculosController(DataContext context)
+        private readonly ISetoresVeiculosService _setoresVeiculosService;
+
+        public SetorVeiculosController(DataContext context, ISetoresVeiculosService setoresVeiculosService)
         {
             _context = context;
+            _setoresVeiculosService = setoresVeiculosService;
         }
 
         [HttpGet("GetAll")]
@@ -21,12 +25,12 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                List<SetorVeiculo> lista = await _context.SetorVeiculos.ToListAsync();
+                IEnumerable<SetorVeiculo> lista = await _setoresVeiculosService.GetAllSetoresVeiculosAsync();
                 return Ok(lista);
             }
             catch (System.Exception)
             {
-
+                
                 throw;
             }
         }
@@ -36,46 +40,44 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                SetorVeiculo setorVeiculo = await _context.SetorVeiculos.FirstOrDefaultAsync(setorVeiBusca => setorVeiBusca.IdSetor == id);
+                SetorVeiculo setorVeiculo = await _setoresVeiculosService.GetSetorVeiculoByIdAsync(id);
                 return Ok(setorVeiculo);
             }
             catch (System.Exception)
             {
-
+                
                 throw;
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(SetorVeiculo novoSetorVeiculo)
+        public async Task<IActionResult> Add([FromBody] SetorVeiculo novoSetorVeiculo)
         {
             try
             {
-                await _context.SetorVeiculos.AddAsync(novoSetorVeiculo);
-                await _context.SaveChangesAsync();
+                await _setoresVeiculosService.CreateSetorVeiculoAsync(novoSetorVeiculo);
 
                 return Ok(novoSetorVeiculo);
             }
             catch (System.Exception)
             {
-
+                
                 throw;
             }
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(SetorVeiculo setorVeiculoAlterado)
+        public async Task<IActionResult> Update(int id, [FromBody] SetorVeiculo setorVeiculoAlterado)
         {
             try
             {
-                _context.SetorVeiculos.Update(setorVeiculoAlterado);
-                await _context.SaveChangesAsync();
+                SetorVeiculo currentSetorVeiculo = await _setoresVeiculosService.UpdateSetorVeiculoAsync(id, setorVeiculoAlterado);
 
-                return Ok(setorVeiculoAlterado);
+                return Ok(currentSetorVeiculo);
             }
             catch (System.Exception)
             {
-
+                
                 throw;
             }
         }
@@ -85,16 +87,16 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                SetorVeiculo setorVeiculo = await _context.SetorVeiculos.FirstOrDefaultAsync(setorVeiBusca => setorVeiBusca.IdSetor == id);
+                SetorVeiculo setorVeiculo = await _setoresVeiculosService.GetSetorVeiculoByIdAsync(id);
 
-                _context.SetorVeiculos.Remove(setorVeiculo);
+                await _setoresVeiculosService.RemoveSetorVeiculo(id, setorVeiculo);
                 int linhaAfetada = await _context.SaveChangesAsync();
-
+                
                 return Ok(linhaAfetada);
             }
             catch (System.Exception)
             {
-
+                
                 throw;
             }
         }

@@ -1,23 +1,26 @@
-﻿using RotaLimpa.Api.Data;
+using System;
+using RotaLimpa.Api.Data;
 using RotaLimpa.Api.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using RotaLimpa.Api.Services;
 
 namespace RotaLimpa.Api.Controllers
 {
     [ApiController]
     [Route("[Controller]")]
-    public class RuasController : ControllerBase
+    public class HisLoginMsController : ControllerBase
     {
-        private readonly DataContext _context;
-        private readonly IRuasService _ruasService; 
+         private readonly DataContext _context;
 
-        public RuasController(DataContext context, IRuasService ruasService)
+         private readonly IHisLoginMsService _hisLoginMsService;
+
+        public HisLoginMsController(DataContext context, IHisLoginMsService hisLoginMsService)
         {
             _context = context;
-            _ruasService = ruasService;
+            _hisLoginMsService = hisLoginMsService;
         }
 
         [HttpGet("GetAll")]
@@ -25,7 +28,7 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                IEnumerable<Rua> lista = await _ruasService.GetAllRuasAsync();
+                IEnumerable<HisLoginM> lista = await _hisLoginMsService.GetAllHisLoginMsAsync();
                 return Ok(lista);
             }
             catch (System.Exception)
@@ -40,8 +43,8 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                Rua rua = await _ruasService.GetRuaByIdAsync(id);
-                return Ok(rua);
+                HisLoginM hisLoginM = await _hisLoginMsService.GetHisLoginMByIdAsync(id);
+                return Ok(hisLoginM);
             }
             catch (System.Exception)
             {
@@ -51,13 +54,13 @@ namespace RotaLimpa.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody] Rua novoRua)
+        public async Task<IActionResult> Add([FromBody] HisLoginM novoHisLoginM)
         {
             try
             {
-                await _ruasService.CreateRuaAsync(novoRua);
+                await _hisLoginMsService.CreateHisLoginMAsync(novoHisLoginM);
 
-                return Ok(novoRua);
+                return Ok(novoHisLoginM);
             }
             catch (System.Exception)
             {
@@ -67,13 +70,13 @@ namespace RotaLimpa.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(int id, [FromBody] Rua ruaAlterado)
+        public async Task<IActionResult> Update(int id, [FromBody] HisLoginM hisLoginMAlterado)
         {
             try
             {
-                Rua currentRua = await _ruasService.UpdateRuaAsync(id, ruaAlterado);
+                HisLoginM currentHisLoginM = await _hisLoginMsService.UpdateHisLoginMAsync(id, hisLoginMAlterado);
 
-                return Ok(currentRua);
+                return Ok(currentHisLoginM);
             }
             catch (System.Exception)
             {
@@ -87,9 +90,9 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                Rua rua = await _ruasService.GetRuaByIdAsync(id);
+                HisLoginM hisLoginM = await _hisLoginMsService.GetHisLoginMByIdAsync(id);
 
-                await _ruasService.RemoveRua(id, rua);
+                await _hisLoginMsService.RemoveHisLoginM(id, hisLoginM);
                 int linhaAfetada = await _context.SaveChangesAsync();
                 
                 return Ok(linhaAfetada);

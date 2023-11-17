@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RotaLimpa.Api.Data;
 using RotaLimpa.Api.Models;
+using RotaLimpa.Api.Services;
 
 namespace RotaLimpa.Api.Controllers 
 {
@@ -15,9 +16,12 @@ namespace RotaLimpa.Api.Controllers
     {
         private readonly DataContext _context;
 
-        public MotoristasController(DataContext context)
+        private readonly IMotoristasService _motoristasService;
+
+        public MotoristasController(DataContext context, IMotoristasService motoristasService)
         {
             _context = context;
+            _motoristasService = motoristasService;
         }
 
         [HttpGet("GetAll")]
@@ -25,7 +29,7 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                List<Motorista> lista = await _context.Motoristas.ToListAsync();
+                IEnumerable<Motorista> lista = await _motoristasService.GetAllMotoristasAsync();
                 return Ok(lista);
             }
             catch (System.Exception)
@@ -40,7 +44,7 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                Motorista motorista = await _context.Motoristas.FirstOrDefaultAsync(motoriBusca => motoriBusca.Id == id);
+                Motorista motorista = await _motoristasService.GetMotoristaByIdAsync(id);
                 return Ok(motorista);
             }
             catch (System.Exception)
@@ -51,13 +55,12 @@ namespace RotaLimpa.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(Motorista novoMotorista)
+        public async Task<IActionResult> Add([FromBody] Motorista novoMotorista)
         {
             try
             {
-                novoMotorista.Login = GenerarUnicoLogin();
-                await _context.Motoristas.AddAsync(novoMotorista);
-                await _context.SaveChangesAsync();
+                novoMotorista.Login = await _motoristasService.GerarUnicoLoginAsync();
+                await _motoristasService.CreateMotoristaAsync(novoMotorista);
 
                 return Ok(novoMotorista);
             }
@@ -69,14 +72,13 @@ namespace RotaLimpa.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(Motorista motoristaAlterado)
+        public async Task<IActionResult> Update(int id, [FromBody] Motorista motoristaAlterado)
         {
             try
             {
-                _context.Motoristas.Update(motoristaAlterado);
-                await _context.SaveChangesAsync();
+                Motorista currentMotorista = await _motoristasService.UpdateMotoristaAsync(id, motoristaAlterado);
 
-                return Ok(motoristaAlterado);
+                return Ok(currentMotorista);
             }
             catch (System.Exception)
             {
@@ -90,9 +92,9 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                Motorista motorista = await _context.Motoristas.FirstOrDefaultAsync(motoriBusca => motoriBusca.Id == id);
+                Motorista motorista = await _motoristasService.GetMotoristaByIdAsync(id);
 
-                _context.Motoristas.Remove(motorista);
+                await _motoristasService.RemoveMotorista(id, motorista);
                 int linhaAfetada = await _context.SaveChangesAsync();
                 
                 return Ok(linhaAfetada);

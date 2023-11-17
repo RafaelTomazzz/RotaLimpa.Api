@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using RotaLimpa.Api.Data;
 using RotaLimpa.Api.Models;
+using RotaLimpa.Api.Services;
 
 namespace RotaLimpa.Api.Controllers
 {
@@ -11,9 +12,12 @@ namespace RotaLimpa.Api.Controllers
     {
         private readonly DataContext _context;
 
-        public TrajetosController(DataContext context)
+        private readonly ITrajetosService _trajetosService;
+
+        public TrajetosController(DataContext context, ITrajetosService trajetosService)
         {
             _context = context;
+            _trajetosService = trajetosService;
         }
 
         [HttpGet("GetAll")]
@@ -21,12 +25,12 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                List<Trajeto> lista = await _context.Trajetos.ToListAsync();
+                IEnumerable<Trajeto> lista = await _trajetosService.GetAllTrajetosAsync();
                 return Ok(lista);
             }
             catch (System.Exception)
             {
-
+                
                 throw;
             }
         }
@@ -36,46 +40,44 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                Trajeto trajeto = await _context.Trajetos.FirstOrDefaultAsync(trajetoBusca => trajetoBusca.Id == id);
+                Trajeto trajeto = await _trajetosService.GetTrajetoByIdAsync(id);
                 return Ok(trajeto);
             }
             catch (System.Exception)
             {
-
+                
                 throw;
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(Trajeto novoTrajeto)
+        public async Task<IActionResult> Add([FromBody] Trajeto novoTrajeto)
         {
             try
             {
-                await _context.Trajetos.AddAsync(novoTrajeto);
-                await _context.SaveChangesAsync();
+                await _trajetosService.CreateTrajetoAsync(novoTrajeto);
 
                 return Ok(novoTrajeto);
             }
             catch (System.Exception)
             {
-
+                
                 throw;
             }
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(Trajeto trajetoAlterado)
+        public async Task<IActionResult> Update(int id, [FromBody] Trajeto trajetoAlterado)
         {
             try
             {
-                _context.Trajetos.Update(trajetoAlterado);
-                await _context.SaveChangesAsync();
+                Trajeto currentTrajeto = await _trajetosService.UpdateTrajetoAsync(id, trajetoAlterado);
 
-                return Ok(trajetoAlterado);
+                return Ok(currentTrajeto);
             }
             catch (System.Exception)
             {
-
+                
                 throw;
             }
         }
@@ -85,16 +87,16 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                Trajeto trajeto = await _context.Trajetos.FirstOrDefaultAsync(trajetoBusca => trajetoBusca.Id == id);
+                Trajeto trajeto = await _trajetosService.GetTrajetoByIdAsync(id);
 
-                _context.Trajetos.Remove(trajeto);
+                await _trajetosService.RemoveTrajeto(id, trajeto);
                 int linhaAfetada = await _context.SaveChangesAsync();
-
+                
                 return Ok(linhaAfetada);
             }
             catch (System.Exception)
             {
-
+                
                 throw;
             }
         }

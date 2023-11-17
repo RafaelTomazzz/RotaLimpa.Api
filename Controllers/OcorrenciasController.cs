@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RotaLimpa.Api.Data;
 using RotaLimpa.Api.Models;
+using RotaLimpa.Api.Services;
 
 namespace RotaLimpa.Api.Controllers
 {
@@ -15,9 +16,12 @@ namespace RotaLimpa.Api.Controllers
     {
          private readonly DataContext _context;
 
-        public OcorrenciasController(DataContext context)
+         private readonly IOcorrenciasService _ocorrenciasService;
+
+        public OcorrenciasController(DataContext context, IOcorrenciasService ocorrenciasService)
         {
             _context = context;
+            _ocorrenciasService = ocorrenciasService;
         }
 
         [HttpGet("GetAll")]
@@ -25,7 +29,7 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                List<Ocorrencia> lista = await _context.Ocorrencias.ToListAsync();
+                IEnumerable<Ocorrencia> lista = await _ocorrenciasService.GetAllOcorrenciasAsync();
                 return Ok(lista);
             }
             catch (System.Exception)
@@ -40,7 +44,7 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                Ocorrencia ocorrencia = await _context.Ocorrencias.FirstOrDefaultAsync(ocorreBusca => ocorreBusca.Id == id);
+                Ocorrencia ocorrencia = await _ocorrenciasService.GetOcorrenciaByIdAsync(id);
                 return Ok(ocorrencia);
             }
             catch (System.Exception)
@@ -51,12 +55,11 @@ namespace RotaLimpa.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(Ocorrencia novoOcorrencia)
+        public async Task<IActionResult> Add([FromBody] Ocorrencia novoOcorrencia)
         {
             try
             {
-                await _context.Ocorrencias.AddAsync(novoOcorrencia);
-                await _context.SaveChangesAsync();
+                await _ocorrenciasService.CreateOcorrenciaAsync(novoOcorrencia);
 
                 return Ok(novoOcorrencia);
             }
@@ -68,14 +71,13 @@ namespace RotaLimpa.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(Ocorrencia ocorrenciaAlterado)
+        public async Task<IActionResult> Update(int id, [FromBody] Ocorrencia ocorrenciaAlterado)
         {
             try
             {
-                _context.Ocorrencias.Update(ocorrenciaAlterado);
-                await _context.SaveChangesAsync();
+                Ocorrencia currentOcorrencia = await _ocorrenciasService.UpdateOcorrenciaAsync(id, ocorrenciaAlterado);
 
-                return Ok(ocorrenciaAlterado);
+                return Ok(currentOcorrencia);
             }
             catch (System.Exception)
             {
@@ -89,9 +91,9 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                Ocorrencia ocorrencia = await _context.Ocorrencias.FirstOrDefaultAsync(ocorreBusca => ocorreBusca.Id == id);
+                Ocorrencia ocorrencia = await _ocorrenciasService.GetOcorrenciaByIdAsync(id);
 
-                _context.Ocorrencias.Remove(ocorrencia);
+                await _ocorrenciasService.RemoveOcorrencia(id, ocorrencia);
                 int linhaAfetada = await _context.SaveChangesAsync();
                 
                 return Ok(linhaAfetada);

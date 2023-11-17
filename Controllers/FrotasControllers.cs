@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RotaLimpa.Api.Data;
 using RotaLimpa.Api.Models;
+using RotaLimpa.Api.Services;
 
 namespace RotaLimpa.Api.Controllers
 {
@@ -15,9 +16,12 @@ namespace RotaLimpa.Api.Controllers
     {
          private readonly DataContext _context;
 
-        public FrotasController(DataContext context)
+         private readonly IFrotasService _frotasService;
+
+        public FrotasController(DataContext context, IFrotasService frotasService)
         {
             _context = context;
+            _frotasService = frotasService;
         }
 
         [HttpGet("GetAll")]
@@ -25,7 +29,7 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                List<Frota> lista = await _context.Frotas.ToListAsync();
+                IEnumerable<Frota> lista = await _frotasService.GetAllFrotasAsync();
                 return Ok(lista);
             }
             catch (System.Exception)
@@ -40,7 +44,7 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                Frota frota = await _context.Frotas.FirstOrDefaultAsync(frotaBusca => frotaBusca.IdVeiculo == id);
+                Frota frota = await _frotasService.GetFrotaByIdAsync(id);
                 return Ok(frota);
             }
             catch (System.Exception)
@@ -51,12 +55,11 @@ namespace RotaLimpa.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(Frota novoFrota)
+        public async Task<IActionResult> Add([FromBody] Frota novoFrota)
         {
             try
             {
-                await _context.Frotas.AddAsync(novoFrota);
-                await _context.SaveChangesAsync();
+                await _frotasService.CreateFrotaAsync(novoFrota);
 
                 return Ok(novoFrota);
             }
@@ -68,14 +71,13 @@ namespace RotaLimpa.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(Frota frotaAlterado)
+        public async Task<IActionResult> Update(int id, [FromBody] Frota frotaAlterado)
         {
             try
             {
-                _context.Frotas.Update(frotaAlterado);
-                await _context.SaveChangesAsync();
+                Frota currentFrota = await _frotasService.UpdateFrotaAsync(id, frotaAlterado);
 
-                return Ok(frotaAlterado);
+                return Ok(currentFrota);
             }
             catch (System.Exception)
             {
@@ -89,9 +91,9 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                Frota frota = await _context.Frotas.FirstOrDefaultAsync(frotaBusca => frotaBusca.IdVeiculo == id);
+                Frota frota = await _frotasService.GetFrotaByIdAsync(id);
 
-                _context.Frotas.Remove(frota);
+                await _frotasService.RemoveFrota(id, frota);
                 int linhaAfetada = await _context.SaveChangesAsync();
                 
                 return Ok(linhaAfetada);

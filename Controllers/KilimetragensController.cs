@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RotaLimpa.Api.Data;
 using RotaLimpa.Api.Models;
+using RotaLimpa.Api.Services;
 
 namespace RotaLimpa.Api.Controllers 
 {
@@ -14,10 +15,12 @@ namespace RotaLimpa.Api.Controllers
     public class KilimetragensController : ControllerBase
     {
         private readonly DataContext _context;
+        private readonly IKilometragensService _kilometragensService;
 
-        public KilimetragensController(DataContext context)
+        public KilimetragensController(DataContext context, IKilometragensService kilometragensService)
         {
             _context = context;
+            _kilometragensService = kilometragensService;
         }
 
         [HttpGet("GetAll")]
@@ -25,7 +28,7 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                List<Kilometragem> lista = await _context.Kilometragens.ToListAsync();
+                IEnumerable<Kilometragem> lista = await _kilometragensService.GetAllKilometragensAsync();
                 return Ok(lista);
             }
             catch (System.Exception)
@@ -35,12 +38,12 @@ namespace RotaLimpa.Api.Controllers
             }
         }
 
-        [HttpGet("GetById/{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             try
             {
-                Kilometragem kilometragem = await _context.Kilometragens.FirstOrDefaultAsync(kBusca => kBusca.IdVeiculo == id);
+                Kilometragem kilometragem = await _kilometragensService.GetKilometragemByIdAsync(id);
                 return Ok(kilometragem);
             }
             catch (System.Exception)
@@ -51,54 +54,52 @@ namespace RotaLimpa.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(Kilometragem novaKilometragem)
-        {   
+        public async Task<IActionResult> Add([FromBody] Kilometragem novoKilometragem)
+        {
             try
             {
-                await _context.Kilometragens.AddAsync (novaKilometragem);
-                await _context.SaveChangesAsync();
+                await _kilometragensService.CreateKilometragemAsync(novoKilometragem);
 
-                return Ok(novaKilometragem);
+                return Ok(novoKilometragem);
             }
             catch (System.Exception)
             {
-             
+                
                 throw;
             }
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(Kilometragem kilometragemAlterada)
-        {   
+        public async Task<IActionResult> Update(int id, [FromBody] Kilometragem kilometragemAlterado)
+        {
             try
             {
-                _context.Kilometragens.Update(kilometragemAlterada);
-                await _context.SaveChangesAsync();
+                Kilometragem currentKilometragem = await _kilometragensService.UpdateKilometragemAsync(id, kilometragemAlterado);
 
-                return Ok(kilometragemAlterada);
+                return Ok(currentKilometragem);
             }
             catch (System.Exception)
             {
-             
+                
                 throw;
             }
         }
 
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
-        {   
+        {
             try
             {
-                Kilometragem kilometragem = await _context.Kilometragens.FirstOrDefaultAsync(kBusca => kBusca.IdVeiculo == id);
+                Kilometragem kilometragem = await _kilometragensService.GetKilometragemByIdAsync(id);
 
-                _context.Kilometragens.Remove(kilometragem);
+                await _kilometragensService.RemoveKilometragem(id, kilometragem);
                 int linhaAfetada = await _context.SaveChangesAsync();
                 
                 return Ok(linhaAfetada);
             }
             catch (System.Exception)
             {
-             
+                
                 throw;
             }
         }

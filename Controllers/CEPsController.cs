@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RotaLimpa.Api.Data;
 using RotaLimpa.Api.Models;
+using RotaLimpa.Api.Services;
 
 namespace RotaLimpa.Api.Controllers
 {
@@ -15,9 +16,12 @@ namespace RotaLimpa.Api.Controllers
     {
          private readonly DataContext _context;
 
-        public CEPsController(DataContext context)
+         private readonly ICEPsService _cepsService;
+
+        public CEPsController(DataContext context, ICEPsService cepsService)
         {
             _context = context;
+            _cepsService = cepsService;
         }
 
         [HttpGet("GetAll")]
@@ -25,7 +29,7 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                List<CEP> lista = await _context.CEPs.ToListAsync();
+                IEnumerable<CEP> lista = await _cepsService.GetAllCEPsAsync();
                 return Ok(lista);
             }
             catch (System.Exception)
@@ -40,7 +44,7 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                CEP cep = await _context.CEPs.FirstOrDefaultAsync(ceepBusca => ceepBusca.Id == id);
+                CEP cep = await _cepsService.GetCEPByIdAsync(id);
                 return Ok(cep);
             }
             catch (System.Exception)
@@ -51,12 +55,11 @@ namespace RotaLimpa.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(CEP novoCEP)
+        public async Task<IActionResult> Add([FromBody] CEP novoCEP)
         {
             try
             {
-                await _context.CEPs.AddAsync(novoCEP);
-                await _context.SaveChangesAsync();
+                await _cepsService.CreateCEPAsync(novoCEP);
 
                 return Ok(novoCEP);
             }
@@ -68,14 +71,13 @@ namespace RotaLimpa.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(CEP cepAlterado)
+        public async Task<IActionResult> Update(int id, [FromBody] CEP cepAlterado)
         {
             try
             {
-                _context.CEPs.Update(cepAlterado);
-                await _context.SaveChangesAsync();
+                CEP currentCEP = await _cepsService.UpdateCEPAsync(id, cepAlterado);
 
-                return Ok(cepAlterado);
+                return Ok(currentCEP);
             }
             catch (System.Exception)
             {
@@ -89,9 +91,9 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                CEP cep = await _context.CEPs.FirstOrDefaultAsync(ceepBusca => ceepBusca.Id == id);
+                CEP cep = await _cepsService.GetCEPByIdAsync(id);
 
-                _context.CEPs.Remove(cep);
+                await _cepsService.RemoveCEP(id, cep);
                 int linhaAfetada = await _context.SaveChangesAsync();
                 
                 return Ok(linhaAfetada);

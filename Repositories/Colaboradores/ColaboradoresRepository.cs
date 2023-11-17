@@ -38,5 +38,14 @@ namespace RotaLimpa.Api.Repositories
             _context.Colaboradores.Remove(colaborador);
         }
 
+        public async Task<int> ObterUltimoNumeroLoginAsync(int currentYear)
+        {
+            return await _context.Colaboradores
+                .Where(m => m.Di_Colaborador.Year == currentYear)
+                .Select(m => int.Parse(m.Login.Substring(3, 3)))
+                .DefaultIfEmpty(0)
+                .MaxAsync();
+        }
+
     }
 }
