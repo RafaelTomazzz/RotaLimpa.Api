@@ -55,6 +55,7 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
+                novoMotorista.Login = GenerarUnicoLogin();
                 await _context.Motoristas.AddAsync(novoMotorista);
                 await _context.SaveChangesAsync();
 
@@ -101,6 +102,35 @@ namespace RotaLimpa.Api.Controllers
                 
                 throw;
             }
+        }
+
+        public string GenerarUnicoLogin()
+        {
+            int proximoNumeroLogin = PegarProximoNumeroLivreLogin();
+            string parteData = DateTime.Now.ToString("MMyy");
+            return $"{proximoNumeroLogin:D3}{parteData}";
+        }
+
+        private int PegarProximoNumeroLivreLogin()
+        {
+            int currentYear = DateTime.Now.Year;
+
+            if (!_context.Motoristas.Any() || _context.Motoristas.Max(m => m.Di_Motorista.Year) != currentYear)
+            {
+                return 1;
+            }
+
+            int ultimoNumeroLogin = _context.Motoristas.Where(m => m.Di_Motorista.Year == currentYear)
+                .Select(m => int.Parse(m.Login.Substring(3, 3)))
+                .DefaultIfEmpty(0)
+                .Max();
+
+            if (ultimoNumeroLogin >= 999)
+            {
+                return 1;
+            }
+
+            return ultimoNumeroLogin + 1;
         }
     }
 }
