@@ -16,6 +16,12 @@ builder.Services.AddDbContext<DataContext>(options =>
 builder.Services.AddScoped<ICEPsRepository, CEPsRepository>();
 builder.Services.AddScoped<ICEPsService, CEPsService>();
 
+builder.Services.AddScoped<IColaboradoresRepository, ColaboradoresRepository>();
+builder.Services.AddScoped<IColaboradoresService, ColaboradoresService>();
+
+builder.Services.AddScoped<IEmpresasRepository, EmpresasRepository>();
+builder.Services.AddScoped<IEmpresasService, EmpresasService>();
+
 builder.Services.AddScoped<IFrotasRepository, FrotasRepository>();
 builder.Services.AddScoped<IFrotasService, FrotasService>();
 
@@ -45,6 +51,9 @@ builder.Services.AddScoped<IRotasService, RotasService>();
 
 builder.Services.AddScoped<IRuasRepository, RuasRepository>();
 builder.Services.AddScoped<IRuasService, RuasService>();
+
+builder.Services.AddScoped<ISetoresRepository, SetoresRepository>();
+builder.Services.AddScoped<ISetoresService, SetoresService>();
 
 builder.Services.AddScoped<ISetoresVeiculosRepository, SetoresVeiculosRepository>();
 builder.Services.AddScoped<ISetoresVeiculosService, SetoresVeiculosService>();

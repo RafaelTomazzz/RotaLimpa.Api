@@ -9,70 +9,70 @@ using RotaLimpa.Api.Exceptions;
 
 namespace RotaLimpa.Api.Services
 {
-    public class FrotasService : IFrotasService
+    public class SetoresService : ISetoresService
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        private readonly IFrotasRepository _frotasRepository;
+        private readonly ISetoresRepository _setoresRepository;
 
-        public FrotasService(IFrotasRepository frotasRepository, IUnitOfWork unitOfWork)
+        public SetoresService(ISetoresRepository setoresRepository, IUnitOfWork unitOfWork)
         {
-            _frotasRepository = frotasRepository;
+            _setoresRepository = setoresRepository;
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<Frota>> GetAllFrotasAsync()
+        public async Task<IEnumerable<Setor>> GetAllSetoresAsync()
         {
-            IEnumerable<Frota> frotas = await _frotasRepository.GetAllFrotasAsync();
-            return frotas;
+            IEnumerable<Setor> setores = await _setoresRepository.GetAllSetoresAsync();
+            return setores;
         }
 
-        public async Task<Frota> GetFrotaByIdAsync(int id)
+        public async Task<Setor> GetSetorByIdAsync(int id)
         {
-            Frota frota = await _frotasRepository.GetFrotaByIdAsync(id);
-            if (frota == null)
+            Setor setor = await _setoresRepository.GetSetorByIdAsync(id);
+            if (setor == null)
             {
                 throw new NotFoundException("Not Found");
             }
-            return frota;
+            return setor;
         }
 
-        public async Task<Frota> CreateFrotaAsync(Frota frota)
+        public async Task<Setor> CreateSetorAsync(Setor setor)
         {
-            Frota currentFrota = await _frotasRepository.GetFrotaByIdAsync(frota.IdVeiculo);
-            if (currentFrota != null && currentFrota.Equals(frota))
+            Setor currentSetor = await _setoresRepository.GetSetorByIdAsync(setor.Id);
+            if (currentSetor != null && currentSetor.Equals(setor))
             {
-                throw new Exception("Frota already exists.");
+                throw new Exception("Setor already exists.");
             }
-            await _frotasRepository.CreateFrotaAsync(frota);
+            await _setoresRepository.CreateSetorAsync(setor);
             await _unitOfWork.SaveChangesAsync();
-            return currentFrota;
+            return currentSetor;
         }
 
-        public async Task<Frota> UpdateFrotaAsync(int id, Frota frota)
+        public async Task<Setor> UpdateSetorAsync(int id, Setor setor)
         {
-            Frota currentFrota = await _frotasRepository.GetFrotaByIdAsync(id);
-            if (currentFrota == null)
+            Setor currentSetor = await _setoresRepository.GetSetorByIdAsync(id);
+            if (currentSetor == null)
             {
                 throw new NotFoundException("Not found");
             }
 
-            currentFrota.PVeiculo = frota.PVeiculo;
-            currentFrota.TmnVeiculo = frota.TmnVeiculo;
-            currentFrota.DiVeiculo = frota.DiVeiculo;
-            currentFrota.StVeiculo = frota.StVeiculo;
+            currentSetor.IdColaborador = setor.IdColaborador;
+            currentSetor.IdEmpresa = setor.IdEmpresa;
+            currentSetor.DaSetor = DateTime.Now;
+            currentSetor.StSetor = setor.StSetor;
             await _unitOfWork.SaveChangesAsync();
 
-            return frota;
+            return setor;
         }
 
-        public async Task<Frota> RemoveFrota(int id, Frota frota)
+        public async Task<Setor> RemoveSetor(int id, Setor setor)
         {
-            Frota currentFrota = await _frotasRepository.GetFrotaByIdAsync(id);
-            await _frotasRepository.RemoveFrota(frota);
+            Setor currentSetor = await _setoresRepository.GetSetorByIdAsync(id);
+            await _setoresRepository.RemoveSetor(setor);
             await _unitOfWork.SaveChangesAsync();
 
-            return frota;
+            return setor;
         }
 
     }
