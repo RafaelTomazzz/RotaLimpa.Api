@@ -12,15 +12,16 @@ using RotaLimpa.Api.Models.Enum;
 namespace RotaLimpa.Api.Models
 {
     [Table("Ocorrencia")]
-    [PrimaryKey(nameof(IdOcorrencia))]
-    [Index(nameof(IdOcorrencia), IsUnique = true)]
+    [PrimaryKey(nameof(Id))]
+    [Index(nameof(Id), IsUnique = true)]
     public class Ocorrencia
     {
+        public ICollection<RelatorioFinal>? RelatoriosFinais { get; set; }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("Id")]
         [NotNull]
-        public int IdOcorrencia { get; set; }
+        public int Id { get; set; }
         
         [Column("Id_Trajeto")]
         [ForeignKey("Id_Trajeto")]
@@ -35,6 +36,6 @@ namespace RotaLimpa.Api.Models
         [Column("MtOcorrencia")]
         [Comment("Data domento da ocorr�ncia")]
         [NotNull]
-        public DateTime MtOcorrencia { get; set; }
+        public DateTime MtOcorrencia { get; set; } = DateTime.Now;
     }
 }

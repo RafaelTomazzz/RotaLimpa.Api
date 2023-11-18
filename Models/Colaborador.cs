@@ -15,30 +15,40 @@ namespace RotaLimpa.Api.Models
     {
         public ICollection<Setor>? Setores { get; set; }
         public ICollection<Rota>? Rotas { get; set; }
+        public ICollection<HisLoginC>? HisLoginCs { get; set; }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required]
-        public int EmpresaId { get; set; }
+        [ForeignKey("Id_Empresa")]
+        public int IdEmpresa { get; set; }
         [NotMapped]
         public Empresa? Empresa { get; set; }
 
         [Required]
-        [StringLength(60)]
+        [StringLength(20)]
+        [Column("Primeiro_Nome")]
         [NotNull]
-        public string Nome { get; set; }
+        public string PNome { get; set; }
 
         [Required]
-        [StringLength(14)]
+        [StringLength(20)]
+        [Column("Sobre_Nome")]
         [NotNull]
-        public string DcColaborador { get; set; }
+        public string SNome { get; set; }
+
+        [Comment("Data de inserção do Colaborador")]
+        [Column("Di_Colaborador")]
+        public DateTime Di_Colaborador { get; set; } = DateTime.Now;
 
         [Required]
+        [Column("St_Colaborador")]
         [StringLength(1)]
         public string StColaborador { get; set; } = "1";
 
+<<<<<<< HEAD
         public Colaborador()
         {}
 
@@ -77,5 +87,33 @@ namespace RotaLimpa.Api.Models
             
             return colaboradorDTO;
         }
+=======
+        [Required]
+        [Column("CPF")]
+        [StringLength(15)]
+        [NotNull]
+        public string Cpf { get; set; }
+
+        [Required]
+        [Column("RG")]
+        [StringLength(15)]
+        [NotNull]
+        public string Rg { get; set; }
+
+        private string Chave { get; set; }
+        private string IV { get; set; }
+
+        [Required]
+        [Column("Login")]
+        [StringLength(7)]
+        [NotNull]
+        public string Login { get; set; }
+
+        [Required]
+        [Column("Senha")]
+        [StringLength(12)]
+        [NotNull]
+        public string Senha { get; set; }
+>>>>>>> c49f4579b08f8aa3e7038406c689384e2329085d
     }
 }

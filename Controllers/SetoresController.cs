@@ -44,9 +44,7 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                Setor s = await _context.Setores.FirstOrDefaultAsync(s => s.Id == id);
-                return Ok(s);
-                
+                Setor setor = await _setoresService.
             }
             catch (System.Exception ex)
             {

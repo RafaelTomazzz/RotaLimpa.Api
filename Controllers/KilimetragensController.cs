@@ -40,7 +40,7 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                Kilometragem kilometragem = await _context.Kilometragens.FirstOrDefaultAsync(kBusca => kBusca.Id_Veiculo == id);
+                Kilometragem kilometragem = await _context.Kilometragens.FirstOrDefaultAsync(kBusca => kBusca.IdVeiculo == id);
                 return Ok(kilometragem);
             }
             catch (System.Exception)
@@ -89,7 +89,7 @@ namespace RotaLimpa.Api.Controllers
         {   
             try
             {
-                Kilometragem kilometragem = await _context.Kilometragens.FirstOrDefaultAsync(kBusca => kBusca.Id_Veiculo == id);
+                Kilometragem kilometragem = await _context.Kilometragens.FirstOrDefaultAsync(kBusca => kBusca.IdVeiculo == id);
 
                 _context.Kilometragens.Remove(kilometragem);
                 int linhaAfetada = await _context.SaveChangesAsync();

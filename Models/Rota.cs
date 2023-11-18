@@ -6,20 +6,21 @@ using System.Diagnostics.CodeAnalysis;
 namespace RotaLimpa.Api.Models
 {
     [Table("Rota")]
-    [PrimaryKey(nameof(IdRota))]
+    [PrimaryKey(nameof(Id))]
     public class Rota
     {
         public ICollection<Rua>? Ruas { get; set; }
+        
+        public ICollection<Trajeto>? Trajetos { get; set; } 
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("Id")]
         [NotNull]
-        public int IdRota { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [ForeignKey("Id_Colaborador")]
-        public int ColaboradorId { get; set; }
+        public int IdColaborador { get; set; }
         public Colaborador? Colaborador { get; set; }
 
         [Required]
@@ -32,7 +33,7 @@ namespace RotaLimpa.Api.Models
         public int SetorId { get; set; }
 
         [NotMapped]
-        public Setor Setor { get; set; }
+        public Setor? Setor { get; set; }
 
         [Required]
         [Column("Dt_Rota")]
