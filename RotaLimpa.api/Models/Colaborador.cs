@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.CodeAnalysis;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using RotaLimpa.Api.DTO;
+using RotaLimpa.Api.DTO.Builder;
 
 namespace RotaLimpa.Api.Models
 {
@@ -72,5 +74,48 @@ namespace RotaLimpa.Api.Models
         [StringLength(12)]
         [NotNull]
         public string Senha { get; set; }
+
+        public Colaborador()
+        {}
+
+        public Colaborador(int id)
+        {
+            Id = id;
+        }
+        public Colaborador(int id, int empresaId)
+        {
+            Id = id;
+            IdEmpresa = empresaId; 
+        }
+
+        public Colaborador(int id, int empresaId, string pnome, string snome)
+        {
+            Id = id;
+            IdEmpresa = empresaId; 
+            PNome = pnome;
+            SNome = snome;
+        }
+        public Colaborador(int id, int empresaId, string pnome, string snome, string cpf)
+        {
+            Id = id;
+            IdEmpresa = empresaId; 
+            PNome = pnome;
+            SNome = snome;
+            Cpf = cpf;
+        }
+
+        public ColaboradorDTO ToColaborador()
+        {
+            ColaboradorDTO colaboradorDTO = new ColaboradorDTOBuilder()
+                .WithId(Id)
+                .WithPNome(PNome)
+                .WithSNome(SNome)
+                .WithCpf(Cpf)
+                .WithRg(Rg)
+                .WithIdEmpresa(IdEmpresa)                
+                .Builder();
+            
+            return colaboradorDTO;
+        }
     }
 }

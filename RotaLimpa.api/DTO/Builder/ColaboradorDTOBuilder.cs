@@ -12,21 +12,33 @@ namespace RotaLimpa.Api.DTO.Builder
             return this;
         }
 
-        public ColaboradorDTOBuilder WithEmpresaId(int empresaId)
+        public ColaboradorDTOBuilder WithIdEmpresa(int idempresa)
         {
-            _colaboradorDTO.EmpresaId = empresaId;
+            _colaboradorDTO.IdEmpresa = idempresa;
             return this;
         }
 
-        public ColaboradorDTOBuilder WithNome(string nome)
+        public ColaboradorDTOBuilder WithPNome(string pnome)
         {
-            _colaboradorDTO.Nome = nome;
+            _colaboradorDTO.PNome = pnome;
             return this;
         }
 
-        public ColaboradorDTOBuilder WithDc(string dc)
+        public ColaboradorDTOBuilder WithSNome(string snome)
         {
-            _colaboradorDTO.DcColaborador = dc;
+            _colaboradorDTO.SNome = snome;
+            return this;
+        }
+
+        public ColaboradorDTOBuilder WithCpf(string cpf)
+        {
+            _colaboradorDTO.Cpf = cpf;
+            return this;
+        }
+        
+        public ColaboradorDTOBuilder WithRg(string rg)
+        {
+            _colaboradorDTO.Rg = rg;
             return this;
         }
 
