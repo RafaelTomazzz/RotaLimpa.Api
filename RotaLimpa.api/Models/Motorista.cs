@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using RotaLimpa.Api.DTO;
+using RotaLimpa.Api.DTO.Builder;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -64,5 +66,43 @@ namespace RotaLimpa.Api.Models
         [StringLength(12)]
         [NotNull]
         public string Senha { get; set; }
+
+        public Motorista()
+        {}
+
+        public Motorista(int id)
+        {
+            Id = id;
+        }
+        public Motorista(int id, string pnome)
+        {
+            Id = id;
+            PNome = pnome;
+        }
+        public Motorista(int id, string pnome, string snome)
+        {
+            Id = id;
+            PNome = pnome;
+            SNome = snome;
+        }
+        public Motorista(int id, string pnome, string snome, string cpf)
+        {
+            Id = id;
+            PNome = pnome;
+            SNome = snome;
+            Cpf = cpf;
+        }
+
+        public MotoristaDTO ToMotorista()
+        {
+            MotoristaDTO motoristaDTO= new MotoristaDTOBuilder()
+            .WithId(Id)
+            .WithPNome(PNome)
+            .WithSNome(SNome)
+            .WithCpf(Cpf)
+            .Build();
+
+            return motoristaDTO;
+        }
     }
 }
