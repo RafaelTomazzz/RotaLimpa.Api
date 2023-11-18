@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RotaLimpa.Api.Migrations
 {
     /// <inheritdoc />
-    public partial class InitalMigration : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -106,22 +106,21 @@ namespace RotaLimpa.Api.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdEmpresa = table.Column<int>(type: "int", nullable: false),
-                    EmpresaId = table.Column<int>(type: "int", nullable: true),
                     Primeiro_Nome = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Sobre_Nome = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Di_Colaborador = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Data de inserção do Colaborador"),
                     St_Colaborador = table.Column<string>(type: "nvarchar(1)", maxLength: 1, nullable: false),
                     CPF = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
                     RG = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
-                    Login = table.Column<string>(type: "nvarchar(7)", maxLength: 7, nullable: false),
+                    Login = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Senha = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Colaborador", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Colaborador_Empresa_EmpresaId",
-                        column: x => x.EmpresaId,
+                        name: "FK_Colaborador_Empresa_IdEmpresa",
+                        column: x => x.IdEmpresa,
                         principalTable: "Empresa",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -220,6 +219,8 @@ namespace RotaLimpa.Api.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdColaborador = table.Column<int>(type: "int", nullable: false),
+                    IdPeriodo = table.Column<int>(type: "int", nullable: false),
+                    PeriodoId = table.Column<int>(type: "int", nullable: true),
                     IdSetor = table.Column<int>(type: "int", nullable: false),
                     Dt_Rota = table.Column<int>(type: "int", nullable: false, comment: "Distancia da Rota"),
                     Tm_Rota = table.Column<int>(type: "int", nullable: false, comment: "Tempo médio da Rota")
@@ -233,6 +234,11 @@ namespace RotaLimpa.Api.Migrations
                         principalTable: "Colaborador",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Rota_Periodo_PeriodoId",
+                        column: x => x.PeriodoId,
+                        principalTable: "Periodo",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Rota_Setor_IdSetor",
                         column: x => x.IdSetor,
@@ -379,15 +385,15 @@ namespace RotaLimpa.Api.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Colaborador_EmpresaId",
-                table: "Colaborador",
-                column: "EmpresaId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Colaborador_Id",
                 table: "Colaborador",
                 column: "Id",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Colaborador_IdEmpresa",
+                table: "Colaborador",
+                column: "IdEmpresa");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Empresa_Dc_Empresa",
@@ -435,6 +441,11 @@ namespace RotaLimpa.Api.Migrations
                 name: "IX_Rota_IdSetor",
                 table: "Rota",
                 column: "IdSetor");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rota_PeriodoId",
+                table: "Rota",
+                column: "PeriodoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rua_IdCep",
@@ -519,10 +530,10 @@ namespace RotaLimpa.Api.Migrations
                 name: "Motorista");
 
             migrationBuilder.DropTable(
-                name: "Periodo");
+                name: "Rota");
 
             migrationBuilder.DropTable(
-                name: "Rota");
+                name: "Periodo");
 
             migrationBuilder.DropTable(
                 name: "Setor");

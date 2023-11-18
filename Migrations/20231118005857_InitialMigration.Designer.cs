@@ -12,8 +12,8 @@ using RotaLimpa.Api.Data;
 namespace RotaLimpa.Api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231116193214_AlteracaoDataContext")]
-    partial class AlteracaoDataContext
+    [Migration("20231118005857_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -110,8 +110,8 @@ namespace RotaLimpa.Api.Migrations
 
                     b.Property<string>("Login")
                         .IsRequired()
-                        .HasMaxLength(7)
-                        .HasColumnType("nvarchar(7)")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("Login");
 
                     b.Property<string>("PNome")
@@ -450,7 +450,13 @@ namespace RotaLimpa.Api.Migrations
                     b.Property<int>("IdColaborador")
                         .HasColumnType("int");
 
+                    b.Property<int>("IdPeriodo")
+                        .HasColumnType("int");
+
                     b.Property<int>("IdSetor")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PeriodoId")
                         .HasColumnType("int");
 
                     b.Property<int>("TmRota")
@@ -463,6 +469,8 @@ namespace RotaLimpa.Api.Migrations
                     b.HasIndex("IdColaborador");
 
                     b.HasIndex("IdSetor");
+
+                    b.HasIndex("PeriodoId");
 
                     b.ToTable("Rota");
                 });
@@ -675,7 +683,13 @@ namespace RotaLimpa.Api.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("RotaLimpa.Api.Models.Periodo", "Periodo")
+                        .WithMany()
+                        .HasForeignKey("PeriodoId");
+
                     b.Navigation("Colaborador");
+
+                    b.Navigation("Periodo");
 
                     b.Navigation("Setor");
                 });

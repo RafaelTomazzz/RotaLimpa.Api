@@ -39,18 +39,18 @@ namespace RotaLimpa.Api.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        /*[HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             try
             {
-                Setor setor = await _setoresService.
+                Setor setor = await _setoresService.GetByIdAsync(id);
             }
             catch (System.Exception ex)
             {
                 return BadRequest (ex.Message);
             }
-        }
+        }*/
 
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] Setor novosetor)

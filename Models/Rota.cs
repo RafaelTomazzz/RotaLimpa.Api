@@ -30,7 +30,7 @@ namespace RotaLimpa.Api.Models
         
         
         [Required]
-        public int SetorId { get; set; }
+        public int IdSetor { get; set; }
 
         [NotMapped]
         public Setor? Setor { get; set; }
