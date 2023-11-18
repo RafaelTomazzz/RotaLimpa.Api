@@ -48,46 +48,6 @@ namespace RotaLimpa.Api.Models
         [StringLength(1)]
         public string StColaborador { get; set; } = "1";
 
-<<<<<<< HEAD
-        public Colaborador()
-        {}
-
-        public Colaborador(int id)
-        {
-            Id = id;
-        }
-        public Colaborador(int id, int empresaId)
-        {
-            Id = id;
-            EmpresaId = empresaId; 
-        }
-
-        public Colaborador(int id, int empresaId, string nome)
-        {
-            Id = id;
-            EmpresaId = empresaId; 
-            Nome = nome;
-        }
-        public Colaborador(int id, int empresaId, string nome, string dc)
-        {
-            Id = id;
-            EmpresaId = empresaId; 
-            Nome = nome;
-            DcColaborador = dc;
-        }
-
-        public ColaboradorDTO ToColaborador()
-        {
-            ColaboradorDTO colaboradorDTO = new ColaboradorDTOBuilder()
-                .WithId(Id)
-                .WithEmpresaId(EmpresaId)
-                .WithDc(Nome)
-                .WithDc(DcColaborador)
-                .Builder();
-            
-            return colaboradorDTO;
-        }
-=======
         [Required]
         [Column("CPF")]
         [StringLength(15)]
@@ -105,7 +65,7 @@ namespace RotaLimpa.Api.Models
 
         [Required]
         [Column("Login")]
-        [StringLength(7)]
+        [StringLength(20)]
         [NotNull]
         public string Login { get; set; }
 
@@ -114,6 +74,48 @@ namespace RotaLimpa.Api.Models
         [StringLength(12)]
         [NotNull]
         public string Senha { get; set; }
->>>>>>> c49f4579b08f8aa3e7038406c689384e2329085d
+
+        public Colaborador()
+        {}
+
+        public Colaborador(int id)
+        {
+            Id = id;
+        }
+        public Colaborador(int id, int empresaId)
+        {
+            Id = id;
+            IdEmpresa = empresaId; 
+        }
+
+        public Colaborador(int id, int empresaId, string pnome, string snome)
+        {
+            Id = id;
+            IdEmpresa = empresaId; 
+            PNome = pnome;
+            SNome = snome;
+        }
+        public Colaborador(int id, int empresaId, string pnome, string snome, string cpf)
+        {
+            Id = id;
+            IdEmpresa = empresaId; 
+            PNome = pnome;
+            SNome = snome;
+            Cpf = cpf;
+        }
+
+        public ColaboradorDTO ToColaborador()
+        {
+            ColaboradorDTO colaboradorDTO = new ColaboradorDTOBuilder()
+                .WithId(Id)
+                .WithPNome(PNome)
+                .WithSNome(SNome)
+                .WithCpf(Cpf)
+                .WithRg(Rg)
+                .WithIdEmpresa(IdEmpresa)                
+                .Builder();
+            
+            return colaboradorDTO;
+        }
     }
 }
