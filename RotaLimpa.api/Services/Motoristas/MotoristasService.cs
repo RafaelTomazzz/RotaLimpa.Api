@@ -39,7 +39,7 @@ namespace RotaLimpa.Api.Services
 
         public async Task<Motorista> CreateMotoristaAsync(Motorista motorista)
         {
-            Motorista currentMotorista = await _motoristasRepository.GetMotoristaByCpfAsync(motorista.Cpf);
+            Motorista currentMotorista = await _motoristasRepository.GetMotoristaByCPFAsync(motorista.Cpf);
             if (currentMotorista != null && currentMotorista.Equals(motorista))
             {
                 throw new Exception("Motorista already exists.");
@@ -79,7 +79,7 @@ namespace RotaLimpa.Api.Services
             return motorista;
         }
 
-        public async Task<string> GerarUnicoLoginAsync()
+        /*public async Task<string> GerarUnicoLoginAsync()
         {
             int currentYear = DateTime.Now.Year;
             int ultimoNumeroLogin = await _motoristasRepository.ObterUltimoNumeroLoginAsync(currentYear);
@@ -100,7 +100,7 @@ namespace RotaLimpa.Api.Services
         private async Task<bool> ExisteMotoristaNoAnoAtualAsync(int currentYear)
         {
             return await _motoristasRepository.ObterUltimoNumeroLoginAsync(currentYear) > 0;
-        }
+        }*/
 
     }
 }

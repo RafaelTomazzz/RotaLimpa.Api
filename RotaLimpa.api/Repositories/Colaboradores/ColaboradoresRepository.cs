@@ -47,5 +47,10 @@ namespace RotaLimpa.Api.Repositories
                 .MaxAsync();
         }
 
+        public async Task<Colaborador> GetColaboradorByCPFAsync(string cpf)
+        {
+            return await _context.Colaboradores.FirstOrDefaultAsync(f => f.Cpf == cpf);
+        }
+
     }
 }
