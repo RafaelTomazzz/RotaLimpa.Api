@@ -32,12 +32,12 @@ namespace RotaLimpa.Tests.Services
         public async Task ShouldGenerateLogin999()
         {
             string loginAtual = "";
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 999; i++)
             {
                 loginAtual = await _service.GerarUnicoLoginAsync();
 
             }
-            var expectedLogin = "0041123";
+            var expectedLogin = "0011123"; //consulta no banco de dados de motorista quantos estão cadastrados
             Assert.Equal(loginAtual, expectedLogin);
         }
     }
