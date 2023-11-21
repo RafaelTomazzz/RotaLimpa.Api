@@ -39,7 +39,7 @@ namespace RotaLimpa.Api.Services
 
         public async Task<Colaborador> CreateColaboradorAsync(Colaborador colaborador)
         {
-            Colaborador currentColaborador = await _colaboradoresRepository.GetColaboradorByIdAsync(colaborador.Id);
+            Colaborador currentColaborador = await _colaboradoresRepository.GetColaboradorByCPFAsync(colaborador.Cpf);
             if (currentColaborador != null && currentColaborador.Equals(colaborador))
             {
                 throw new Exception("Colaborador already exists.");

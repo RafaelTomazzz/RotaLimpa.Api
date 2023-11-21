@@ -47,5 +47,10 @@ namespace RotaLimpa.Api.Repositories
                 .MaxAsync();
         }
 
+        public async Task<Motorista> GetMotoristaByCPFAsync(string cpf)
+        {
+            return await _context.Motoristas.FirstOrDefaultAsync(m => m.Cpf == cpf);
+        }
+
     }
 }

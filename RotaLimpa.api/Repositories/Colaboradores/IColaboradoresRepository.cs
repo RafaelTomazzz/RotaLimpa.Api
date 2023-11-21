@@ -13,5 +13,6 @@ namespace RotaLimpa.Api.Repositories.Interfaces
         public Task CreateColaboradorAsync(Colaborador colaborador);
         public Task RemoveColaborador(Colaborador colaborador);
         public Task<int> ObterUltimoNumeroLoginAsync(int currentYear);
+        public Task<Colaborador> GetColaboradorByCPFAsync(string cpf);
     }
 }
