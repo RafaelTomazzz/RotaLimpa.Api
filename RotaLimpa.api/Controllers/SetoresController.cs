@@ -8,16 +8,16 @@ namespace RotaLimpa.Api.Controllers
 {
     [ApiController]
     [Route("[Controller]")]
-    public class SetorsController : ControllerBase
+    public class SetoresController : ControllerBase
     {
         private readonly DataContext _context;
 
-        private readonly ISetoresService _setoressService;
+        private readonly ISetoresService _setoresService;
 
-        public SetorsController(DataContext context, ISetoresService setoressService)
+        public SetoresController(DataContext context, ISetoresService setoresService)
         {
             _context = context;
-            _setoressService = setoressService;
+            _setoresService = setoresService;
         }
 
         [HttpGet("GetAll")]
@@ -25,7 +25,7 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                IEnumerable<Setor> lista = await _setoressService.GetAllSetoresAsync();
+                IEnumerable<Setor> lista = await _setoresService.GetAllSetoresAsync();
                 return Ok(lista);
             }
             catch (System.Exception)
@@ -40,7 +40,7 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                Setor setor = await _setoressService.GetSetorByIdAsync(id);
+                Setor setor = await _setoresService.GetSetorByIdAsync(id);
                 return Ok(setor);
             }
             catch (System.Exception)
@@ -55,7 +55,7 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                await _setoressService.CreateSetorAsync(novoSetor);
+                await _setoresService.CreateSetorAsync(novoSetor);
 
                 return Ok(novoSetor);
             }
@@ -71,7 +71,7 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                Setor currentSetor = await _setoressService.UpdateSetorAsync(id, setorAlterado);
+                Setor currentSetor = await _setoresService.UpdateSetorAsync(id, setorAlterado);
 
                 return Ok(currentSetor);
             }
@@ -87,9 +87,9 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                Setor setor = await _setoressService.GetSetorByIdAsync(id);
+                Setor setor = await _setoresService.GetSetorByIdAsync(id);
 
-                await _setoressService.RemoveSetor(id, setor);
+                await _setoresService.RemoveSetor(id, setor);
                 int linhaAfetada = await _context.SaveChangesAsync();
                 
                 return Ok(linhaAfetada);

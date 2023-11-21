@@ -10,12 +10,12 @@ namespace RotaLimpa.Api.Controllers
 {
     [ApiController]
     [Route("[Controller]")]
-    public class ColaboaboradoresController : ControllerBase
+    public class ColaboradoresController : ControllerBase
     {
         private readonly DataContext _context;
         private readonly IColaboradoresService _colaboradoresService;
 
-        public ColaboaboradoresController(DataContext context, IColaboradoresService colaboradoresService)
+        public ColaboaradoresController(DataContext context, IColaboradoresService colaboradoresService)
         {
             _context = context;
             _colaboradoresService = colaboradoresService;

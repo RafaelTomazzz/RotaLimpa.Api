@@ -12,12 +12,12 @@ namespace RotaLimpa.Api.Controllers
 {
     [ApiController]
     [Route("[Controller]")]
-    public class KilimetragensController : ControllerBase
+    public class KilometragensController : ControllerBase
     {
         private readonly DataContext _context;
         private readonly IKilometragensService _kilometragensService;
 
-        public KilimetragensController(DataContext context, IKilometragensService kilometragensService)
+        public KilometragensController(DataContext context, IKilometragensService kilometragensService)
         {
             _context = context;
             _kilometragensService = kilometragensService;
