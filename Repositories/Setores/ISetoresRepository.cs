@@ -1,6 +1,6 @@
 using RotaLimpa.Api.Models;
 
-namespace RotaLimpa.Api.Repositores.Setores
+namespace RotaLimpa.Api.Repositories.Setores
 {
     public interface ISetoresRepository
     {

@@ -2,9 +2,9 @@ using Microsoft.AspNetCore.Mvc.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using RotaLimpa.Api.Data;
 using RotaLimpa.Api.Models;
-using RotaLimpa.Api.Repositores.Setores;
+using RotaLimpa.Api.Repositories.Setores;
 
-namespace RotaLimpa.Api.Repositores.Setores
+namespace RotaLimpa.Api.Repositories.Setores
 {
     public class SetoresRepository : ISetoresRepository
     {

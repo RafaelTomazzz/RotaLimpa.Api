@@ -1,5 +1,5 @@
 using RotaLimpa.Api.Services.Setores;
-using RotaLimpa.Api.Repositores.Setores;
+using RotaLimpa.Api.Repositories.Setores;
 using RotaLimpa.Api.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
 using System.Reflection.Metadata.Ecma335;

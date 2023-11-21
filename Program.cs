@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using RotaLimpa.Api.Data;
-using RotaLimpa.Api.Repositores.Setores;
+using RotaLimpa.Api.Repositories.Setores;
 using RotaLimpa.Api.Services.Setores;
 
 
