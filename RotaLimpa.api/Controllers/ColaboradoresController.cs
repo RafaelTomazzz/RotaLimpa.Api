@@ -15,7 +15,8 @@ namespace RotaLimpa.Api.Controllers
         private readonly DataContext _context;
         private readonly IColaboradoresService _colaboradoresService;
 
-        public ColaboaradoresController(DataContext context, IColaboradoresService colaboradoresService)
+        public 
+            (DataContext context, IColaboradoresService colaboradoresService)
         {
             _context = context;
             _colaboradoresService = colaboradoresService;
