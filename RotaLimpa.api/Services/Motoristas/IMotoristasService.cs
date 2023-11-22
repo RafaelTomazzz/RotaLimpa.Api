@@ -13,7 +13,7 @@ namespace RotaLimpa.Api.Services
 
         public Task<Motorista> GetMotoristaByIdAsync(int id);
 
-        public Task<Motorista> CreateMotoristaAsync(Motorista motorista);
+        public Task<Motorista> CreateMotoristaAsync(Motorista novoMotorista);
 
         public Task<Motorista> UpdateMotoristaAsync(int id, Motorista motorista);
 

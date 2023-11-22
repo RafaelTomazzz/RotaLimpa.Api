@@ -28,9 +28,9 @@ namespace RotaLimpa.Api.Repositories
             return await _context.Motoristas.FirstOrDefaultAsync(m => m.Id == id);
         }
         
-        public async Task CreateMotoristaAsync(Motorista motorista)
+        public async Task CreateMotoristaAsync(Motorista novoMotorista)
         {
-            await _context.AddAsync(motorista);
+            await _context.AddAsync(novoMotorista);
         }
 
         public async Task RemoveMotorista(Motorista motorista)

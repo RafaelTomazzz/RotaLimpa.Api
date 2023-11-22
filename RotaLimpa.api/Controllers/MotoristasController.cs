@@ -55,7 +55,7 @@ namespace RotaLimpa.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(Motorista novoMotorista)
+        public async Task<IActionResult> Add([FromBody] Motorista novoMotorista)
         {
             try
             {

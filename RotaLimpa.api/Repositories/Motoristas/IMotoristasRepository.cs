@@ -6,7 +6,7 @@ namespace RotaLimpa.Api.Repositories.Interfaces
     {
         public Task<IEnumerable<Motorista>> GetAllMotoristasAsync();
         public Task<Motorista> GetMotoristaByIdAsync(int id);
-        public Task CreateMotoristaAsync(Motorista motorista);
+        public Task CreateMotoristaAsync(Motorista novoMotorista);
         public Task RemoveMotorista(Motorista motorista);
         public Task<int> ObterUltimoNumeroLoginAsync();
         public Task<Motorista> GetMotoristaByCPFAsync(string cpf);
