@@ -6,6 +6,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using RotaLimpa.Api.Models.Enum;
 using Microsoft.EntityFrameworkCore;
+using RotaLimpa.Api.DTO;
+using RotaLimpa.Api.DTO.Builder;
 
 namespace RotaLimpa.Api.Models
 {
@@ -39,5 +41,41 @@ namespace RotaLimpa.Api.Models
         public DateTime? DaSetor { get; set; }
         [Column("St_Setor")]
         public string StSetor { get; set; } = "1";
+
+                public Setor()
+        {}
+
+        public Setor(int id)
+        {
+            Id = id;
+        }
+        public Setor(int id, int idcolaborador)
+        {
+            Id = id;
+            IdColaborador = idcolaborador;
+        }
+        public Setor(int id, int idcolaborador, int idempresa)
+        {
+            Id = id;
+            IdColaborador = idcolaborador;
+            IdEmpresa = idempresa;
+        }
+        public Setor(int id, int idcolaborador, int idempresa, TiposServico tipoServico)
+        {
+            Id = id;
+            IdColaborador = idcolaborador;
+            IdEmpresa = idempresa;
+            TipoServico = tipoServico;
+        }
+        public SetorDTO ToSetor()
+        {
+            SetorDTO setorDTO = new SetorDTOBuilder()
+                .WithId(Id)
+                .WithIdColaborador(IdColaborador)
+                .WithIdEmpresa(IdEmpresa)
+                .WithTipoServico(TipoServico)
+                .Build();
+            return setorDTO;
+        }
     }
 }
