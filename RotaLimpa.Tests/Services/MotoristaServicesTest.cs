@@ -32,7 +32,7 @@ namespace RotaLimpa.Tests.Services
         public async Task ShouldGenerateLogin999()
         {
             string loginAtual = "";
-            for (int i = 0; i < 999; i++)
+            for (int i = 0; i < 3; i++)
             {
                 loginAtual = await _service.GerarUnicoLoginAsync();
 

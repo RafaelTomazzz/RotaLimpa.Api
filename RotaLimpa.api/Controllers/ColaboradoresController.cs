@@ -15,8 +15,7 @@ namespace RotaLimpa.Api.Controllers
         private readonly DataContext _context;
         private readonly IColaboradoresService _colaboradoresService;
 
-        public 
-            (DataContext context, IColaboradoresService colaboradoresService)
+        public ColaboradoresController(DataContext context, IColaboradoresService colaboradoresService)
         {
             _context = context;
             _colaboradoresService = colaboradoresService;
@@ -57,7 +56,6 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                //novoColaborador.Login = await _colaboradoresService.GerarUnicoLoginAsync();
                 await _colaboradoresService.CreateColaboradorAsync(novoColaborador);
 
                 return Ok(novoColaborador);

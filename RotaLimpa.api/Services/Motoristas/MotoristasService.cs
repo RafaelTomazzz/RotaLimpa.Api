@@ -44,11 +44,10 @@ namespace RotaLimpa.Api.Services
             {
                 throw new Exception("Motorista already exists.");
             }
-            //motorista.Login = await GerarUnicoLoginAsync();
-            motorista.SNome = "Maumau";
+            motorista.Login = await GerarUnicoLoginAsync();
             await _motoristasRepository.CreateMotoristaAsync(motorista);
             await _unitOfWork.SaveChangesAsync();
-            return currentMotorista;
+            return motorista;
         }
 
         public async Task<Motorista> UpdateMotoristaAsync(int id, Motorista motorista)
@@ -82,25 +81,26 @@ namespace RotaLimpa.Api.Services
 
         public async Task<string> GerarUnicoLoginAsync()
         {
-            int currentYear = DateTime.Now.Year;
-            int ultimoNumeroLogin = await _motoristasRepository.ObterUltimoNumeroLoginAsync(currentYear);
+            DateTime currentYear = DateTime.Now;
+            DateTime ultimaDate = await _motoristasRepository.BuscarUltimaCriacao();
+            string login;
 
-            if (!await ExisteMotoristaNoAnoAtualAsync(currentYear))
+            if (currentYear.Year != ultimaDate.Year)
             {
-                return $"001{DateTime.Now.ToString("MMyy")}";
+                login = "001" + $"{DateTime.Now.ToString("MMyy")}";
+                return login;
             }
 
-            if (ultimoNumeroLogin >= 999)
+            int ultimoSequencialLogin = await _motoristasRepository.ObterUltimoNumeroLoginAsync();
+
+            if (ultimoSequencialLogin >= 999)
             {
-                return $"001{DateTime.Now.ToString("MMyy")}";
+                login = "001" + $"{DateTime.Now.ToString("MMyy")}";
+                return login;
             }
 
-            return $"{ultimoNumeroLogin + 1:D3}{DateTime.Now.ToString("MMyy")}";
-        }
-
-        private async Task<bool> ExisteMotoristaNoAnoAtualAsync(int currentYear)
-        {
-            return await _motoristasRepository.ObterUltimoNumeroLoginAsync(currentYear) > 0;
+            login = $"{ultimoSequencialLogin + 1:D3}" + $"{DateTime.Now.ToString("MMyy")}";
+            return login;
         }
 
     }

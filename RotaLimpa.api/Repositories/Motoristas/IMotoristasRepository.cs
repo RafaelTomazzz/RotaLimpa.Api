@@ -8,8 +8,9 @@ namespace RotaLimpa.Api.Repositories.Interfaces
         public Task<Motorista> GetMotoristaByIdAsync(int id);
         public Task CreateMotoristaAsync(Motorista motorista);
         public Task RemoveMotorista(Motorista motorista);
-        public Task<int> ObterUltimoNumeroLoginAsync(int currentYear);
+        public Task<int> ObterUltimoNumeroLoginAsync();
         public Task<Motorista> GetMotoristaByCPFAsync(string cpf);
+        public Task<DateTime> BuscarUltimaCriacao();
 
     }
 }

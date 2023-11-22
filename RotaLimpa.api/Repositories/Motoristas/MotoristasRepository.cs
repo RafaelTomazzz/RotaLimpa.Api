@@ -38,13 +38,16 @@ namespace RotaLimpa.Api.Repositories
             _context.Motoristas.Remove(motorista);
         }
 
-        public async Task<int> ObterUltimoNumeroLoginAsync(int currentYear)
+        public async Task<int> ObterUltimoNumeroLoginAsync()
         {
-            return await _context.Motoristas
-                .Where(m => m.Di_Motorista.Year == currentYear)
-                .Select(m => int.Parse(m.Login.Substring(3, 3)))
-                .DefaultIfEmpty(0)
-                .MaxAsync();
+            List<int> listaDeLogin = await _context.Motoristas
+                .Select(m => int.Parse(m.Login.Substring(0, 3)))
+                .ToListAsync();
+
+            int MaxLogin = listaDeLogin.Max();
+
+
+            return MaxLogin;
         }
 
         public async Task<Motorista> GetMotoristaByCPFAsync(string cpf)
@@ -52,5 +55,10 @@ namespace RotaLimpa.Api.Repositories
             return await _context.Motoristas.FirstOrDefaultAsync(m => m.Cpf == cpf);
         }
 
+        public async Task<DateTime> BuscarUltimaCriacao()
+        {
+            DateTime ultimaDate = await _context.Motoristas.MaxAsync(m => m.Di_Motorista);
+            return ultimaDate;
+        }
     }
 }
