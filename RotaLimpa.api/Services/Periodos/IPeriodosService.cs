@@ -9,6 +9,6 @@ namespace RotaLimpa.Api.Services
         public Task<Periodo> GetPeriodoByIdAsync(int id);
         public Task<Periodo> CreatePeriodoAsync(Periodo periodo);
         public Task<Periodo> UpdatePeriodoAsync(int id, Periodo periodo);
-        public Task<Periodo> RemovePeriodo(int id, Periodo periodo);
+        public Task RemovePeriodo(int id);
     }
 }

@@ -63,13 +63,13 @@ namespace RotaLimpa.Api.Services
             return hisLoginM;
         }
 
-        public async Task<HisLoginM> RemoveHisLoginM(int id, HisLoginM hisLoginM)
+        public async Task RemoveHisLoginM(int id)
         {
             HisLoginM currentHisLoginM = await _hisLoginMsRepository.GetHisLoginMByIdAsync(id);
-            await _hisLoginMsRepository.RemoveHisLoginM(hisLoginM);
+            await _hisLoginMsRepository.RemoveHisLoginM(currentHisLoginM);
             await _unitOfWork.SaveChangesAsync();
 
-            return hisLoginM;
+            return;
         }
 
     }

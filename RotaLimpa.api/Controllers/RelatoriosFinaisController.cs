@@ -82,17 +82,14 @@ namespace RotaLimpa.Api.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             try
             {
-                RelatorioFinal relatorioFinal = await _relatoriosFinaisService.GetRelatorioFinalByIdAsync(id);
-
-                await _relatoriosFinaisService.RemoveRelatorioFinal(id, relatorioFinal);
-                int linhaAfetada = await _context.SaveChangesAsync();
+                await _relatoriosFinaisService.RemoveRelatorioFinal(id);
                 
-                return Ok(linhaAfetada);
+                return Ok("Deletado com sucesso");
             }
             catch (System.Exception)
             {

@@ -66,13 +66,13 @@ namespace RotaLimpa.Api.Services
             return frota;
         }
 
-        public async Task<Frota> RemoveFrota(int id, Frota frota)
+        public async Task RemoveFrota(int id)
         {
             Frota currentFrota = await _frotasRepository.GetFrotaByIdAsync(id);
-            await _frotasRepository.RemoveFrota(frota);
+            await _frotasRepository.RemoveFrota(currentFrota);
             await _unitOfWork.SaveChangesAsync();
 
-            return frota;
+            return;
         }
 
     }

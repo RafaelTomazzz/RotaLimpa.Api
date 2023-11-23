@@ -17,6 +17,6 @@ namespace RotaLimpa.Api.Services
 
         public Task<Trajeto> UpdateTrajetoAsync(int id, Trajeto trajeto);
 
-        public Task<Trajeto> RemoveTrajeto(int id, Trajeto trajeto);
+        public Task RemoveTrajeto(int id);
     }
 }

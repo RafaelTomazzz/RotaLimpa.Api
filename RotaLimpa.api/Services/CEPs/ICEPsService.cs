@@ -17,6 +17,6 @@ namespace RotaLimpa.Api.Services
 
         public Task<CEP> UpdateCEPAsync(int id, CEP cep);
 
-        public Task<CEP> RemoveCEP(int id, CEP cep);
+        public Task RemoveCEP(int id);
     }
 }

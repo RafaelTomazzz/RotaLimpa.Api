@@ -73,13 +73,13 @@ namespace RotaLimpa.Api.Services
             return colaborador;
         }
 
-        public async Task<Colaborador> RemoveColaborador(int id, Colaborador colaborador)
+        public async Task RemoveColaborador(int id)
         {
             Colaborador currentColaborador = await _colaboradoresRepository.GetColaboradorByIdAsync(id);
-            await _colaboradoresRepository.RemoveColaborador(colaborador);
+            await _colaboradoresRepository.RemoveColaborador(currentColaborador);
             await _unitOfWork.SaveChangesAsync();
 
-            return colaborador;
+            return;
         }
 
         private async Task<string> GerarUnicoLoginAsync()

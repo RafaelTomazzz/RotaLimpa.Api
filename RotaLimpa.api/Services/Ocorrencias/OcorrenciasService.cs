@@ -65,13 +65,13 @@ namespace RotaLimpa.Api.Services
             return ocorrencia;
         }
 
-        public async Task<Ocorrencia> RemoveOcorrencia(int id, Ocorrencia ocorrencia)
+        public async Task RemoveOcorrencia(int id)
         {
             Ocorrencia currentOcorrencia = await _ocorrenciasRepository.GetOcorrenciaByIdAsync(id);
-            await _ocorrenciasRepository.RemoveOcorrencia(ocorrencia);
+            await _ocorrenciasRepository.RemoveOcorrencia(currentOcorrencia);
             await _unitOfWork.SaveChangesAsync();
 
-            return ocorrencia;
+            return;
         }
     }
 }

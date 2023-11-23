@@ -17,6 +17,6 @@ namespace RotaLimpa.Api.Services
 
         public Task<Empresa> UpdateEmpresaAsync(int id, Empresa empresa);
 
-        public Task<Empresa> RemoveEmpresa(int id, Empresa empresa);
+        public Task RemoveEmpresa(int id);
     }
 }

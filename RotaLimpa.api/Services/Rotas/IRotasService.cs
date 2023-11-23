@@ -8,6 +8,6 @@ namespace RotaLimpa.Api.Services
         public Task<Rota> GetRotaByIdAsync(int id);
         public Task<Rota> CreateRotaAsync(Rota rota);
         public Task<Rota> UpdateRotaAsync(int id, Rota rota);
-        public Task<Rota> RemoveRota(int id, Rota rota);
+        public Task RemoveRota(int id);
     }
 }

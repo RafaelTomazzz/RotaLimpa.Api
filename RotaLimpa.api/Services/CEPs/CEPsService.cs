@@ -70,13 +70,13 @@ namespace RotaLimpa.Api.Services
             return cep;
         }
 
-        public async Task<CEP> RemoveCEP(int id, CEP cep)
+        public async Task RemoveCEP(int id)
         {
             CEP currentCEP = await _cepsRepository.GetCEPByIdAsync(id);
-            await _cepsRepository.RemoveCEP(cep);
+            await _cepsRepository.RemoveCEP(currentCEP);
             await _unitOfWor.SaveChangesAsync();
 
-            return cep;
+            return;
         }
     }
 }

@@ -17,7 +17,7 @@ namespace RotaLimpa.Api.Services
 
         public Task<Motorista> UpdateMotoristaAsync(int id, Motorista motorista);
 
-        public Task<Motorista> RemoveMotorista(int id, Motorista motorista);
+        public Task RemoveMotorista(int id);
 
         //public Task<string> GerarUnicoLoginAsync();
     }

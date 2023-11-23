@@ -68,13 +68,13 @@ namespace RotaLimpa.Api.Services
             return trajeto;
         }
 
-        public async Task<Trajeto> RemoveTrajeto(int id, Trajeto trajeto)
+        public async Task RemoveTrajeto(int id)
         {
             Trajeto currentTrajeto = await _trajetosRepository.GetTrajetoByIdAsync(id);
-            await _trajetosRepository.RemoveTrajeto(trajeto);
+            await _trajetosRepository.RemoveTrajeto(currentTrajeto);
             await _unitOfWork.SaveChangesAsync();
 
-            return trajeto;
+            return;
         }
     }
 }

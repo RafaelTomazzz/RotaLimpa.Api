@@ -60,13 +60,13 @@ namespace RotaLimpa.Api.Services
         }
 
 
-        public  async Task<SetorVeiculo> RemoveSetorVeiculo(int id, SetorVeiculo setorVeiculo)
+        public  async Task RemoveSetorVeiculo(int id)
         {
-            SetorVeiculo currentSetorVeiculo = await _setorVeiculosRepository.GetSetorVeiculoByIdAsync(setorVeiculo.IdSetor);
-            await _setorVeiculosRepository.RemoveSetorVeiculo(setorVeiculo);
+            SetorVeiculo currentSetorVeiculo = await _setorVeiculosRepository.GetSetorVeiculoByIdAsync(id);
+            await _setorVeiculosRepository.RemoveSetorVeiculo(currentSetorVeiculo);
             await _unitOfWork.SaveChangesAsync();
 
-            return setorVeiculo;
+            return;
         }
 
         

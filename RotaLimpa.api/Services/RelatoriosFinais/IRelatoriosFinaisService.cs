@@ -8,6 +8,6 @@ namespace RotaLimpa.Api.Services
         public Task<RelatorioFinal> GetRelatorioFinalByIdAsync(int id);
         public Task<RelatorioFinal> CreateRelatorioFinalAsync(RelatorioFinal relatorioFinal);
         public Task<RelatorioFinal> UpdateRelatorioFinalAsync(int id, RelatorioFinal relatorioFinal);
-        public Task<RelatorioFinal> RemoveRelatorioFinal(int id, RelatorioFinal relatorioFinal);
+        public Task RemoveRelatorioFinal(int id);
     }
 }

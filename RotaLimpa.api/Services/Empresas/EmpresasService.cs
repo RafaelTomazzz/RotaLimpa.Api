@@ -66,13 +66,13 @@ namespace RotaLimpa.Api.Services
             return empresa;
         }
 
-        public async Task<Empresa> RemoveEmpresa(int id, Empresa empresa)
+        public async Task RemoveEmpresa(int id)
         {
             Empresa currentEmpresa = await _empresasRepository.GetEmpresaByIdAsync(id);
-            await _empresasRepository.RemoveEmpresa(empresa);
+            await _empresasRepository.RemoveEmpresa(currentEmpresa);
             await _unitOfWork.SaveChangesAsync();
 
-            return empresa;
+            return;
         }
 
     }
