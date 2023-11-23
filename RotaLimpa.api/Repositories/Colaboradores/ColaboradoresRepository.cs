@@ -38,18 +38,27 @@ namespace RotaLimpa.Api.Repositories
             _context.Colaboradores.Remove(colaborador);
         }
 
-        public async Task<int> ObterUltimoNumeroLoginAsync(int currentYear)
+        public async Task<int> ObterUltimoNumeroLoginAsync()
         {
-            return await _context.Colaboradores
-                .Where(m => m.Di_Colaborador.Year == currentYear)
-                .Select(m => int.Parse(m.Login.Substring(3, 3)))
-                .DefaultIfEmpty(0)
-                .MaxAsync();
+            List<int> listaDeLogin = await _context.Colaboradores
+                .Select(m => int.Parse(m.Login.Substring(0, 3)))
+                .ToListAsync();
+
+            int MaxLogin = listaDeLogin.Max();
+
+
+            return MaxLogin;
         }
 
         public async Task<Colaborador> GetColaboradorByCPFAsync(string cpf)
         {
             return await _context.Colaboradores.FirstOrDefaultAsync(f => f.Cpf == cpf);
+        }
+
+        public async Task<DateTime> BuscarUltimaCriacao()
+        {
+            DateTime ultimaDate = await _context.Colaboradores.MaxAsync(m => m.Di_Colaborador);
+            return ultimaDate;
         }
 
     }

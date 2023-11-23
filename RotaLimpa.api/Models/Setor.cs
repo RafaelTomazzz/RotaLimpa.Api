@@ -38,7 +38,7 @@ namespace RotaLimpa.Api.Models
         [Column("Di_Setor")]
         public DateTime DiSetor { get; private set; } = DateTime.Now;
         [Column("Da_Setor")]
-        public DateTime? DaSetor { get; set; }
+        public DateTime? DaSetor { get; set; } = DateTime.Now;
         [Column("St_Setor")]
         public string StSetor { get; set; } = "1";
 

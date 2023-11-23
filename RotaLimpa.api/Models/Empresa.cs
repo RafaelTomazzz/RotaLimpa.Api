@@ -49,6 +49,9 @@ namespace RotaLimpa.Api.Models
         [Comment("DATA DA ULTIMA ALTERAÇÃO")]
         public DateTime? DaEmpresa { get; set; } = DateTime.Now;
 
+        public Empresa() 
+        { }
+
         public Empresa(int id)
         {
             Id = id;

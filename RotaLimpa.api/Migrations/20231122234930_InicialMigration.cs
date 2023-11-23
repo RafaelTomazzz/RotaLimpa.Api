@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RotaLimpa.Api.Migrations
 {
     /// <inheritdoc />
-    public partial class IncialMigration : Migration
+    public partial class InicialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -54,7 +54,7 @@ namespace RotaLimpa.Api.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    P_Veiculo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    P_Veiculo = table.Column<string>(type: "nvarchar(max)", nullable: false, comment: "placa do veiculo"),
                     Tmn_Veiculo = table.Column<double>(type: "float", nullable: false, comment: "Tamanho do ve�culo"),
                     Di_Veiculo = table.Column<DateTime>(type: "datetime2", nullable: false),
                     St_Veiculo = table.Column<string>(type: "nvarchar(max)", nullable: false)

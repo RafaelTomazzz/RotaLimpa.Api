@@ -17,6 +17,6 @@ namespace RotaLimpa.Api.Services
 
         public Task<Kilometragem> UpdateKilometragemAsync(int id, Kilometragem kilometragem);
 
-        public Task<Kilometragem> RemoveKilometragem(int id, Kilometragem kilometragem);
+        public Task RemoveKilometragem(int id);
     }
 }

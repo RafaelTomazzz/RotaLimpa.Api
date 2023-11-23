@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RotaLimpa.Api.Data;
 
@@ -11,9 +12,11 @@ using RotaLimpa.Api.Data;
 namespace RotaLimpa.Api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20231123004503_ModelMigration")]
+    partial class ModelMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -106,6 +109,7 @@ namespace RotaLimpa.Api.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Login")
+                        .IsRequired()
                         .HasMaxLength(7)
                         .HasColumnType("nvarchar(7)")
                         .HasColumnName("Login");
@@ -315,6 +319,7 @@ namespace RotaLimpa.Api.Migrations
                         .HasComment("Data de cria��o do Motorista");
 
                     b.Property<string>("Login")
+                        .IsRequired()
                         .HasMaxLength(7)
                         .HasColumnType("nvarchar(7)")
                         .HasColumnName("Login");
@@ -797,7 +802,8 @@ namespace RotaLimpa.Api.Migrations
 
             modelBuilder.Entity("RotaLimpa.Api.Models.Frota", b =>
                 {
-                    b.Navigation("Kilometragem");
+                    b.Navigation("Kilometragem")
+                        .IsRequired();
 
                     b.Navigation("SetorVeiculos");
 

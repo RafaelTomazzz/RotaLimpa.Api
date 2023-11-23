@@ -6,6 +6,7 @@ using RotaLimpa.Api.Models;
 using RotaLimpa.Api.Repositories.Interfaces;
 using RotaLimpa.Api.Repositories.UnitOfWork;
 using RotaLimpa.Api.Exceptions;
+using RotaLimpa.Api.Repositories;
 
 namespace RotaLimpa.Api.Services
 {
@@ -44,9 +45,12 @@ namespace RotaLimpa.Api.Services
             {
                 throw new Exception("Colaborador already exists.");
             }
+
+            colaborador.Login = await GerarUnicoLoginAsync();
+
             await _colaboradoresRepository.CreateColaboradorAsync(colaborador);
             await _unitOfWork.SaveChangesAsync();
-            return currentColaborador;
+            return colaborador;
         }
 
         public async Task<Colaborador> UpdateColaboradorAsync(int id, Colaborador colaborador)
@@ -69,36 +73,42 @@ namespace RotaLimpa.Api.Services
             return colaborador;
         }
 
-        public async Task<Colaborador> RemoveColaborador(int id, Colaborador colaborador)
+        public async Task RemoveColaborador(int id)
         {
             Colaborador currentColaborador = await _colaboradoresRepository.GetColaboradorByIdAsync(id);
-            await _colaboradoresRepository.RemoveColaborador(colaborador);
+            await _colaboradoresRepository.RemoveColaborador(currentColaborador);
             await _unitOfWork.SaveChangesAsync();
 
-            return colaborador;
+            return;
         }
 
-        public async Task<string> GerarUnicoLoginAsync()
+        private async Task<string> GerarUnicoLoginAsync()
         {
-            int currentYear = DateTime.Now.Year;
-            int ultimoNumeroLogin = await _colaboradoresRepository.ObterUltimoNumeroLoginAsync(currentYear);
+            DateTime currentYear = DateTime.Now;
+            DateTime ultimaDate = await _colaboradoresRepository.BuscarUltimaCriacao();
+            string login;
 
-            if (!await ExisteMotoristaNoAnoAtualAsync(currentYear))
+            if (ultimaDate == null) 
             {
-                return $"1{DateTime.Now.ToString("MMyy")}";
+                ultimaDate = DateTime.Now;
             }
 
-            if (ultimoNumeroLogin >= 999)
+            if (currentYear.Year != ultimaDate.Year)
             {
-                return $"1{DateTime.Now.ToString("MMyy")}";
+                login = "001" + $"{DateTime.Now.ToString("MMyy")}";
+                return login;
             }
 
-            return $"{ultimoNumeroLogin + 1:D3}{DateTime.Now.ToString("MMyy")}";
-        }
+            int ultimoSequencialLogin = await _colaboradoresRepository.ObterUltimoNumeroLoginAsync();
 
-        private async Task<bool> ExisteMotoristaNoAnoAtualAsync(int currentYear)
-        {
-            return await _colaboradoresRepository.ObterUltimoNumeroLoginAsync(currentYear) > 0;
+            if (ultimoSequencialLogin >= 999)
+            {
+                login = "001" + $"{DateTime.Now.ToString("MMyy")}";
+                return login;
+            }
+
+            login = $"{ultimoSequencialLogin + 1:D3}" + $"{DateTime.Now.ToString("MMyy")}";
+            return login;
         }
 
     }

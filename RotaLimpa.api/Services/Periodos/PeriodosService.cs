@@ -61,13 +61,13 @@ namespace RotaLimpa.Api.Services
             return periodo;
 
         }
-        public async Task<Periodo> RemovePeriodo(int id, Periodo periodo)
+        public async Task RemovePeriodo(int id)
         {
             Periodo CurrentPeriodo = await _periodoRepository.GetPeriodoByIdAsync(id);
-            await _periodoRepository.RemovePeriodo(periodo);
+            await _periodoRepository.RemovePeriodo(CurrentPeriodo);
             await _unitOfWork.SaveChangesAsync();
 
-            return periodo;
+            return;
 
         }
     }

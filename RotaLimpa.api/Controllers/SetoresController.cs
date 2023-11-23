@@ -30,7 +30,7 @@ namespace RotaLimpa.Api.Controllers
             }
             catch (System.Exception)
             {
-                
+
                 throw;
             }
         }
@@ -45,7 +45,7 @@ namespace RotaLimpa.Api.Controllers
             }
             catch (System.Exception)
             {
-                
+
                 throw;
             }
         }
@@ -61,7 +61,7 @@ namespace RotaLimpa.Api.Controllers
             }
             catch (System.Exception)
             {
-                
+
                 throw;
             }
         }
@@ -77,22 +77,19 @@ namespace RotaLimpa.Api.Controllers
             }
             catch (System.Exception)
             {
-                
+
                 throw;
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             try
             {
-                Setor setor = await _setoresService.GetSetorByIdAsync(id);
-
-                await _setoresService.RemoveSetor(id, setor);
-                int linhaAfetada = await _context.SaveChangesAsync();
+                await _setoresService.RemoveSetor(id);
                 
-                return Ok(linhaAfetada);
+                return Ok("Deletado com sucesso");
             }
             catch (System.Exception)
             {

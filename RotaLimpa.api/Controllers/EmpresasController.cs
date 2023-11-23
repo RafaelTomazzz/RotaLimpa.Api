@@ -54,11 +54,14 @@ namespace RotaLimpa.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody] Empresa novoEmpresa)
+        public async Task<IActionResult> Add(Empresa novoEmpresa)
         {
             try
             {
-                await _empresasService.CreateEmpresaAsync(novoEmpresa);
+                //await _empresasService.CreateEmpresaAsync(novoEmpresa);
+
+                await _context.AddAsync(novoEmpresa);
+                await _context.SaveChangesAsync();
 
                 return Ok(novoEmpresa);
             }
@@ -85,17 +88,14 @@ namespace RotaLimpa.Api.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             try
             {
-                Empresa empresa = await _empresasService.GetEmpresaByIdAsync(id);
-
-                await _empresasService.RemoveEmpresa(id, empresa);
-                int linhaAfetada = await _context.SaveChangesAsync();
+                await _empresasService.RemoveEmpresa(id);
                 
-                return Ok(linhaAfetada);
+                return Ok("Deletado com sucesso");
             }
             catch (System.Exception)
             {

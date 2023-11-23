@@ -17,6 +17,6 @@ namespace RotaLimpa.Api.Services
 
         public Task<Frota> UpdateFrotaAsync(int id, Frota frota);
 
-        public Task<Frota> RemoveFrota(int id, Frota frota);
+        public Task RemoveFrota(int id);
     }
 }

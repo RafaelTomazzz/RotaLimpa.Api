@@ -21,7 +21,7 @@ namespace RotaLimpa.Api.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Required]
+        //[Required]
         [ForeignKey("Id_Empresa")]
         public int IdEmpresa { get; set; }
         [NotMapped]
@@ -63,11 +63,11 @@ namespace RotaLimpa.Api.Models
         private string Chave { get; set; }
         private string IV { get; set; }
 
-        [Required]
+        //[Required]
         [Column("Login")]
         [StringLength(7)]
-        [NotNull]
-        public string Login { get; set; }
+        //[NotNull]
+        public string? Login { get; set; }
 
         [Required]
         [Column("Senha")]

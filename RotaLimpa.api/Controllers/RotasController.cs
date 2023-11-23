@@ -83,17 +83,14 @@ namespace RotaLimpa.Api.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             try
             {
-                Rota rota = await _rotasService.GetRotaByIdAsync(id);
-
-                await _rotasService.RemoveRota(id, rota);
-                int linhaAfetada = await _context.SaveChangesAsync();
+                await _rotasService.RemoveRota(id);
                 
-                return Ok(linhaAfetada);
+                return Ok("Deletado com sucesso");
             }
             catch (System.Exception)
             {

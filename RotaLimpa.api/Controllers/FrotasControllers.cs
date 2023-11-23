@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RotaLimpa.Api.Data;
+using RotaLimpa.Api.DTO;
 using RotaLimpa.Api.Models;
 using RotaLimpa.Api.Services;
+using RotaLimpa.Api.DTO.Builder;
 
 namespace RotaLimpa.Api.Controllers
 {
@@ -86,17 +88,14 @@ namespace RotaLimpa.Api.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             try
             {
-                Frota frota = await _frotasService.GetFrotaByIdAsync(id);
-
-                await _frotasService.RemoveFrota(id, frota);
-                int linhaAfetada = await _context.SaveChangesAsync();
+                await _frotasService.RemoveFrota(id);
                 
-                return Ok(linhaAfetada);
+                return Ok("Deletado com sucesso");
             }
             catch (System.Exception)
             {

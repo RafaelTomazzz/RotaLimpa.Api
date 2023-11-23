@@ -17,6 +17,6 @@ namespace RotaLimpa.Api.Services
 
         public Task<HisLoginC> UpdateHisLoginCAsync(int id, HisLoginC hisLoginC);
 
-        public Task<HisLoginC> RemoveHisLoginC(int id, HisLoginC hisLoginC);
+        public Task RemoveHisLoginC(int id);
     }
 }

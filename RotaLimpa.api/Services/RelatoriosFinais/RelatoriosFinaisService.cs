@@ -60,13 +60,13 @@ namespace RotaLimpa.Api.Services
             return relatorioFinal;
 
         }
-        public async Task<RelatorioFinal> RemoveRelatorioFinal(int id, RelatorioFinal relatorioFinal)
+        public async Task RemoveRelatorioFinal(int id)
         {
-            RelatorioFinal currentRelatorioFinal = await _relatoriosFinaisRepository.GetRelatorioFinalByIdAsync(relatorioFinal.IdRelatorio);
-            await _relatoriosFinaisRepository.RemoveRelatorioFinal(relatorioFinal);
+            RelatorioFinal currentRelatorioFinal = await _relatoriosFinaisRepository.GetRelatorioFinalByIdAsync(id);
+            await _relatoriosFinaisRepository.RemoveRelatorioFinal(currentRelatorioFinal);
             await _unitOfWork.SaveChangesAsync();
 
-            return relatorioFinal;
+            return;
 
         }
     }

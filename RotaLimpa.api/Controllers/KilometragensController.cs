@@ -85,17 +85,14 @@ namespace RotaLimpa.Api.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             try
             {
-                Kilometragem kilometragem = await _kilometragensService.GetKilometragemByIdAsync(id);
-
-                await _kilometragensService.RemoveKilometragem(id, kilometragem);
-                int linhaAfetada = await _context.SaveChangesAsync();
+                await _kilometragensService.RemoveKilometragem(id);
                 
-                return Ok(linhaAfetada);
+                return Ok("Deletado com sucesso");
             }
             catch (System.Exception)
             {

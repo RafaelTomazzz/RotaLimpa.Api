@@ -58,13 +58,13 @@ namespace RotaLimpa.Api.Services
              await _unitOfWork.SaveChangesAsync();
             return rota;
         }
-        public async Task<Rota> RemoveRota(int id, Rota rota)
+        public async Task RemoveRota(int id)
         {
-            Rota currentRota = await _rotasRepository.GetRotaByIdAsync(rota.Id);
-            await _rotasRepository.RemoveRota(rota);
+            Rota currentRota = await _rotasRepository.GetRotaByIdAsync(id);
+            await _rotasRepository.RemoveRota(currentRota);
             await _unitOfWork.SaveChangesAsync();
 
-            return rota;
+            return;
 
         }
     }
