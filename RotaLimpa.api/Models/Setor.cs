@@ -42,7 +42,7 @@ namespace RotaLimpa.Api.Models
         [Column("St_Setor")]
         public string StSetor { get; set; } = "1";
 
-                public Setor()
+        public Setor()
         {}
 
         public Setor(int id)

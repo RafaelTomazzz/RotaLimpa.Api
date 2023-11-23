@@ -31,8 +31,9 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                IEnumerable<Frota> lista = await _frotasService.GetAllFrotasAsync();
-                return Ok(lista);
+                IEnumerable<Frota> frotas = await _frotasService.GetAllFrotasAsync();
+                IEnumerable<FrotaDTO> frotasDTO = frotas.Select(f => f.ToFrota());
+                return Ok(frotasDTO);
             }
             catch (System.Exception)
             {
@@ -47,7 +48,8 @@ namespace RotaLimpa.Api.Controllers
             try
             {
                 Frota frota = await _frotasService.GetFrotaByIdAsync(id);
-                return Ok(frota);
+                FrotaDTO frotaDTO = frota.ToFrota();
+                return Ok(frotaDTO);
             }
             catch (System.Exception)
             {

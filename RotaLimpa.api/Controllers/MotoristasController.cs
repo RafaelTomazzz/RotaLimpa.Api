@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RotaLimpa.Api.Data;
+using RotaLimpa.Api.DTO;
 using RotaLimpa.Api.Models;
 using RotaLimpa.Api.Services;
 
@@ -25,8 +26,9 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                IEnumerable<Motorista> lista = await _motoristasService.GetAllMotoristasAsync();
-                return Ok(lista);
+                IEnumerable<Motorista> motoristas = await _motoristasService.GetAllMotoristasAsync();
+                IEnumerable<MotoristaDTO> motoristasDTO = motoristas.Select(m => m.ToMotorista());
+                return Ok(motoristasDTO);
             }
             catch (System.Exception)
             {
@@ -41,7 +43,8 @@ namespace RotaLimpa.Api.Controllers
             try
             {
                 Motorista motorista = await _motoristasService.GetMotoristaByIdAsync(id);
-                return Ok(motorista);
+                MotoristaDTO motoristaDTO = motorista.ToMotorista();
+                return Ok(motoristaDTO);
             }
             catch (System.Exception)
             {

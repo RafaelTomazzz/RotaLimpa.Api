@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using RotaLimpa.Api.Services;
+using RotaLimpa.Api.DTO;
 
 namespace RotaLimpa.Api.Controllers 
 {
@@ -26,8 +27,9 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                IEnumerable<Colaborador> lista = await _colaboradoresService.GetAllColaboradoresAsync();
-                return Ok(lista);
+                IEnumerable<Colaborador> colaborador = await _colaboradoresService.GetAllColaboradoresAsync();
+                IEnumerable<ColaboradorDTO> colaboradorDTO = colaborador.Select(c => c.ToColaborador()); 
+                return Ok(colaboradorDTO);
             }
             catch (System.Exception)
             {
@@ -42,7 +44,8 @@ namespace RotaLimpa.Api.Controllers
             try
             {
                 Colaborador colaborador = await _colaboradoresService.GetColaboradorByIdAsync(id);
-                return Ok(colaborador);
+                ColaboradorDTO colaboradorDTO = colaborador.ToColaborador();
+                return Ok(colaboradorDTO);
             }
             catch (System.Exception)
             {

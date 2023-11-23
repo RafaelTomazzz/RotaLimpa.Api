@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using RotaLimpa.Api.Data;
 using RotaLimpa.Api.Models;
 using RotaLimpa.Api.Services;
+using RotaLimpa.Api.DTO;
+using RotaLimpa.Api.DTO.Builder;
 
 namespace RotaLimpa.Api.Controllers
 {
@@ -25,8 +27,9 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                IEnumerable<Setor> lista = await _setoresService.GetAllSetoresAsync();
-                return Ok(lista);
+                IEnumerable<Setor> setores = await _setoresService.GetAllSetoresAsync();
+                IEnumerable<SetorDTO> setoresDTO = setores.Select(s => s.ToSetor());
+                return Ok(setoresDTO);
             }
             catch (System.Exception)
             {
@@ -41,7 +44,8 @@ namespace RotaLimpa.Api.Controllers
             try
             {
                 Setor setor = await _setoresService.GetSetorByIdAsync(id);
-                return Ok(setor);
+                SetorDTO setorDTO = setor.ToSetor();
+                return Ok(setorDTO);
             }
             catch (System.Exception)
             {

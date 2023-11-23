@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using RotaLimpa.Api.Services;
+using RotaLimpa.Api.DTO;
 
 namespace RotaLimpa.Api.Controllers
 {
@@ -28,8 +29,9 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                IEnumerable<Empresa> lista = await _empresasService.GetAllEmpresasAsync();
-                return Ok(lista);
+                IEnumerable<Empresa> empresas = await _empresasService.GetAllEmpresasAsync();
+                IEnumerable<EmpresaDTO> empresasDTO = empresas.Select(e => e.ToEmpresa());
+                return Ok(empresasDTO);
             }
             catch (System.Exception)
             {
@@ -44,7 +46,8 @@ namespace RotaLimpa.Api.Controllers
             try
             {
                 Empresa empresa = await _empresasService.GetEmpresaByIdAsync(id);
-                return Ok(empresa);
+                EmpresaDTO empresaDTO = empresa.ToEmpresa();
+                return Ok(empresaDTO);
             }
             catch (System.Exception)
             {
