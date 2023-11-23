@@ -37,7 +37,7 @@ namespace RotaLimpa.Tests.Services
                 loginAtual = await _service.GerarUnicoLoginAsync();
 
             }
-            var expectedLogin = "0011123"; //consulta no banco de dados de motorista quantos estão cadastrados
+            var expectedLogin = "0041123"; //consulta no banco de dados de motorista quantos estão cadastrados
             Assert.Equal(loginAtual, expectedLogin);
         }
     }

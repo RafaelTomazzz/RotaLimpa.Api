@@ -12,8 +12,8 @@ using RotaLimpa.Api.Data;
 namespace RotaLimpa.Api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231118003713_IncialMigration")]
-    partial class IncialMigration
+    [Migration("20231123004525_DTOMigration")]
+    partial class DTOMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -214,7 +214,8 @@ namespace RotaLimpa.Api.Migrations
                     b.Property<string>("PVeiculo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
-                        .HasColumnName("P_Veiculo");
+                        .HasColumnName("P_Veiculo")
+                        .HasComment("placa do veiculo");
 
                     b.Property<string>("StVeiculo")
                         .IsRequired()

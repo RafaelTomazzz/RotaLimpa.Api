@@ -13,10 +13,10 @@ namespace RotaLimpa.Api.Services
 
         public Task<Setor> GetSetorByIdAsync(int id);
 
-        public Task<Setor> CreateSetorAsync(Setor setor);
+        public Task<Setor> CreateSetorAsync(Setor frota);
 
-        public Task<Setor> UpdateSetorAsync(int id, Setor setor);
+        public Task<Setor> UpdateSetorAsync(int id, Setor frota);
 
-        public Task<Setor> RemoveSetor(int id, Setor setor);
+        public Task RemoveSetor(int id);
     }
 }

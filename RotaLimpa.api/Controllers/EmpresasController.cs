@@ -54,11 +54,14 @@ namespace RotaLimpa.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody] Empresa novoEmpresa)
+        public async Task<IActionResult> Add(Empresa novoEmpresa)
         {
             try
             {
-                await _empresasService.CreateEmpresaAsync(novoEmpresa);
+                //await _empresasService.CreateEmpresaAsync(novoEmpresa);
+
+                await _context.AddAsync(novoEmpresa);
+                await _context.SaveChangesAsync();
 
                 return Ok(novoEmpresa);
             }

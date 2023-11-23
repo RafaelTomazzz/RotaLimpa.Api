@@ -55,11 +55,11 @@ namespace RotaLimpa.Api.Models
         private string Chave { get; set; }
         private string IV { get; set; }
 
-        [Required]
+        //[Required]
         [Column("Login")]
         [StringLength(7)]
-        [NotNull]
-        public string Login { get; set; }
+        //[NotNull]
+        public string? Login { get; set; } 
 
         [Required]
         [Column("Senha")]

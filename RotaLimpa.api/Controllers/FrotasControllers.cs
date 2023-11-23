@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RotaLimpa.Api.Data;
+using RotaLimpa.Api.DTO;
 using RotaLimpa.Api.Models;
 using RotaLimpa.Api.Services;
+using RotaLimpa.Api.DTO.Builder;
 
 namespace RotaLimpa.Api.Controllers
 {

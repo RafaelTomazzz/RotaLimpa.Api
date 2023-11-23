@@ -44,7 +44,9 @@ namespace RotaLimpa.Api.Services
             {
                 throw new Exception("Motorista already exists.");
             }
+
             novoMotorista.Login = await GerarUnicoLoginAsync();
+
             await _motoristasRepository.CreateMotoristaAsync(novoMotorista);
             await _unitOfWork.SaveChangesAsync();
             return novoMotorista;
@@ -79,7 +81,7 @@ namespace RotaLimpa.Api.Services
             return motorista;
         }
 
-        public async Task<string> GerarUnicoLoginAsync()
+        private async Task<string> GerarUnicoLoginAsync()
         {
             DateTime currentYear = DateTime.Now;
             DateTime ultimaDate = await _motoristasRepository.BuscarUltimaCriacao();
