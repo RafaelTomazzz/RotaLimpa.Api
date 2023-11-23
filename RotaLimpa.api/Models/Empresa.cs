@@ -36,7 +36,7 @@ namespace RotaLimpa.Api.Models
         [Column("St_empresa")]
         [Comment("SITUAÇÃO DA EMPRESA")]
         [NotNull]
-        public int StEmpresa { get; set; } = 1;
+        public string StEmpresa { get; set; } = "1";
 
         [Required]
         [Column("Di_empresa")]

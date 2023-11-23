@@ -25,9 +25,9 @@ namespace RotaLimpa.Api.Models
         [Column("Tmn_Veiculo")]
         public double TmnVeiculo { get; set; }
         [Column("Di_Veiculo")]
-        public DateTime DiVeiculo { get; set; }
+        public DateTime DiVeiculo { get; set; } = DateTime.Now;
         [Column("St_Veiculo")]
-        public string StVeiculo { get; set; }
+        public string StVeiculo { get; set; } = "1";
         public Kilometragem? Kilometragem { get; internal set; }
 
         public Frota()
