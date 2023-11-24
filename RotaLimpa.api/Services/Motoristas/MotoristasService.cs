@@ -81,7 +81,7 @@ namespace RotaLimpa.Api.Services
             return;
         }
 
-        private async Task<string> GerarUnicoLoginAsync()
+        public async Task<string> GerarUnicoLoginAsync()
         {
             DateTime currentYear = DateTime.Now;
             DateTime ultimaDate = await _motoristasRepository.BuscarUltimaCriacao();

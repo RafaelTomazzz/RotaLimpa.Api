@@ -57,8 +57,9 @@ namespace RotaLimpa.Api.Repositories
 
         public async Task<DateTime> BuscarUltimaCriacao()
         {
-            DateTime ultimaDate = await _context.Motoristas.MaxAsync(m => m.Di_Motorista);
-            return ultimaDate;
+            DateTime ultimaData = await _context.Motoristas.MaxAsync(m => m.Di_Motorista);
+
+            return ultimaData;
         }
     }
 }
