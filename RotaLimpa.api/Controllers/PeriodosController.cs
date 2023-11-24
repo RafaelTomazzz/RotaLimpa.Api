@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using RotaLimpa.Api.Services;
+
 namespace RotaLimpa.Api.Controllers
 {
     [ApiController]
@@ -66,7 +67,7 @@ namespace RotaLimpa.Api.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] Periodo periodoAlterado)
         {
             try
