@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using RotaLimpa.Api.Services;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 namespace RotaLimpa.Api.Controllers
 {
@@ -26,6 +28,7 @@ namespace RotaLimpa.Api.Controllers
             try
             {
                 IEnumerable<RelatorioFinal> lista = await _relatoriosFinaisService.GetAllRelatoriosFinaisAsync();
+                RelatorioFinal.CriarPDF();
                 return Ok(lista);
             }
             catch (System.Exception)
@@ -56,6 +59,7 @@ namespace RotaLimpa.Api.Controllers
             try
             {
                 await _relatoriosFinaisService.CreateRelatorioFinalAsync(novoRelatorioFinal);
+                RelatorioFinal.CriarPDF();
 
                 return Ok(novoRelatorioFinal);
             }
