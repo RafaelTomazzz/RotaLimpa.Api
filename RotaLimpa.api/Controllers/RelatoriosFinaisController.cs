@@ -64,9 +64,11 @@ namespace RotaLimpa.Api.Controllers
             try
             {
                 await _relatoriosFinaisService.CreateRelatorioFinalAsync(novoRelatorioFinal);
+                int idtrajeto = novoRelatorioFinal.IdTrajeto;
+                int idsetor = novoRelatorioFinal.IdSetor;
 
-                Trajeto trajeto = await _trajetosService.GetTrajetoByIdAsync(novoRelatorioFinal.IdTrajeto);
-                Setor setor = await _setoresService.GetSetorByIdAsync(novoRelatorioFinal.IdSetor);
+                Trajeto trajeto = await _trajetosService.GetTrajetoByIdAsync(idtrajeto);
+                Setor setor = await _setoresService.GetSetorByIdAsync(idsetor);
                 IEnumerable<Ocorrencia> listaOcorrencia = await _ocorrenciasService.GetAllOcorrenciaIdTrajetoAsync(trajeto.Id);
 
                 var relatorio = new RelatorioFinal();

@@ -6,11 +6,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
-using iTextSharp;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.IO;
 using RotaLimpa.Api.Services;
+using RotaLimpa.Api.Models.Enum;
 
 
 namespace RotaLimpa.Api.Models
@@ -47,6 +47,7 @@ namespace RotaLimpa.Api.Models
             string caminho = @"C:\pdf\" + nomeArquivo;
             PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(caminho, FileMode.Create));
 
+
             //Título do pdf
             Font fontTitulo = FontFactory.GetFont(BaseFont.COURIER, 20);
             Paragraph paragTitulo = new Paragraph("RELATÓRIO" + relatorioFinal.IdRelatorio + "\n \n", fontTitulo);
@@ -59,15 +60,62 @@ namespace RotaLimpa.Api.Models
                 fontTexto
                 );    
             
-            Paragraph paragTexto2 = new Paragraph(
-                "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna. Nunc viverra imperdiet enim.\n",
-                fontTexto
-                );
+
+            //Lista de Ocorrências
+            PdfPTable table = new PdfPTable(3);
+
+            Paragraph coluna1 = new Paragraph("Id");
+            Paragraph coluna2 = new Paragraph("Tipo de Ocorrência");
+            Paragraph coluna3 = new Paragraph("Momento da Ocorrêcia");
+
+            var cellId = new PdfPCell();
+            var cellTipo = new PdfPCell();
+            var cellMomento = new PdfPCell();
+
+            table.AddCell(cellId);
+            table.AddCell(cellTipo);
+            table.AddCell(cellMomento);
+
+            foreach(Ocorrencia ocorrencia in listaOcorrencia)
+            {
+                Phrase Id = new Phrase(ocorrencia.Id.ToString());
+                var cell1 = new PdfPCell(Id);
+                table.AddCell(cell1);
+
+                if(ocorrencia.TipoOcorrencia == TiposOcorrencia.Colisão)
+                {
+                    Phrase tipo = new Phrase("Colisão");
+                    var cell2 = new PdfPCell(tipo);
+                    table.AddCell(cell2);
+                }
+                else if (ocorrencia.TipoOcorrencia == TiposOcorrencia.Feita)
+                {
+                    Phrase tipo = new Phrase("Feita");
+                    var cell2 = new PdfPCell(tipo);
+                    table.AddCell(cell2);
+                }
+                else if (ocorrencia.TipoOcorrencia == TiposOcorrencia.ArvoreCaida)
+                {
+                    Phrase tipo = new Phrase("Árvore Caída");
+                    var cell2 = new PdfPCell(tipo);
+                    table.AddCell(cell2);
+                }
+                else if (ocorrencia.TipoOcorrencia == TiposOcorrencia.SemSaida)
+                {
+                    Phrase tipo = new Phrase("Sem Saída");
+                    var cell2 = new PdfPCell(tipo);
+                    table.AddCell(cell2);
+                }
+
+                Phrase momento = new Phrase(ocorrencia.MtOcorrencia.ToString());
+                var cell3 = new PdfPCell(momento);
+                table.AddCell(cell3);
+
+            }
 
             doc.Open();
             doc.Add(paragTitulo);
             doc.Add(paragTexto);
-            doc.Add(paragTexto2);
             doc.Close();
         }
     }
