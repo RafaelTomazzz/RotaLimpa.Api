@@ -142,9 +142,9 @@ namespace RotaLimpa.Api.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<RelatorioFinal>()
-                .HasOne(r => r.Ocorrencia)
+                .HasOne(r => r.Trajeto)
                 .WithMany(o => o.RelatoriosFinais)
-                .HasForeignKey(r => r.IdOcorrencia)
+                .HasForeignKey(r => r.IdTrajeto)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Rota>()

@@ -13,7 +13,8 @@ namespace RotaLimpa.Api.Models
     [PrimaryKey(nameof(Id))]
     public class Trajeto
     {
-        public ICollection<Ocorrencia> Ocorrencias { get; set; }
+        public ICollection<Ocorrencia>? Ocorrencias { get; set; }
+        public ICollection<RelatorioFinal>? RelatoriosFinais { get; set; }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -23,12 +24,12 @@ namespace RotaLimpa.Api.Models
         [ForeignKey("Id_Motorista")]
         public int IdMotorista { get; set; }
         [NotMapped]
-        public Motorista Motorista { get; set; }
+        public Motorista? Motorista { get; set; }
 
         [ForeignKey("Id_Rota")]
         public int IdRota { get; set; }
         [NotMapped]
-        public Rota Rota { get; set; }
+        public Rota? Rota { get; set; }
 
         [Required]
         [ForeignKey("Id_Periodo")]
@@ -38,7 +39,7 @@ namespace RotaLimpa.Api.Models
         [ForeignKey("Id_Frota")]
         public int IdFrota { get; set; }
         [NotMapped]
-        public Frota Frota { get; set; }
+        public Frota? Frota { get; set; }
         
         [Required]
         [Comment("Momento de início do trajeto")]

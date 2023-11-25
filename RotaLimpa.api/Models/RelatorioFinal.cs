@@ -10,6 +10,8 @@ using iTextSharp;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.IO;
+using RotaLimpa.Api.Services;
+
 
 namespace RotaLimpa.Api.Models
 {
@@ -29,12 +31,12 @@ namespace RotaLimpa.Api.Models
         public Setor? Setor { get; set; }
 
         [Required]
-        [ForeignKey("Id_Ocorrencia")]
-        public int IdOcorrencia { get; set; }
-        public virtual Ocorrencia? Ocorrencia { get; set; }
+        [ForeignKey("Id_Trajeto")]
+        public int IdTrajeto { get; set; }
+        public virtual Trajeto? Trajeto { get; set; }
 
-
-        public static void CriarPDF(RelatorioFinal relatorioFinal) 
+        
+        public async void CriarPDF(RelatorioFinal relatorioFinal, Trajeto trajeto, Setor setor, IEnumerable<Ocorrencia> listaOcorrencia) 
         {
             Document doc = new Document(PageSize.A4);
             doc.SetMargins(40, 40, 40, 40);
@@ -43,24 +45,19 @@ namespace RotaLimpa.Api.Models
             //Nome do arquivo
             string nomeArquivo = "relatorio" + relatorioFinal.IdRelatorio + ".pdf";
             string caminho = @"C:\pdf\" + nomeArquivo;
-            
             PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(caminho, FileMode.Create));
 
             //Título do pdf
             Font fontTitulo = FontFactory.GetFont(BaseFont.COURIER, 20);
             Paragraph paragTitulo = new Paragraph("RELATÓRIO" + relatorioFinal.IdRelatorio + "\n \n", fontTitulo);
-            
+            paragTitulo.Alignment = Element.ALIGN_CENTER;            
             
             Font fontTexto = FontFactory.GetFont(BaseFont.COURIER, 12);
-
-            
-            paragTitulo.Alignment = Element.ALIGN_CENTER;
-            
             Paragraph paragTexto = new Paragraph(
-                "Ocorrências: " + relatorioFinal.IdOcorrencia + "\n" +
+                "Ocorrências: " + relatorioFinal.IdTrajeto + "\n" +
                 "Setor:" + relatorioFinal.IdSetor,
                 fontTexto
-                );
+                );    
             
             Paragraph paragTexto2 = new Paragraph(
                 "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna. Nunc viverra imperdiet enim.\n",

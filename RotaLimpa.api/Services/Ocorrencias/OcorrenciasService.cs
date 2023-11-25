@@ -73,5 +73,12 @@ namespace RotaLimpa.Api.Services
 
             return;
         }
+
+        public async Task<IEnumerable<Ocorrencia>> GetAllOcorrenciaIdTrajetoAsync(int idtrajeto)
+        {
+            IEnumerable<Ocorrencia> ocorrencias = await _ocorrenciasRepository.GetAllOcorrenciaIdTrajetoAsync(idtrajeto);
+            return ocorrencias;
+        }
+        
     }
 }

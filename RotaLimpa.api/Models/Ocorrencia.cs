@@ -16,7 +16,6 @@ namespace RotaLimpa.Api.Models
     [Index(nameof(Id), IsUnique = true)]
     public class Ocorrencia
     {
-        public ICollection<RelatorioFinal>? RelatoriosFinais { get; set; }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

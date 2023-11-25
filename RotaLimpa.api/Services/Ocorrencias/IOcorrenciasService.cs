@@ -18,5 +18,7 @@ namespace RotaLimpa.Api.Services
         public Task<Ocorrencia> UpdateOcorrenciaAsync(int id, Ocorrencia ocorrencia);
 
         public Task RemoveOcorrencia(int id);
+
+        public Task<IEnumerable<Ocorrencia>> GetAllOcorrenciaIdTrajetoAsync(int idtrajeto);
     }
 }

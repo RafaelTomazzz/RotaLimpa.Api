@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using RotaLimpa.Api.Data;
@@ -36,6 +37,12 @@ namespace RotaLimpa.Api.Repositories
         public async Task RemoveOcorrencia(Ocorrencia ocorrencia)
         {
             _context.Ocorrencias.Remove(ocorrencia);
+        }
+
+        public async Task<IEnumerable<Ocorrencia>> GetAllOcorrenciaIdTrajetoAsync(int idtrajeto)
+        {
+            IEnumerable<Ocorrencia> ocorrencias = await _context.Ocorrencias.Where(o => o.IdTrajeto == idtrajeto).ToListAsync();
+            return ocorrencias;
         }
 
     }

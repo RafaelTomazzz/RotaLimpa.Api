@@ -12,5 +12,6 @@ namespace RotaLimpa.Api.Repositories.Interfaces
         public Task<Ocorrencia> GetOcorrenciaByIdAsync(int id);
         public Task CreateOcorrenciaAsync(Ocorrencia ocorrencia);
         public Task RemoveOcorrencia(Ocorrencia ocorrencia);
+        public Task<IEnumerable<Ocorrencia>> GetAllOcorrenciaIdTrajetoAsync(int idtrajeto);
     }
 }
