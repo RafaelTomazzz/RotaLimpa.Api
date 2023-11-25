@@ -28,7 +28,6 @@ namespace RotaLimpa.Api.Controllers
             try
             {
                 IEnumerable<RelatorioFinal> lista = await _relatoriosFinaisService.GetAllRelatoriosFinaisAsync();
-                RelatorioFinal.CriarPDF();
                 return Ok(lista);
             }
             catch (System.Exception)
@@ -59,7 +58,7 @@ namespace RotaLimpa.Api.Controllers
             try
             {
                 await _relatoriosFinaisService.CreateRelatorioFinalAsync(novoRelatorioFinal);
-                RelatorioFinal.CriarPDF();
+                RelatorioFinal.CriarPDF(novoRelatorioFinal);
 
                 return Ok(novoRelatorioFinal);
             }

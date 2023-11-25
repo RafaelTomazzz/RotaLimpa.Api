@@ -34,32 +34,44 @@ namespace RotaLimpa.Api.Models
         public virtual Ocorrencia? Ocorrencia { get; set; }
 
 
-        public static void CriarPDF() 
+        public static void CriarPDF(RelatorioFinal relatorioFinal) 
         {
             Document doc = new Document(PageSize.A4);
             doc.SetMargins(40, 40, 40, 40);
             doc.AddCreationDate();
-            string caminho = @"C:\pdf\" + "relatorio.pdf";
+
+            //Nome do arquivo
+            string nomeArquivo = "relatorio" + relatorioFinal.IdRelatorio + ".pdf";
+            string caminho = @"C:\pdf\" + nomeArquivo;
             
             PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(caminho, FileMode.Create));
 
-            Font fontTitulo = FontFactory.GetFont(BaseFont.TIMES_ROMAN, 20);
-            Font fontTexto = FontFactory.GetFont(BaseFont.TIMES_ROMAN, 12);
+            //Título do pdf
+            Font fontTitulo = FontFactory.GetFont(BaseFont.COURIER, 20);
+            Paragraph paragTitulo = new Paragraph("RELATÓRIO" + relatorioFinal.IdRelatorio + "\n \n", fontTitulo);
+            
+            
+            Font fontTexto = FontFactory.GetFont(BaseFont.COURIER, 12);
 
-            Paragraph paragTitulo = new Paragraph("Rel�torio + Id", fontTitulo);
+            
             paragTitulo.Alignment = Element.ALIGN_CENTER;
             
             Paragraph paragTexto = new Paragraph(
-                "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna. Nunc viverra imperdiet enim.",
-                fontTitulo
+                "Ocorrências: " + relatorioFinal.IdOcorrencia + "\n" +
+                "Setor:" + relatorioFinal.IdSetor,
+                fontTexto
+                );
+            
+            Paragraph paragTexto2 = new Paragraph(
+                "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna. Nunc viverra imperdiet enim.\n",
+                fontTexto
                 );
 
             doc.Open();
             doc.Add(paragTitulo);
             doc.Add(paragTexto);
+            doc.Add(paragTexto2);
             doc.Close();
-
-
         }
     }
 }
