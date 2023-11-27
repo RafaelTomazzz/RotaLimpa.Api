@@ -68,9 +68,9 @@ namespace RotaLimpa.Api.Models
             Paragraph coluna2 = new Paragraph("Tipo de Ocorrência");
             Paragraph coluna3 = new Paragraph("Momento da Ocorrêcia");
 
-            var cellId = new PdfPCell();
-            var cellTipo = new PdfPCell();
-            var cellMomento = new PdfPCell();
+            var cellId = new PdfPCell(coluna1);
+            var cellTipo = new PdfPCell(coluna2);
+            var cellMomento = new PdfPCell(coluna3);
 
             table.AddCell(cellId);
             table.AddCell(cellTipo);
@@ -116,6 +116,7 @@ namespace RotaLimpa.Api.Models
             doc.Open();
             doc.Add(paragTitulo);
             doc.Add(paragTexto);
+            doc.Add(table);
             doc.Close();
         }
     }
