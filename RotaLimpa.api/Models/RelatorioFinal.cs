@@ -47,76 +47,90 @@ namespace RotaLimpa.Api.Models
             string caminho = @"C:\pdf\" + nomeArquivo;
             PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(caminho, FileMode.Create));
 
+            doc.Open();
 
             //Título do pdf
             Font fontTitulo = FontFactory.GetFont(BaseFont.COURIER, 20);
-            Paragraph paragTitulo = new Paragraph("RELATÓRIO" + relatorioFinal.IdRelatorio + "\n \n", fontTitulo);
-            paragTitulo.Alignment = Element.ALIGN_CENTER;            
+            Paragraph paragTitulo = new Paragraph("RELATÓRIO DO TRAJETO" + "\n \n", fontTitulo);
+            paragTitulo.Alignment = Element.ALIGN_CENTER;
             
-            Font fontTexto = FontFactory.GetFont(BaseFont.COURIER, 12);
-            Paragraph paragTexto = new Paragraph(
-                "Ocorrências: " + relatorioFinal.IdTrajeto + "\n" +
-                "Setor:" + relatorioFinal.IdSetor,
-                fontTexto
-                );    
-            
+            doc.Add(paragTitulo);
 
             //Lista de Ocorrências
-            PdfPTable table = new PdfPTable(3);
 
-            Paragraph coluna1 = new Paragraph("Id");
-            Paragraph coluna2 = new Paragraph("Tipo de Ocorrência");
-            Paragraph coluna3 = new Paragraph("Momento da Ocorrêcia");
-
-            var cellId = new PdfPCell(coluna1);
-            var cellTipo = new PdfPCell(coluna2);
-            var cellMomento = new PdfPCell(coluna3);
-
-            table.AddCell(cellId);
-            table.AddCell(cellTipo);
-            table.AddCell(cellMomento);
-
-            foreach(Ocorrencia ocorrencia in listaOcorrencia)
+            if(listaOcorrencia != null)
             {
-                Phrase Id = new Phrase(ocorrencia.Id.ToString());
-                var cell1 = new PdfPCell(Id);
-                table.AddCell(cell1);
+                Font ltOcorrencia = FontFactory.GetFont(BaseFont.COURIER, 16);
+                Phrase listOcorrencia = new Phrase("Lista de Ocorrências", ltOcorrencia);
+                doc.Add(listOcorrencia);
 
-                if(ocorrencia.TipoOcorrencia == TiposOcorrencia.Colisão)
-                {
-                    Phrase tipo = new Phrase("Colisão");
-                    var cell2 = new PdfPCell(tipo);
-                    table.AddCell(cell2);
-                }
-                else if (ocorrencia.TipoOcorrencia == TiposOcorrencia.Feita)
-                {
-                    Phrase tipo = new Phrase("Feita");
-                    var cell2 = new PdfPCell(tipo);
-                    table.AddCell(cell2);
-                }
-                else if (ocorrencia.TipoOcorrencia == TiposOcorrencia.ArvoreCaida)
-                {
-                    Phrase tipo = new Phrase("Árvore Caída");
-                    var cell2 = new PdfPCell(tipo);
-                    table.AddCell(cell2);
-                }
-                else if (ocorrencia.TipoOcorrencia == TiposOcorrencia.SemSaida)
-                {
-                    Phrase tipo = new Phrase("Sem Saída");
-                    var cell2 = new PdfPCell(tipo);
-                    table.AddCell(cell2);
-                }
+                Font fontTable = FontFactory.GetFont(BaseFont.COURIER, 12);
+                PdfPTable table = new PdfPTable(3);
 
-                Phrase momento = new Phrase(ocorrencia.MtOcorrencia.ToString());
-                var cell3 = new PdfPCell(momento);
-                table.AddCell(cell3);
+                Paragraph coluna1 = new Paragraph("Id", fontTable);
+                coluna1.Alignment = Element.ALIGN_CENTER;
+                Paragraph coluna2 = new Paragraph("Tipo de Ocorrência", fontTable);
+                coluna2.Alignment = Element.ALIGN_CENTER;
+                Paragraph coluna3 = new Paragraph("Momento da Ocorrêcia", fontTable);
+                coluna3.Alignment = Element.ALIGN_CENTER;
 
+                var cellId = new PdfPCell(coluna1);
+                var cellTipo = new PdfPCell(coluna2);
+                var cellMomento = new PdfPCell(coluna3);
+
+                table.AddCell(cellId);
+                table.AddCell(cellTipo);
+                table.AddCell(cellMomento);
+
+                foreach(Ocorrencia ocorrencia in listaOcorrencia)
+                {
+                    Paragraph Id = new Paragraph(ocorrencia.Id.ToString(), fontTable);
+                    Id.Alignment = Element.ALIGN_CENTER;
+                    var cell1 = new PdfPCell(Id);
+                    table.AddCell(cell1);
+
+                    if(ocorrencia.TipoOcorrencia == TiposOcorrencia.Colisão)
+                    {
+                        Paragraph tipo = new Paragraph("Colisão", fontTable);
+                        tipo.Alignment = Element.ALIGN_CENTER;
+                        var cell2 = new PdfPCell(tipo);
+                        table.AddCell(cell2);
+                    }
+                    else if (ocorrencia.TipoOcorrencia == TiposOcorrencia.Feita)
+                    {
+                        Paragraph tipo = new Paragraph("Feita", fontTable);
+                        tipo.Alignment = Element.ALIGN_CENTER;
+                        var cell2 = new PdfPCell(tipo);
+                        table.AddCell(cell2);
+                    }
+                    else if (ocorrencia.TipoOcorrencia == TiposOcorrencia.ArvoreCaida)
+                    {
+                        Paragraph tipo = new Paragraph("Árvore Caída", fontTable);
+                        tipo.Alignment = Element.ALIGN_CENTER;
+                        var cell2 = new PdfPCell(tipo);
+                        table.AddCell(cell2);
+                    }
+                    else if (ocorrencia.TipoOcorrencia == TiposOcorrencia.SemSaida)
+                    {
+                        Paragraph tipo = new Paragraph("Sem Saída", fontTable);
+                        tipo.Alignment = Element.ALIGN_CENTER;
+                        var cell2 = new PdfPCell(tipo);
+                        table.AddCell(cell2);
+                    }
+
+                    Paragraph momento = new Paragraph(ocorrencia.MtOcorrencia.ToString(), fontTable);
+                    momento.Alignment = Element.ALIGN_CENTER;
+                    var cell3 = new PdfPCell(momento);
+                    table.AddCell(cell3);
+
+                    doc.Add(table);
+
+                }
             }
 
-            doc.Open();
-            doc.Add(paragTitulo);
-            doc.Add(paragTexto);
-            doc.Add(table);
+            
+            
+            
             doc.Close();
         }
     }

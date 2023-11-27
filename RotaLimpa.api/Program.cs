@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<DataContext>(options =>
 {
     
-    options.UseSqlServer(builder.Configuration.GetConnectionString("LocalRafael"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ConexaoLocal"));
 });
 builder.Services.AddScoped<ICEPsRepository, CEPsRepository>();
 builder.Services.AddScoped<ICEPsService, CEPsService>();

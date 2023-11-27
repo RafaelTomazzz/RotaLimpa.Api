@@ -89,9 +89,9 @@ namespace RotaLimpa.Api.Data
 
             modelBuilder.Entity<Setor>()
                 .HasMany(s => s.RelatoriosFinais)
-                .WithOne(rf => rf.Setor)
+                .WithOne()
                 .HasForeignKey(rf => rf.IdSetor)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<SetorVeiculo>()
                 .HasKey(sv => new { sv.IdSetor, sv.IdFrota });
