@@ -31,7 +31,7 @@ namespace RotaLimpa.Api.Models
         [Column("Id_Cep")]
         [ForeignKey("Cep")]
         public int IdCep { get; set; }
-        public CEP? CEP { get; set; }
+        public virtual CEP? CEP { get; set; }
 
         [Required]
         public TiposOcorrencia TipoOcorrencia { get; set; }

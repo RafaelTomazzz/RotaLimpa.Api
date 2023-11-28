@@ -179,7 +179,7 @@ namespace RotaLimpa.Api.Data
 
             modelBuilder.Entity<Ocorrencia>()
                 .HasOne(o => o.CEP)
-                .WithMany(t => t.Ocorrencias)
+                .WithMany()
                 .HasForeignKey(o => o.IdCep)
                 .OnDelete(DeleteBehavior.Cascade);
 
