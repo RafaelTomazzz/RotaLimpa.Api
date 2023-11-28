@@ -51,17 +51,35 @@ namespace RotaLimpa.Api.Models
 
             //Título do pdf
             Font fontTitulo = FontFactory.GetFont(BaseFont.COURIER, 20);
+            Font subTitulo = FontFactory.GetFont(BaseFont.COURIER, 16);
             Paragraph paragTitulo = new Paragraph("RELATÓRIO DO TRAJETO" + "\n \n", fontTitulo);
             paragTitulo.Alignment = Element.ALIGN_CENTER;
             
             doc.Add(paragTitulo);
 
+            //informaçoes do trajeto
+
+            Paragraph tituloTrajeto = new Paragraph("Informações do Trajeto \n \n", subTitulo);
+            doc.Add(tituloTrajeto);
+
+            Font textFont = FontFactory.GetFont(BaseFont.COURIER, 12);
+
+            Phrase idTrajeto = new Phrase("Identidicação do Trajeto: " + trajeto.Id.ToString() + "\n", textFont);
+            Phrase miTrajeto = new Phrase("Momento Inicial: " + trajeto.MiTrajeto + "\n", textFont);
+            Phrase mfTrajeto = new Phrase("Momento Final: " + trajeto.MfTrajeto + "\n \n", textFont);
+
+            Paragraph infoTrajeto = new Paragraph();
+            infoTrajeto.Add(idTrajeto);
+            infoTrajeto.Add(miTrajeto);
+            infoTrajeto.Add(mfTrajeto);
+            
+            doc.Add(infoTrajeto);
+
             //Lista de Ocorrências
 
             if(listaOcorrencia != null)
             {
-                Font ltOcorrencia = FontFactory.GetFont(BaseFont.COURIER, 16);
-                Phrase listOcorrencia = new Phrase("Lista de Ocorrências", ltOcorrencia);
+                Phrase listOcorrencia = new Phrase("Lista de Ocorrências", subTitulo);
                 doc.Add(listOcorrencia);
 
                 Font fontTable = FontFactory.GetFont(BaseFont.COURIER, 12);
