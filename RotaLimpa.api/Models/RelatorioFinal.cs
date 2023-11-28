@@ -94,6 +94,13 @@ namespace RotaLimpa.Api.Models
 
             doc.Add(infoMotorista);
 
+            //informaçôes do setor
+
+            Paragraph tituloSetor = new Paragraph("   Informações do Setor", fontSubtitulo);
+            doc.Add(tituloSetor);
+
+            Phrase idSetor = new Phrase("Identificação do Setor: " + setor.Id, fontText);
+
             //Lista de Ocorrências
 
             if(listaOcorrencia != null)
