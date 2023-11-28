@@ -15,10 +15,13 @@ namespace RotaLimpa.Api.Services
 
         private readonly IHisLoginMsRepository _hisLoginMsRepository;
 
-        public HisLoginMsService(IHisLoginMsRepository hisLoginMsRepository, IUnitOfWork unitOfWork)
+        private readonly IMotoristasService _motoristasService;
+
+        public HisLoginMsService(IHisLoginMsRepository hisLoginMsRepository, IUnitOfWork unitOfWork, IMotoristasService motoristasService)
         {
             _hisLoginMsRepository = hisLoginMsRepository;
             _unitOfWork = unitOfWork;
+            _motoristasService = motoristasService;
         }
 
         public async Task<IEnumerable<HisLoginM>> GetAllHisLoginMsAsync()
@@ -39,14 +42,15 @@ namespace RotaLimpa.Api.Services
 
         public async Task<HisLoginM> CreateHisLoginMAsync(HisLoginM hisLoginM)
         {
-            HisLoginM currentHisLoginM = await _hisLoginMsRepository.GetHisLoginMByIdAsync(hisLoginM.Id);
-            if (currentHisLoginM != null && currentHisLoginM.Equals(hisLoginM))
+            Motorista motorista  = await _motoristasService.GetMotoristaByIdAsync(hisLoginM.IdMotorista);
+            if (motorista == null)
             {
-                throw new Exception("HisLoginM already exists.");
+                throw new Exception("Motorista doesn't exists.");
             }
+
             await _hisLoginMsRepository.CreateHisLoginMAsync(hisLoginM);
             await _unitOfWork.SaveChangesAsync();
-            return currentHisLoginM;
+            return hisLoginM;
         }
 
         public async Task<HisLoginM> UpdateHisLoginMAsync(int id, HisLoginM hisLoginM)

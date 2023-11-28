@@ -25,8 +25,8 @@ namespace RotaLimpa.Api.Models
         public Setor Setor { get; set; }
 
         [Required]
-        [ForeignKey("Id_Ocorrencia")]
-        public int IdOcorrencia { get; set; }
-        public virtual Ocorrencia Ocorrencia { get; set; }
+        [ForeignKey("Id_Trajeto")]
+        public int IdTrajeto { get; set; }
+        public virtual Trajeto Trajeto { get; set; }
     }
 }

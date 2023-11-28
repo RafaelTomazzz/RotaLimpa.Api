@@ -15,10 +15,13 @@ namespace RotaLimpa.Api.Services
 
         private readonly IHisLoginCsRepository _hisLoginCsRepository;
 
-        public HisLoginCsService(IHisLoginCsRepository hisLoginCsRepository, IUnitOfWork unitOfWork)
+        private readonly IColaboradoresService _colaboradoresService;
+
+        public HisLoginCsService(IHisLoginCsRepository hisLoginCsRepository, IUnitOfWork unitOfWork, IColaboradoresService colaboradoresService)
         {
             _hisLoginCsRepository = hisLoginCsRepository;
             _unitOfWork = unitOfWork;
+            _colaboradoresService = colaboradoresService;
         }
 
         public async Task<IEnumerable<HisLoginC>> GetAllHisLoginCsAsync()
@@ -39,14 +42,15 @@ namespace RotaLimpa.Api.Services
 
         public async Task<HisLoginC> CreateHisLoginCAsync(HisLoginC hisLoginC)
         {
-            HisLoginC currentHisLoginC = await _hisLoginCsRepository.GetHisLoginCByIdAsync(hisLoginC.Id);
-            if (currentHisLoginC != null && currentHisLoginC.Equals(hisLoginC))
+            Colaborador colaborador = await _colaboradoresService.GetColaboradorByIdAsync(hisLoginC.IdColaborador);
+            if (colaborador == null)
             {
-                throw new Exception("HisLoginC already exists.");
+                throw new Exception("Colaborador doesn't exists.");
             }
+
             await _hisLoginCsRepository.CreateHisLoginCAsync(hisLoginC);
             await _unitOfWork.SaveChangesAsync();
-            return currentHisLoginC;
+            return hisLoginC;
         }
 
         public async Task<HisLoginC> UpdateHisLoginCAsync(int id, HisLoginC hisLoginC)

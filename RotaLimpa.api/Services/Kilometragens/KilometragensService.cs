@@ -15,10 +15,13 @@ namespace RotaLimpa.Api.Services
 
         private readonly IKilometragensRepository _kilimetragensRepository;
 
-        public KilometragensService(IKilometragensRepository kilimetragensRepository, IUnitOfWork unitOfWork)
+        private readonly IFrotasService _frotasService;
+
+        public KilometragensService(IKilometragensRepository kilimetragensRepository, IUnitOfWork unitOfWork, IFrotasService frotasService)
         {
             _kilimetragensRepository = kilimetragensRepository;
             _unitOfWork = unitOfWork;
+            _frotasService = frotasService;
         }
 
         public async Task<IEnumerable<Kilometragem>> GetAllKilometragensAsync()
@@ -39,14 +42,14 @@ namespace RotaLimpa.Api.Services
 
         public async Task<Kilometragem> CreateKilometragemAsync(Kilometragem Kilometragem)
         {
-            Kilometragem currentKilometragem = await _kilimetragensRepository.GetKilometragemByIdAsync(Kilometragem.IdVeiculo);
-            if (currentKilometragem != null && currentKilometragem.Equals(Kilometragem))
+            Frota frota = await _frotasService.GetFrotaByIdAsync(Kilometragem.IdVeiculo);
+            if (frota == null)
             {
-                throw new Exception("Kilometragem already exists.");
+                throw new Exception("Empresa doesn't exists.");
             }
             await _kilimetragensRepository.CreateKilometragemAsync(Kilometragem);
             await _unitOfWork.SaveChangesAsync();
-            return currentKilometragem;
+            return Kilometragem;
         }
 
         public async Task<Kilometragem> UpdateKilometragemAsync(int id, Kilometragem Kilometragem)

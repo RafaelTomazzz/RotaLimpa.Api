@@ -36,10 +36,10 @@ namespace RotaLimpa.Api.Services
         }
         public async Task<RelatorioFinal> CreateRelatorioFinalAsync(RelatorioFinal relatorioFinal)
         {
-            RelatorioFinal currentRelatorioFinal = await _relatoriosFinaisRepository.GetRelatorioFinalByIdAsync(relatorioFinal.IdRelatorio);
-            if (currentRelatorioFinal != null && currentRelatorioFinal.Equals(relatorioFinal))
+            Trajeto trajeto = await _trajetosService.GetTrajetoByIdAsync(ocorrencia.IdTrajeto);
+            if (trajeto == null)
             {
-                throw new Exception("Relatório final já existe.");
+                throw new Exception("Trajeto doesn't exists.");
             }
             await _relatoriosFinaisRepository.CreateRelatorioFinalAsync(relatorioFinal);
             await _unitOfWork.SaveChangesAsync();

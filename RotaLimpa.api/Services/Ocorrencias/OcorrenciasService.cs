@@ -6,6 +6,7 @@ using RotaLimpa.Api.Models;
 using RotaLimpa.Api.Repositories.Interfaces;
 using RotaLimpa.Api.Repositories.UnitOfWork;
 using RotaLimpa.Api.Exceptions;
+using RotaLimpa.Api.Repositories;
 
 namespace RotaLimpa.Api.Services
 {
@@ -15,10 +16,13 @@ namespace RotaLimpa.Api.Services
 
         private readonly IOcorrenciasRepository _ocorrenciasRepository;
 
-        public OcorrenciasService(IOcorrenciasRepository ocorrenciasRepository, IUnitOfWork unitOfWork)
+        private readonly ITrajetosService _trajetosService;
+
+        public OcorrenciasService(IOcorrenciasRepository ocorrenciasRepository, IUnitOfWork unitOfWork, ITrajetosService trajetosService)
         {
             _ocorrenciasRepository = ocorrenciasRepository;
             _unitOfWork = unitOfWork;
+            _trajetosService = trajetosService;
         }
 
         public async Task<IEnumerable<Ocorrencia>> GetAllOcorrenciasAsync()
@@ -39,14 +43,14 @@ namespace RotaLimpa.Api.Services
 
         public async Task<Ocorrencia> CreateOcorrenciaAsync(Ocorrencia ocorrencia)
         {
-            Ocorrencia currentOcorrencia = await _ocorrenciasRepository.GetOcorrenciaByIdAsync(ocorrencia.Id);
-            if (currentOcorrencia != null && currentOcorrencia.Equals(ocorrencia))
+            Trajeto trajeto = await _trajetosService.GetTrajetoByIdAsync(ocorrencia.IdTrajeto);
+            if (trajeto == null)
             {
-                throw new Exception("Ocorrencia already exists.");
+                throw new Exception("Trajeto doesn't exists.");
             }
             await _ocorrenciasRepository.CreateOcorrenciaAsync(ocorrencia);
             await _unitOfWork.SaveChangesAsync();
-            return currentOcorrencia;
+            return ocorrencia;
         }
 
         public async Task<Ocorrencia> UpdateOcorrenciaAsync(int id, Ocorrencia ocorrencia)

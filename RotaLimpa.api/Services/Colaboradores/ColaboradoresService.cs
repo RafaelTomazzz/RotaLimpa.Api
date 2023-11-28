@@ -16,10 +16,13 @@ namespace RotaLimpa.Api.Services
 
         private readonly IColaboradoresRepository _colaboradoresRepository;
 
-        public ColaboradoresService(IColaboradoresRepository colaboradoresRepository, IUnitOfWork unitOfWork)
+        private readonly IEmpresasService _empresasService;
+
+        public ColaboradoresService(IColaboradoresRepository colaboradoresRepository, IUnitOfWork unitOfWork, IEmpresasService empresasService)
         {
             _colaboradoresRepository = colaboradoresRepository;
             _unitOfWork = unitOfWork;
+            _empresasService = empresasService;
         }
 
         public async Task<IEnumerable<Colaborador>> GetAllColaboradoresAsync()
@@ -46,7 +49,14 @@ namespace RotaLimpa.Api.Services
                 throw new Exception("Colaborador already exists.");
             }
 
+            Empresa empresa = await _empresasService.GetEmpresaByIdAsync(colaborador.IdEmpresa);
+            if (empresa == null)
+            {
+                throw new Exception("Empresa doesn't exists.");
+            }
+
             colaborador.Login = await GerarUnicoLoginAsync();
+            
 
             await _colaboradoresRepository.CreateColaboradorAsync(colaborador);
             await _unitOfWork.SaveChangesAsync();

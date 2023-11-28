@@ -14,6 +14,7 @@ namespace RotaLimpa.Api.Models
     public class Trajeto
     {
         public ICollection<Ocorrencia> Ocorrencias { get; set; }
+        public ICollection<RelatorioFinal> RelatoriosFinais { get; set; }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
