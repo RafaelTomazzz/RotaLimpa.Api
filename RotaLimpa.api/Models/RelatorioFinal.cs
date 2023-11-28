@@ -11,6 +11,7 @@ using iTextSharp.text.pdf;
 using System.IO;
 using RotaLimpa.Api.Services;
 using RotaLimpa.Api.Models.Enum;
+using RotaLimpa.Api.Data;
 
 
 namespace RotaLimpa.Api.Models
@@ -37,7 +38,7 @@ namespace RotaLimpa.Api.Models
 
         
 
-        public async void CriarPDF(RelatorioFinal relatorioFinal, Trajeto trajeto, Setor setor, IEnumerable<Ocorrencia> listaOcorrencia, Motorista motorista) 
+        public async void CriarPDF(RelatorioFinal relatorioFinal, Trajeto trajeto, Setor setor, IEnumerable<Ocorrencia> listaOcorrencia, Motorista motorista, IEnumerable<CEP> listaCEP) 
         {
             Document doc = new Document(PageSize.A4);
             doc.SetMargins(40, 40, 40, 40);
@@ -96,24 +97,24 @@ namespace RotaLimpa.Api.Models
 
             //informaçôes do setor
 
-            Paragraph tituloSetor = new Paragraph("   Informações do Setor", fontSubtitulo);
+            Paragraph tituloSetor = new Paragraph("   Informações do Setor \n \n", fontSubtitulo);
             doc.Add(tituloSetor);
 
-            Phrase tipoSetor = new Phrase();
-            Phrase idSetor = new Phrase("Identificação do Setor: " + setor.Id, fontText);
+            Phrase tipoSetor = new Phrase("", fontText);
+            Phrase idSetor = new Phrase("Identificação do Setor: " + setor.Id + "\n", fontText);
             if(setor.TipoServico == TiposServico.ColeraLixo)
             {
-                var tipo = "Coleta de Lixo";
+                var tipo = "Tipo de Setor: Coleta de Lixo \n \n";
                 tipoSetor.Add(tipo);
             }
             else if (setor.TipoServico == TiposServico.ColetaMato)
             {
-                var tipo = "Coleta de Mato";
+                var tipo = "Tipo de Setor: Coleta de Mato \n \n";
                 tipoSetor.Add(tipo);
             }
             else if (setor.TipoServico == TiposServico.ColetaVarricao)
             {
-                var tipo = "Varrição";
+                var tipo = "Tipo de Setor: Varrição \n \n";
                 tipoSetor.Add(tipo);
             }
             Paragraph infoSetor= new Paragraph();
@@ -121,6 +122,8 @@ namespace RotaLimpa.Api.Models
             infoSetor.Add(tipoSetor);
 
             doc.Add(infoSetor);
+
+            //informações do veiculo
 
 
             //Lista de Ocorrências
@@ -131,7 +134,7 @@ namespace RotaLimpa.Api.Models
                 doc.Add(listOcorrencia);
 
                 Font fontTable = FontFactory.GetFont(BaseFont.COURIER, 12);
-                PdfPTable table = new PdfPTable(3);
+                PdfPTable table = new PdfPTable(4);
 
                 Paragraph coluna1 = new Paragraph("Id", fontTable);
                 coluna1.Alignment = Element.ALIGN_CENTER;
@@ -188,7 +191,16 @@ namespace RotaLimpa.Api.Models
                         table.AddCell(cell2);
                     }
 
-                    Paragraph local = new Paragraph();
+                    IEnumerable<CEP> cep = listaCEP.Where(c => c.Id == ocorrencia.IdCep);
+                    var endereco = "";
+                    foreach(CEP objcep in cep)
+                    {
+                        endereco = objcep.Endereco;
+                    }
+                    Paragraph local = new Paragraph(endereco, fontText);
+                    local.Alignment = Element.ALIGN_CENTER;
+                    var cell3 = new PdfPCell(local);
+                    table.AddCell(cell3);
 
                     Paragraph momento = new Paragraph(ocorrencia.MtOcorrencia.ToString(), fontTable);
                     momento.Alignment = Element.ALIGN_CENTER;

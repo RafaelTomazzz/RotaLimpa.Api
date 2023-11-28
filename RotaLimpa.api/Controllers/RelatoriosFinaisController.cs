@@ -19,13 +19,15 @@ namespace RotaLimpa.Api.Controllers
         private readonly ISetoresService _setoresService;
         private readonly IOcorrenciasService _ocorrenciasService;
         private readonly IMotoristasService _motoristasService;
+        private readonly ICEPsService _cepsService;
 
         public RelatoriosFinaisController(DataContext context,
             IRelatoriosFinaisService relatoriosFinaisService,
             ITrajetosService trajetosService,
             ISetoresService setoresService,
             IOcorrenciasService ocorrenciasService,
-            IMotoristasService motoristasService)
+            IMotoristasService motoristasService,
+            ICEPsService cepsService)
         {
             _context = context;
             _relatoriosFinaisService = relatoriosFinaisService;
@@ -33,6 +35,7 @@ namespace RotaLimpa.Api.Controllers
             _setoresService = setoresService;
             _ocorrenciasService = ocorrenciasService;
             _motoristasService = motoristasService;
+            _cepsService = cepsService;
         }
 
         [HttpGet("GetAll")]
@@ -78,9 +81,10 @@ namespace RotaLimpa.Api.Controllers
                 Setor setor = await _setoresService.GetSetorByIdAsync(idsetor);
                 Motorista motorista = await _motoristasService.GetMotoristaByIdAsync(trajeto.IdMotorista);
                 IEnumerable<Ocorrencia> listaOcorrencia = await _ocorrenciasService.GetAllOcorrenciaIdTrajetoAsync(trajeto.Id);
+                IEnumerable<CEP> listaCEP = await _cepsService.GetAllCEPsAsync();
 
                 var relatorio = new RelatorioFinal();
-                relatorio.CriarPDF(novoRelatorioFinal, trajeto, setor, listaOcorrencia, motorista);
+                relatorio.CriarPDF(novoRelatorioFinal, trajeto, setor, listaOcorrencia, motorista, listaCEP);
 
                 return Ok(novoRelatorioFinal);
             }
