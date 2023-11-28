@@ -99,7 +99,29 @@ namespace RotaLimpa.Api.Models
             Paragraph tituloSetor = new Paragraph("   Informações do Setor", fontSubtitulo);
             doc.Add(tituloSetor);
 
+            Phrase tipoSetor = new Phrase();
             Phrase idSetor = new Phrase("Identificação do Setor: " + setor.Id, fontText);
+            if(setor.TipoServico == TiposServico.ColeraLixo)
+            {
+                var tipo = "Coleta de Lixo";
+                tipoSetor.Add(tipo);
+            }
+            else if (setor.TipoServico == TiposServico.ColetaMato)
+            {
+                var tipo = "Coleta de Mato";
+                tipoSetor.Add(tipo);
+            }
+            else if (setor.TipoServico == TiposServico.ColetaVarricao)
+            {
+                var tipo = "Varrição";
+                tipoSetor.Add(tipo);
+            }
+            Paragraph infoSetor= new Paragraph();
+            infoSetor.Add(idSetor);
+            infoSetor.Add(tipoSetor);
+
+            doc.Add(infoSetor);
+
 
             //Lista de Ocorrências
 
@@ -115,15 +137,19 @@ namespace RotaLimpa.Api.Models
                 coluna1.Alignment = Element.ALIGN_CENTER;
                 Paragraph coluna2 = new Paragraph("Tipo de Ocorrência", fontTable);
                 coluna2.Alignment = Element.ALIGN_CENTER;
-                Paragraph coluna3 = new Paragraph("Momento da Ocorrêcia", fontTable);
+                Paragraph coluna3 = new Paragraph("Local da Ocorrência", fontTable);
+                coluna3.Alignment = Element.ALIGN_CENTER;
+                Paragraph coluna4 = new Paragraph("Momento da Ocorrêcia", fontTable);
                 coluna3.Alignment = Element.ALIGN_CENTER;
 
                 var cellId = new PdfPCell(coluna1);
                 var cellTipo = new PdfPCell(coluna2);
-                var cellMomento = new PdfPCell(coluna3);
+                var cellLocal = new PdfPCell(coluna3);
+                var cellMomento = new PdfPCell(coluna4);
 
                 table.AddCell(cellId);
                 table.AddCell(cellTipo);
+                table.AddCell(cellLocal);
                 table.AddCell(cellMomento);
 
                 foreach(Ocorrencia ocorrencia in listaOcorrencia)
@@ -162,10 +188,12 @@ namespace RotaLimpa.Api.Models
                         table.AddCell(cell2);
                     }
 
+                    Paragraph local = new Paragraph();
+
                     Paragraph momento = new Paragraph(ocorrencia.MtOcorrencia.ToString(), fontTable);
                     momento.Alignment = Element.ALIGN_CENTER;
-                    var cell3 = new PdfPCell(momento);
-                    table.AddCell(cell3);
+                    var cell4 = new PdfPCell(momento);
+                    table.AddCell(cell4);
                 }
                 
                 doc.Add(table);
