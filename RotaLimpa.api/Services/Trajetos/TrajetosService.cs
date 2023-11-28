@@ -15,10 +15,22 @@ namespace RotaLimpa.Api.Services
 
         private readonly ITrajetosRepository _trajetosRepository;
 
-        public TrajetosService(ITrajetosRepository trajetosRepository, IUnitOfWork unitOfWork)
+        private readonly IFrotasService _frotasService;
+
+        private readonly IRotasService _rotasService;
+
+        private readonly IMotoristasService _motoristasService;
+
+        private readonly IPeriodosService _periodosService;
+
+        public TrajetosService(ITrajetosRepository trajetosRepository, IUnitOfWork unitOfWork, IFrotasService frotasService, IRotasService rotasService, IMotoristasService motoristasService, IPeriodosService periodosService)
         {
             _trajetosRepository = trajetosRepository;
             _unitOfWork = unitOfWork;
+            _frotasService = frotasService;
+            _rotasService = rotasService;
+            _motoristasService = motoristasService;
+            _periodosService = periodosService;
         }
 
         public async Task<IEnumerable<Trajeto>> GetAllTrajetosAsync()
