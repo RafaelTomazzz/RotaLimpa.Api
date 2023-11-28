@@ -36,7 +36,7 @@ namespace RotaLimpa.Api.Models
         public virtual Trajeto? Trajeto { get; set; }
 
         
-        public async void CriarPDF(RelatorioFinal relatorioFinal, Trajeto trajeto, Setor setor, IEnumerable<Ocorrencia> listaOcorrencia) 
+        public async void CriarPDF(RelatorioFinal relatorioFinal, Trajeto trajeto, Setor setor, IEnumerable<Ocorrencia> listaOcorrencia, Motorista motorista) 
         {
             Document doc = new Document(PageSize.A4);
             doc.SetMargins(40, 40, 40, 40);
@@ -50,8 +50,9 @@ namespace RotaLimpa.Api.Models
             doc.Open();
 
             //Título do pdf
-            Font fontTitulo = FontFactory.GetFont(BaseFont.COURIER, 20);
-            Font subTitulo = FontFactory.GetFont(BaseFont.COURIER, 16);
+            Font fontTitulo = FontFactory.GetFont(BaseFont.COURIER, 20, Font.BOLD);
+            Font fontSubtitulo = FontFactory.GetFont(BaseFont.COURIER, 16, Font.BOLD);
+            Font fontText = FontFactory.GetFont(BaseFont.COURIER, 12);
             Paragraph paragTitulo = new Paragraph("RELATÓRIO DO TRAJETO" + "\n \n", fontTitulo);
             paragTitulo.Alignment = Element.ALIGN_CENTER;
             
@@ -59,14 +60,12 @@ namespace RotaLimpa.Api.Models
 
             //informaçoes do trajeto
 
-            Paragraph tituloTrajeto = new Paragraph("Informações do Trajeto \n \n", subTitulo);
+            Paragraph tituloTrajeto = new Paragraph("Informações do Trajeto \n \n", fontSubtitulo);
             doc.Add(tituloTrajeto);
 
-            Font textFont = FontFactory.GetFont(BaseFont.COURIER, 12);
-
-            Phrase idTrajeto = new Phrase("Identidicação do Trajeto: " + trajeto.Id.ToString() + "\n", textFont);
-            Phrase miTrajeto = new Phrase("Momento Inicial: " + trajeto.MiTrajeto + "\n", textFont);
-            Phrase mfTrajeto = new Phrase("Momento Final: " + trajeto.MfTrajeto + "\n \n", textFont);
+            Phrase idTrajeto = new Phrase("Identidicação do Trajeto: " + trajeto.Id.ToString() + "\n", fontText);
+            Phrase miTrajeto = new Phrase("Momento Inicial: " + trajeto.MiTrajeto + "\n", fontText);
+            Phrase mfTrajeto = new Phrase("Momento Final: " + trajeto.MfTrajeto + "\n \n", fontText);
 
             Paragraph infoTrajeto = new Paragraph();
             infoTrajeto.Add(idTrajeto);
@@ -77,9 +76,14 @@ namespace RotaLimpa.Api.Models
 
             //Lista de Ocorrências
 
-            if(listaOcorrencia != null)
+            if(listaOcorrencia == null)
             {
-                Phrase listOcorrencia = new Phrase("Lista de Ocorrências", subTitulo);
+                Phrase text = new Phrase("Não existe nenhuma ocorrência", fontText);
+                doc.Add(text);
+            }
+            else
+            {
+                Phrase listOcorrencia = new Phrase("Lista de Ocorrências", fontSubtitulo);
                 doc.Add(listOcorrencia);
 
                 Font fontTable = FontFactory.GetFont(BaseFont.COURIER, 12);
