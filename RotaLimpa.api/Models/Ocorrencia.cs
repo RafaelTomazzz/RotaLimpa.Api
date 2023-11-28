@@ -28,6 +28,11 @@ namespace RotaLimpa.Api.Models
         [NotMapped]
         public Trajeto? Trajeto { get; set;}
 
+        [Column("Id_Cep")]
+        [ForeignKey("Cep")]
+        public int IdCep { get; set; }
+        public CEP? CEP { get; set; }
+
         [Required]
         public TiposOcorrencia TipoOcorrencia { get; set; }
         

@@ -36,6 +36,7 @@ namespace RotaLimpa.Api.Models
         public virtual Trajeto? Trajeto { get; set; }
 
         
+
         public async void CriarPDF(RelatorioFinal relatorioFinal, Trajeto trajeto, Setor setor, IEnumerable<Ocorrencia> listaOcorrencia, Motorista motorista) 
         {
             Document doc = new Document(PageSize.A4);
@@ -50,6 +51,7 @@ namespace RotaLimpa.Api.Models
             doc.Open();
 
             //Título do pdf
+
             Font fontTitulo = FontFactory.GetFont(BaseFont.COURIER, 20, Font.BOLD);
             Font fontSubtitulo = FontFactory.GetFont(BaseFont.COURIER, 16, Font.BOLD);
             Font fontText = FontFactory.GetFont(BaseFont.COURIER, 12);
@@ -60,7 +62,7 @@ namespace RotaLimpa.Api.Models
 
             //informaçoes do trajeto
 
-            Paragraph tituloTrajeto = new Paragraph("Informações do Trajeto \n \n", fontSubtitulo);
+            Paragraph tituloTrajeto = new Paragraph("   Informações do Trajeto \n \n", fontSubtitulo);
             doc.Add(tituloTrajeto);
 
             Phrase idTrajeto = new Phrase("Identidicação do Trajeto: " + trajeto.Id.ToString() + "\n", fontText);
@@ -74,16 +76,29 @@ namespace RotaLimpa.Api.Models
             
             doc.Add(infoTrajeto);
 
+            //informações do motorista
+
+            Paragraph tituloMotorista = new Paragraph("   Informações do Motorista \n \n", fontSubtitulo);
+            doc.Add(tituloMotorista);
+
+            Phrase idMotorista = new Phrase("Identificação do Motorista: " + motorista.Id.ToString() + "\n", fontText);
+            Phrase nomeMotorista = new Phrase("Nome do Motorista: " + motorista.PNome + " " + motorista.SNome + "\n", fontText);
+            Phrase cpfMotorista = new Phrase("CPF do Motorista: " + motorista.Cpf + "\n", fontText);
+            Phrase rgMotorista = new Phrase("RG do Motorista: " + motorista.Rg + "\n" + "\n", fontText);
+
+            Paragraph infoMotorista = new Paragraph();
+            infoMotorista.Add(idMotorista);
+            infoMotorista.Add(nomeMotorista);
+            infoMotorista.Add(cpfMotorista);
+            infoMotorista.Add(rgMotorista);
+
+            doc.Add(infoMotorista);
+
             //Lista de Ocorrências
 
-            if(listaOcorrencia == null)
+            if(listaOcorrencia != null)
             {
-                Phrase text = new Phrase("Não existe nenhuma ocorrência", fontText);
-                doc.Add(text);
-            }
-            else
-            {
-                Phrase listOcorrencia = new Phrase("Lista de Ocorrências", fontSubtitulo);
+                Phrase listOcorrencia = new Phrase("   Lista de Ocorrências", fontSubtitulo);
                 doc.Add(listOcorrencia);
 
                 Font fontTable = FontFactory.GetFont(BaseFont.COURIER, 12);
@@ -144,14 +159,10 @@ namespace RotaLimpa.Api.Models
                     momento.Alignment = Element.ALIGN_CENTER;
                     var cell3 = new PdfPCell(momento);
                     table.AddCell(cell3);
-
-                    doc.Add(table);
-
                 }
+                
+                doc.Add(table);
             }
-
-            
-            
             
             doc.Close();
         }
