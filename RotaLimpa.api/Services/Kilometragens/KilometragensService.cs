@@ -13,26 +13,26 @@ namespace RotaLimpa.Api.Services
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        private readonly IKilometragensRepository _kilimetragensRepository;
+        private readonly IKilometragensRepository _kilometragensRepository;
 
         private readonly IFrotasService _frotasService;
 
-        public KilometragensService(IKilometragensRepository kilimetragensRepository, IUnitOfWork unitOfWork, IFrotasService frotasService)
+        public KilometragensService(IKilometragensRepository kilometragensRepository, IUnitOfWork unitOfWork, IFrotasService frotasService)
         {
-            _kilimetragensRepository = kilimetragensRepository;
+            _kilometragensRepository = kilometragensRepository;
             _unitOfWork = unitOfWork;
             _frotasService = frotasService;
         }
 
         public async Task<IEnumerable<Kilometragem>> GetAllKilometragensAsync()
         {
-            IEnumerable<Kilometragem> kilimetragens = await _kilimetragensRepository.GetAllKilometragensAsync();
-            return kilimetragens;
+            IEnumerable<Kilometragem> kilometragens = await _kilometragensRepository.GetAllKilometragensAsync();
+            return kilometragens;
         }
 
         public async Task<Kilometragem> GetKilometragemByIdAsync(int id)
         {
-            Kilometragem Kilometragem = await _kilimetragensRepository.GetKilometragemByIdAsync(id);
+            Kilometragem Kilometragem = await _kilometragensRepository.GetKilometragemByIdAsync(id);
             if (Kilometragem == null)
             {
                 throw new NotFoundException("Not Found");
@@ -40,37 +40,37 @@ namespace RotaLimpa.Api.Services
             return Kilometragem;
         }
 
-        public async Task<Kilometragem> CreateKilometragemAsync(Kilometragem Kilometragem)
+        public async Task<Kilometragem> CreateKilometragemAsync(Kilometragem kilometragem)
         {
-            Frota frota = await _frotasService.GetFrotaByIdAsync(Kilometragem.IdVeiculo);
+            Frota frota = await _frotasService.GetFrotaByIdAsync(kilometragem.IdVeiculo);
             if (frota == null)
             {
-                throw new Exception("Empresa doesn't exists.");
+                throw new Exception("Frota doesn't exists.");
             }
-            await _kilimetragensRepository.CreateKilometragemAsync(Kilometragem);
+            await _kilometragensRepository.CreateKilometragemAsync(kilometragem);
             await _unitOfWork.SaveChangesAsync();
-            return Kilometragem;
+            return kilometragem;
         }
 
-        public async Task<Kilometragem> UpdateKilometragemAsync(int id, Kilometragem Kilometragem)
+        public async Task<Kilometragem> UpdateKilometragemAsync(int id, Kilometragem kilometragem)
         {
-            Kilometragem currentKilometragem = await _kilimetragensRepository.GetKilometragemByIdAsync(id);
+            Kilometragem currentKilometragem = await _kilometragensRepository.GetKilometragemByIdAsync(id);
             if (currentKilometragem == null)
             {
                 throw new NotFoundException("Not found");
             }
 
-            currentKilometragem.Km = Kilometragem.Km;
-            currentKilometragem.DiKilometragem = Kilometragem.DiKilometragem;
+            currentKilometragem.Km = kilometragem.Km;
+            currentKilometragem.DiKilometragem = kilometragem.DiKilometragem;
             await _unitOfWork.SaveChangesAsync();
 
-            return Kilometragem;
+            return kilometragem;
         }
 
         public async Task RemoveKilometragem(int id)
         {
-            Kilometragem currentKilometragem = await _kilimetragensRepository.GetKilometragemByIdAsync(id);
-            await _kilimetragensRepository.RemoveKilometragem(currentKilometragem);
+            Kilometragem currentKilometragem = await _kilometragensRepository.GetKilometragemByIdAsync(id);
+            await _kilometragensRepository.RemoveKilometragem(currentKilometragem);
             await _unitOfWork.SaveChangesAsync();
 
             return;

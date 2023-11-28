@@ -12,10 +12,16 @@ namespace RotaLimpa.Api.Services
 
         private readonly IRuasRepository _ruasRepository;
 
-        public RuasService(IRuasRepository ruasRepository, IUnitOfWork unitOfWork)
+        private readonly ICEPsService _cepsService;
+
+        private readonly IRotasService _rotasService;
+
+        public RuasService(IRuasRepository ruasRepository, IUnitOfWork unitOfWork, ICEPsService cepsService, IRotasService rotasService)
         {
             _ruasRepository = ruasRepository;
             _unitOfWork = unitOfWork;
+            _cepsService = cepsService;
+            _rotasService = rotasService;
         }
         public async Task<IEnumerable<Rua>> GetAllRuasAsync()
         {
@@ -34,14 +40,21 @@ namespace RotaLimpa.Api.Services
         }
         public async Task<Rua> CreateRuaAsync(Rua rua)
         {
-            Rua currentRua = await _ruasRepository.GetRuaByIdAsync(rua.Id);
-            if (currentRua != null && currentRua.Equals(currentRua))
+            Rota rota = await _rotasService.GetRotaByIdAsync(rua.IdRota);
+            if (rota == null)
             {
-                throw new Exception("Relatório final já existe.");
+                throw new Exception("Rota doesn't exists.");
             }
+
+            CEP cep = await _cepsService.GetCEPByIdAsync(rua.IdCep);
+            if (cep == null)
+            {
+                throw new Exception("CEP doesn't exists.");
+            }
+
             await _ruasRepository.CreateRuaAsync(rua);
             await _unitOfWork.SaveChangesAsync();
-            return currentRua;
+            return rua;
         }
         public async Task<Rua> UpdateRuaAsync(int id, Rua rua)
         {

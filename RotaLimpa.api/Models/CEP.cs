@@ -11,7 +11,9 @@ namespace RotaLimpa.Api.Models
     public class CEP
     {
         public ICollection<Rua>? Ruas { get; set; }
-        
+
+        public ICollection<Ocorrencia>? Ocorrencias { get; set; }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }

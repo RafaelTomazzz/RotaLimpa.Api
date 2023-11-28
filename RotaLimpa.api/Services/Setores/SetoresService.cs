@@ -17,10 +17,16 @@ namespace RotaLimpa.Api.Services
 
         private readonly ISetoresRepository _setoresRepository;
 
-        public SetoresService(ISetoresRepository setoresRepository, IUnitOfWork unitOfWork)
+        private readonly IEmpresasService _empresasService;
+
+        private readonly IColaboradoresService _colaboradoresService;
+
+        public SetoresService(ISetoresRepository setoresRepository, IUnitOfWork unitOfWork, IEmpresasService empresasService, IColaboradoresService colaboradoresService)
         {
             _setoresRepository = setoresRepository;
             _unitOfWork = unitOfWork;
+            _empresasService = empresasService;
+            _colaboradoresService = colaboradoresService;
         }
 
         public async Task<IEnumerable<Setor>> GetAllSetoresAsync()
@@ -41,14 +47,21 @@ namespace RotaLimpa.Api.Services
 
         public async Task<Setor> CreateSetorAsync(Setor setor)
         {
-            Setor currentSetor = await _setoresRepository.GetSetorByIdAsync(setor.Id);
-            if (currentSetor != null && currentSetor.Equals(setor))
+            Empresa empresa = await _empresasService.GetEmpresaByIdAsync(setor.IdEmpresa);
+            if (empresa == null)
             {
-                throw new Exception("Setor already exists.");
+                throw new Exception("Empresa doesn't exists.");
             }
+
+            Colaborador colaborador = await _colaboradoresService.GetColaboradorByIdAsync(setor.IdColaborador);
+            if (colaborador == null)
+            {
+                throw new Exception("Colaborador doesn't exists.");
+            }
+
             await _setoresRepository.CreateSetorAsync(setor);
             await _unitOfWork.SaveChangesAsync();
-            return currentSetor;
+            return setor;
         }
 
         public async Task<Setor> UpdateSetorAsync(int id, Setor setor)

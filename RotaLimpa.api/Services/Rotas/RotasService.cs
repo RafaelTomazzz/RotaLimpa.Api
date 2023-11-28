@@ -12,10 +12,16 @@ namespace RotaLimpa.Api.Services
 
         private readonly IRotasRepository _rotasRepository;
 
-        public RotasService(IRotasRepository rotasRepository, IUnitOfWork unitOfWork)
+        private readonly ISetoresService _setoresService;
+
+        private readonly IColaboradoresService _colaboradoresService;
+
+        public RotasService(IRotasRepository rotasRepository, IUnitOfWork unitOfWork, ISetoresService setoresService, IColaboradoresService colaboradoresService)
         {
             _rotasRepository = rotasRepository;
             _unitOfWork = unitOfWork;
+            _setoresService = setoresService;
+            _colaboradoresService = colaboradoresService;
         }
         public async Task<IEnumerable<Rota>> GetAllRotasAsync()
         {
@@ -34,14 +40,20 @@ namespace RotaLimpa.Api.Services
         }
         public async Task<Rota> CreateRotaAsync(Rota rota)
         {
-            Rota currentRota = await _rotasRepository.GetRotaByIdAsync(rota.Id);
-            if (currentRota != null && currentRota.Equals(currentRota))
+            Setor setor = await _setoresService.GetSetorByIdAsync(rota.IdSetor);
+            if (setor == null)
             {
-                throw new Exception("Relatório final já existe.");
+                throw new Exception("Setor doesn't exists.");
+            }
+
+            Colaborador colaborador = await _colaboradoresService.GetColaboradorByIdAsync(rota.IdColaborador);
+            if (colaborador == null)
+            {
+                throw new Exception("Colaborador doesn't exists.");
             }
             await _rotasRepository.CreateRotaAsync(rota);
             await _unitOfWork.SaveChangesAsync();
-            return currentRota;
+            return rota;
         }
         public async Task<Rota> UpdateRotaAsync(int id, Rota rota)
         {

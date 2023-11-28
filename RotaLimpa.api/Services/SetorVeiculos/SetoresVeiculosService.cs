@@ -13,10 +13,16 @@ namespace RotaLimpa.Api.Services
 
         private readonly ISetoresVeiculosRepository _setorVeiculosRepository;
 
-        public SetoresVeiculosService(ISetoresVeiculosRepository setorVeiculosRepository, IUnitOfWork unitOfWork)
+        private readonly ISetoresService _setoresService;
+
+        private readonly IFrotasService _frotasService;
+
+        public SetoresVeiculosService(ISetoresVeiculosRepository setorVeiculosRepository, IUnitOfWork unitOfWork, ISetoresService setoresService, IFrotasService frotasService)
         {
             _setorVeiculosRepository = setorVeiculosRepository;
             _unitOfWork = unitOfWork;
+            _setoresService = setoresService;
+            _frotasService = frotasService;
         }
         public async Task<IEnumerable<SetorVeiculo>> GetAllSetoresVeiculosAsync()
         {
@@ -36,14 +42,21 @@ namespace RotaLimpa.Api.Services
         }
         public  async Task<SetorVeiculo> CreateSetorVeiculoAsync(SetorVeiculo setorVeiculo)
         {
-            SetorVeiculo currentSetorVeiculo = await _setorVeiculosRepository.GetSetorVeiculoByIdAsync(setorVeiculo.IdSetor);
-            if (currentSetorVeiculo != null && currentSetorVeiculo.Equals(currentSetorVeiculo))
+            Setor setor = await _setoresService.GetSetorByIdAsync(setorVeiculo.IdSetor);
+            if (setor == null)
             {
-                throw new Exception("Relatório final já existe.");
+                throw new Exception("Setor doesn't exists.");
             }
+
+            Frota frota = await _frotasService.GetFrotaByIdAsync(setorVeiculo.IdFrota);
+            if (frota == null)
+            {
+                throw new Exception("Frota doesn't exists.");
+            }
+
             await _setorVeiculosRepository.CreateSetorVeiculoAsync(setorVeiculo);
             await _unitOfWork.SaveChangesAsync();
-            return currentSetorVeiculo;
+            return setorVeiculo;
         }
         public async Task<SetorVeiculo> UpdateSetorVeiculoAsync(int id, SetorVeiculo setorVeiculo)
         {

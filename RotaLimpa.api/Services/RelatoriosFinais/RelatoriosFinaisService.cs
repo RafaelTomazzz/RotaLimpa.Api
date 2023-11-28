@@ -13,10 +13,16 @@ namespace RotaLimpa.Api.Services
 
         private readonly IRelatoriosFinaisRepository _relatoriosFinaisRepository;
 
-        public RelatoriosFinaisService(IRelatoriosFinaisRepository relatoriosFinaisRepository, IUnitOfWork unitOfWork)
+        private readonly ITrajetosService _trajetosService;
+
+        private readonly ISetoresService _setoresService;
+
+        public RelatoriosFinaisService(IRelatoriosFinaisRepository relatoriosFinaisRepository, IUnitOfWork unitOfWork, ITrajetosService trajetosService, ISetoresService setoresService)
         {
             _relatoriosFinaisRepository = relatoriosFinaisRepository;
             _unitOfWork = unitOfWork;
+            _trajetosService = trajetosService;
+            _setoresService = setoresService;
         }
 
         public async Task<IEnumerable<RelatorioFinal>> GetAllRelatoriosFinaisAsync()
@@ -36,14 +42,21 @@ namespace RotaLimpa.Api.Services
         }
         public async Task<RelatorioFinal> CreateRelatorioFinalAsync(RelatorioFinal relatorioFinal)
         {
-            Trajeto trajeto = await _trajetosService.GetTrajetoByIdAsync(ocorrencia.IdTrajeto);
+            Trajeto trajeto = await _trajetosService.GetTrajetoByIdAsync(relatorioFinal.IdTrajeto);
             if (trajeto == null)
             {
                 throw new Exception("Trajeto doesn't exists.");
             }
+
+            Setor setor = await _setoresService.GetSetorByIdAsync(relatorioFinal.IdSetor);
+            if (setor == null)
+            {
+                throw new Exception("Setor doesn't exists.");
+            }
+
             await _relatoriosFinaisRepository.CreateRelatorioFinalAsync(relatorioFinal);
             await _unitOfWork.SaveChangesAsync();
-            return currentRelatorioFinal;
+            return relatorioFinal;
         }
 
         public async Task<RelatorioFinal> UpdateRelatorioFinalAsync(int id, RelatorioFinal relatorioFinal)

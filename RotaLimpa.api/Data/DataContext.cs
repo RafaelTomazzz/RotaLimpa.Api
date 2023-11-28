@@ -177,6 +177,12 @@ namespace RotaLimpa.Api.Data
                 .HasForeignKey(o => o.IdTrajeto)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<Ocorrencia>()
+                .HasOne(o => o.CEP)
+                .WithMany(t => t.Ocorrencias)
+                .HasForeignKey(o => o.IdCep)
+                .OnDelete(DeleteBehavior.Cascade);
+
             modelBuilder.Entity<Colaborador>()
                 .HasOne(s => s.Empresa)
                 .WithMany(e => e.Colaboradores)
