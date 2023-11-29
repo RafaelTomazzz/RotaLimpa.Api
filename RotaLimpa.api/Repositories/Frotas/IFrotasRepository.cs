@@ -12,5 +12,6 @@ namespace RotaLimpa.Api.Repositories.Interfaces
         public Task<Frota> GetFrotaByIdAsync(int id);
         public Task CreateFrotaAsync(Frota frota);
         public Task RemoveFrota(Frota frota);
+        public Task<Frota> GetFrotaByPlacaAsync(string placa);
     }
 }

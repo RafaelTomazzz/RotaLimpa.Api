@@ -38,5 +38,9 @@ namespace RotaLimpa.Api.Repositories
             _context.Frotas.Remove(frota);
         }
 
+        public async Task<Frota> GetFrotaByPlacaAsync(string placa)
+        {
+            return await _context.Frotas.FirstOrDefaultAsync(f => f.PVeiculo == placa);
+        }
     }
 }

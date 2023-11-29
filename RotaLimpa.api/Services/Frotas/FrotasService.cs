@@ -39,11 +39,17 @@ namespace RotaLimpa.Api.Services
 
         public async Task<Frota> CreateFrotaAsync(Frota frota)
         {
-            Frota currentFrota = await _frotasRepository.GetFrotaByIdAsync(frota.IdVeiculo);
+            Frota currentFrota = await _frotasRepository.GetFrotaByPlacaAsync(frota.PVeiculo);
             if (currentFrota != null && currentFrota.Equals(frota))
             {
                 throw new Exception("Frota already exists.");
             }
+
+            if (frota.PVeiculo == null || frota.PVeiculo == string.Empty)
+            {
+                throw new Exception("Need to informe the placa's Frota.");
+            }
+
             await _frotasRepository.CreateFrotaAsync(frota);
             await _unitOfWork.SaveChangesAsync();
             return currentFrota;

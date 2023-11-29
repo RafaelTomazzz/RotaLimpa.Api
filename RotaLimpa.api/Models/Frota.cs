@@ -20,7 +20,7 @@ namespace RotaLimpa.Api.Models
         public int IdVeiculo { get; set; }
         [Comment("placa do veiculo")]
         [Column("P_Veiculo")]
-        [StringLength(9)]
+        [StringLength(7)]
         public string PVeiculo { get; set; }
         [Comment("Tamanho do ve�culo")]
         [Column("Tmn_Veiculo")]
