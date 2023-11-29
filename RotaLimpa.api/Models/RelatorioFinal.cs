@@ -38,7 +38,7 @@ namespace RotaLimpa.Api.Models
 
         
 
-        public async void CriarPDF(RelatorioFinal relatorioFinal, Trajeto trajeto, Setor setor, IEnumerable<Ocorrencia> listaOcorrencia, Motorista motorista, IEnumerable<CEP> listaCEP) 
+        public async void CriarPDF(RelatorioFinal relatorioFinal, Trajeto trajeto, Setor setor, IEnumerable<Ocorrencia> listaOcorrencia, Motorista motorista, IEnumerable<CEP> listaCEP, Frota frota) 
         {
             Document doc = new Document(PageSize.A4);
             doc.SetMargins(40, 40, 40, 40);
@@ -125,6 +125,19 @@ namespace RotaLimpa.Api.Models
 
             //informações do veiculo
 
+            Paragraph tituloFrota = new Paragraph("   Informações do Veículo \n \n", fontSubtitulo);
+            doc.Add(tituloFrota);
+
+            Phrase idFrota = new Phrase("Identificação do Veículo: " + frota.IdVeiculo.ToString() + "\n", fontText);
+            Phrase placaFrota = new Phrase("Placa do Veículo: " + frota.PVeiculo + "\n", fontText);
+            Phrase tmnFrota = new Phrase("Largura do Veículo: " + frota.TmnVeiculo.ToString() + "\n \n", fontText);
+
+            Paragraph infoFrota = new Paragraph();
+            infoFrota.Add(idFrota);
+            infoFrota.Add(placaFrota);
+            infoFrota.Add(tmnFrota);
+
+            doc.Add(infoFrota);
 
             //Lista de Ocorrências
 
