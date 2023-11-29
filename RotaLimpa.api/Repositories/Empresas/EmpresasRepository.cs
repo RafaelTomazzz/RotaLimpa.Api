@@ -38,5 +38,9 @@ namespace RotaLimpa.Api.Repositories
             _context.Empresas.Remove(empresa);
         }
 
+        public async Task<Empresa> GetEmpresaByCNPJAsync(string cnpj)
+        {
+            return await _context.Empresas.FirstOrDefaultAsync(f => f.DcEmpresa == cnpj);
+        }
     }
 }

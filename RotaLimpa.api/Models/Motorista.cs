@@ -92,11 +92,20 @@ namespace RotaLimpa.Api.Models
             SNome = snome;
             Cpf = cpf;
         }
+        public Motorista(int id, string pnome, string snome, string cpf, string login)
+        {
+            Id = id;
+            PNome = pnome;
+            SNome = snome;
+            Cpf = cpf;
+            Login = login;
+        }
 
         public MotoristaDTO ToMotorista()
         {
             MotoristaDTO motoristaDTO= new MotoristaDTOBuilder()
             .WithId(Id)
+            .WithLogin(Login)
             .WithPNome(PNome)
             .WithSNome(SNome)
             .WithCpf(Cpf)

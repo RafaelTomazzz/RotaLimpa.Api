@@ -104,10 +104,21 @@ namespace RotaLimpa.Api.Models
             Cpf = cpf;
         }
 
+        public Colaborador(int id, int empresaId, string pnome, string snome, string cpf, string login)
+        {
+            Id = id;
+            IdEmpresa = empresaId;
+            PNome = pnome;
+            SNome = snome;
+            Cpf = cpf;
+            Login = login;
+        }
+
         public ColaboradorDTO ToColaborador()
         {
             ColaboradorDTO colaboradorDTO = new ColaboradorDTOBuilder()
                 .WithId(Id)
+                .WithLogin(Login)
                 .WithPNome(PNome)
                 .WithSNome(SNome)
                 .WithCpf(Cpf)

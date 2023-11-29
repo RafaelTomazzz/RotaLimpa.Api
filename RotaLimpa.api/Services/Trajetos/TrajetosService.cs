@@ -6,6 +6,7 @@ using RotaLimpa.Api.Models;
 using RotaLimpa.Api.Repositories.Interfaces;
 using RotaLimpa.Api.Repositories.UnitOfWork;
 using RotaLimpa.Api.Exceptions;
+using System.Security.Cryptography;
 
 namespace RotaLimpa.Api.Services
 {
@@ -51,14 +52,33 @@ namespace RotaLimpa.Api.Services
 
         public async Task<Trajeto> CreateTrajetoAsync(Trajeto trajeto)
         {
-            Trajeto currentTrajeto = await _trajetosRepository.GetTrajetoByIdAsync(trajeto.Id);
-            if (currentTrajeto != null && currentTrajeto.Equals(trajeto))
+            Rota rota = await _rotasService.GetRotaByIdAsync(trajeto.IdRota);
+            if (rota == null)
             {
-                throw new Exception("Trajeto already exists.");
+                throw new Exception("Rota doesn't exists.");
             }
+
+            Motorista motorista = await _motoristasService.GetMotoristaByIdAsync(trajeto.IdMotorista);
+            if (motorista == null)
+            {
+                throw new Exception("Motorista doesn't exists.");
+            }
+
+            Periodo periodo = await _periodosService.GetPeriodoByIdAsync(trajeto.IdPeriodo);
+            if (periodo == null)
+            {
+                throw new Exception("Periodo doesn't exists.");
+            }
+
+            Frota frota = await _frotasService.GetFrotaByIdAsync(trajeto.IdFrota);
+            if (frota == null)
+            {
+                throw new Exception("Frota doesn't exists.");
+            }
+
             await _trajetosRepository.CreateTrajetoAsync(trajeto);
             await _unitOfWork.SaveChangesAsync();
-            return currentTrajeto;
+            return trajeto;
         }
 
         public async Task<Trajeto> UpdateTrajetoAsync(int id, Trajeto trajeto)

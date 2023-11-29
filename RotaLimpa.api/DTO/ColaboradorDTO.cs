@@ -13,5 +13,6 @@ namespace RotaLimpa.Api.DTO
         public string SNome { get; set; }
         public string Cpf { get; set; }
         public string Rg{ get; set; }
+        public string Login { get; set; }
     }
 }

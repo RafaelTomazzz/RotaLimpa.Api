@@ -39,14 +39,19 @@ namespace RotaLimpa.Api.Services
 
         public async Task<Empresa> CreateEmpresaAsync(Empresa empresa)
         {
-            Empresa currentEmpresa = await _empresasRepository.GetEmpresaByIdAsync(empresa.Id);
+            Empresa currentEmpresa = await _empresasRepository.GetEmpresaByCNPJAsync(empresa.DcEmpresa);
             if (currentEmpresa != null && currentEmpresa.Equals(empresa))
             {
                 throw new Exception("Empresa already exists.");
             }
+
+            if (empresa.DcEmpresa == null || empresa.DcEmpresa == string.Empty)
+            {
+                throw new Exception("Need to informe the CNPJ's Empresa.");
+            }
             await _empresasRepository.CreateEmpresaAsync(empresa);
             await _unitOfWork.SaveChangesAsync();
-            return currentEmpresa;
+            return empresa;
         }
 
         public async Task<Empresa> UpdateEmpresaAsync(int id, Empresa empresa)

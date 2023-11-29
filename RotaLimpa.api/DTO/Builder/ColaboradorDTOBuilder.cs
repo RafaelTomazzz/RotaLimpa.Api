@@ -12,6 +12,12 @@ namespace RotaLimpa.Api.DTO.Builder
             return this;
         }
 
+        public ColaboradorDTOBuilder WithLogin(string login)
+        {
+            _colaboradorDTO.Login = login;
+            return this;
+        }
+
         public ColaboradorDTOBuilder WithIdEmpresa(int idempresa)
         {
             _colaboradorDTO.IdEmpresa = idempresa;

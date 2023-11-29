@@ -28,6 +28,12 @@ namespace RotaLimpa.Api.Services
         public async Task<IEnumerable<Colaborador>> GetAllColaboradoresAsync()
         {
             IEnumerable<Colaborador> colaboradores = await _colaboradoresRepository.GetAllColaboradoresAsync();
+
+            if (colaboradores == null)
+            {
+                throw new NotFoundException("Ther isn't a colaborador.");
+            }
+
             return colaboradores;
         }
 
@@ -53,6 +59,11 @@ namespace RotaLimpa.Api.Services
             if (empresa == null)
             {
                 throw new Exception("Empresa doesn't exists.");
+            }
+
+            if (colaborador.Cpf == null || colaborador.Cpf == string.Empty)
+            {
+                throw new Exception("Need to informe the CPF's Colaborador.");
             }
 
             colaborador.Login = await GerarUnicoLoginAsync();

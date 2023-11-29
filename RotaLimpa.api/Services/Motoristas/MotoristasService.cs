@@ -45,6 +45,11 @@ namespace RotaLimpa.Api.Services
                 throw new Exception("Motorista already exists.");
             }
 
+            if (novoMotorista.Cpf == null)
+            {
+                throw new Exception("Need to informe the CPF's Motorista.");
+            }
+
             novoMotorista.Login = await GerarUnicoLoginAsync();
 
             await _motoristasRepository.CreateMotoristaAsync(novoMotorista);

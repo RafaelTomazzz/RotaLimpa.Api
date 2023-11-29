@@ -12,5 +12,6 @@ namespace RotaLimpa.Api.Repositories.Interfaces
         public Task<Empresa> GetEmpresaByIdAsync(int id);
         public Task CreateEmpresaAsync(Empresa empresa);
         public Task RemoveEmpresa(Empresa empresa);
+        public Task<Empresa> GetEmpresaByCNPJAsync(string cnpj);
     }
 }
