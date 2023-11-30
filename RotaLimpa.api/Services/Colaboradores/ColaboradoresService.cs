@@ -61,7 +61,7 @@ namespace RotaLimpa.Api.Services
                 throw new Exception("Empresa doesn't exists.");
             }
 
-            if (colaborador.Cpf == null || colaborador.Cpf == string.Empty)
+            if (string.IsNullOrEmpty(colaborador.Cpf))
             {
                 throw new Exception("Need to informe the CPF's Colaborador.");
             }

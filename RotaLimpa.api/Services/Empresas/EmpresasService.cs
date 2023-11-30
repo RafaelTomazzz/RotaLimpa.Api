@@ -45,7 +45,7 @@ namespace RotaLimpa.Api.Services
                 throw new Exception("Empresa already exists.");
             }
 
-            if (empresa.DcEmpresa == null || empresa.DcEmpresa == string.Empty)
+            if (string.IsNullOrEmpty( empresa.DcEmpresa))
             {
                 throw new Exception("Need to informe the CNPJ's Empresa.");
             }

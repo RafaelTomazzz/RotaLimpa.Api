@@ -12,7 +12,9 @@ using System.Threading.Tasks;
 
 namespace RotaLimpa.Api.Models
 {
+    [Index(nameof(Id), IsUnique = true)]
     [Table("Motorista")]
+    [PrimaryKey(nameof(Id))]
     public class Motorista
     {
         public ICollection<HisLoginM>? HisLoginMs { get; set; }

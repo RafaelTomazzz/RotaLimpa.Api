@@ -45,7 +45,7 @@ namespace RotaLimpa.Api.Services
                 throw new Exception("Motorista already exists.");
             }
 
-            if (novoMotorista.Cpf == null)
+            if (string.IsNullOrEmpty(novoMotorista.Cpf) )
             {
                 throw new Exception("Need to informe the CPF's Motorista.");
             }
