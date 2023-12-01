@@ -40,7 +40,7 @@ namespace RotaLimpa.Api.Services
         public async Task<Motorista> CreateMotoristaAsync(Motorista novoMotorista)
         {
             Motorista currentMotorista = await _motoristasRepository.GetMotoristaByCPFAsync(novoMotorista.Cpf);
-            if (currentMotorista != null && currentMotorista.Equals(novoMotorista))
+            if (currentMotorista != null)
             {
                 throw new Exception("Motorista already exists.");
             }
