@@ -30,6 +30,17 @@ namespace RotaLimpa.Api.Services
             return hisLoginCs;
         }
 
+        public async Task<IEnumerable<HisLoginC>> GetAllHisLoginCsColaboradorAsync(int idColaborador)
+        {
+            Colaborador colaborador = await _colaboradoresService.GetColaboradorByIdAsync(idColaborador);
+            if (colaborador == null)
+            {
+                throw new Exception("Colaborador doesn't exists.");
+            }
+            IEnumerable<HisLoginC> hisLoginCsColaborador = await _hisLoginCsRepository.GetAllHisLoginCsColaboradorAsync(colaborador.Id);
+            return hisLoginCsColaborador;
+        }
+
         public async Task<HisLoginC> GetHisLoginCByIdAsync(int id)
         {
             HisLoginC hisLoginC = await _hisLoginCsRepository.GetHisLoginCByIdAsync(id);

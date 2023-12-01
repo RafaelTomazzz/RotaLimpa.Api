@@ -27,7 +27,13 @@ namespace RotaLimpa.Api.Repositories
         {
             return await _context.HisLoginMs.FirstOrDefaultAsync(h => h.Id == id);
         }
-        
+
+        public async Task<IEnumerable<HisLoginM>> GetAllHisLoginMsMotoristaAsync(int idMotorista)
+        {
+            IEnumerable<HisLoginM> hisLoginMMotorista = await _context.HisLoginMs.Where(h => h.IdMotorista == idMotorista).ToListAsync();
+            return hisLoginMMotorista;
+        }
+
         public async Task CreateHisLoginMAsync(HisLoginM hisLoginM)
         {
             await _context.AddAsync(hisLoginM);

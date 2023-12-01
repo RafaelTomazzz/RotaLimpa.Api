@@ -15,7 +15,7 @@ namespace RotaLimpa.Api.DTO.Builder
             return this;
         }
 
-        public MotoristaDTOBuilder WithLogin(string Login)
+        public MotoristaDTOBuilder WithLogin(string login)
         {
             _motoristaDTO.Login = login;
             return this;

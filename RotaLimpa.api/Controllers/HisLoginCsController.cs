@@ -53,6 +53,21 @@ namespace RotaLimpa.Api.Controllers
             }
         }
 
+        [HttpGet("HistoricoColaborador/{id}")]
+        public async Task<IActionResult> GetAllHisLoginCsColaborador(int idColaborador)
+        {
+            try
+            {
+                IEnumerable<HisLoginC> lista = await _hisLoginCsService.GetAllHisLoginCsColaboradorAsync(idColaborador);
+                return Ok(lista);
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] HisLoginC novoHisLoginC)
         {

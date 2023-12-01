@@ -40,6 +40,17 @@ namespace RotaLimpa.Api.Services
             return hisLoginM;
         }
 
+        public async Task<IEnumerable<HisLoginM>> GetAllHisLoginMsMotoristaAsync(int idMotorista)
+        {
+            Motorista motorista = await _motoristasService.GetMotoristaByIdAsync(idMotorista);
+            if (motorista == null)
+            {
+                throw new Exception("Motorista doesn't exists.");
+            }
+            IEnumerable<HisLoginM> hisLoginMsMotorista = await _hisLoginMsRepository.GetAllHisLoginMsMotoristaAsync(motorista.Id);
+            return hisLoginMsMotorista;
+        }
+
         public async Task<HisLoginM> CreateHisLoginMAsync(HisLoginM hisLoginM)
         {
             Motorista motorista  = await _motoristasService.GetMotoristaByIdAsync(hisLoginM.IdMotorista);

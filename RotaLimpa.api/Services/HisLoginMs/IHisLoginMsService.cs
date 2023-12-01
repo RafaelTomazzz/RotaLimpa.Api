@@ -13,6 +13,8 @@ namespace RotaLimpa.Api.Services
 
         public Task<HisLoginM> GetHisLoginMByIdAsync(int id);
 
+        public Task<IEnumerable<HisLoginM>> GetAllHisLoginMsMotoristaAsync(int idMotorista);
+
         public Task<HisLoginM> CreateHisLoginMAsync(HisLoginM hisLoginM);
 
         public Task<HisLoginM> UpdateHisLoginMAsync(int id, HisLoginM hisLoginM);

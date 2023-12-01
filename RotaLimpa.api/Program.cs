@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddDbContext<DataContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("ConexaoSomee"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ConexaoLocal"));
 });
 builder.Services.AddScoped<ICEPsRepository, CEPsRepository>();
 builder.Services.AddScoped<ICEPsService, CEPsService>();
@@ -76,6 +76,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+
 app.UseCors();
 app.UseHttpsRedirection();
 
