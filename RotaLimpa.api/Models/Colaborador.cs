@@ -13,8 +13,13 @@ namespace RotaLimpa.Api.Models
     [Table("Colaborador")]
     public class Colaborador
     {
+        [NotMapped]
         public ICollection<Setor>? Setores { get; set; }
+
+        [NotMapped]
         public ICollection<Rota>? Rotas { get; set; }
+
+        [NotMapped]
         public ICollection<HisLoginC>? HisLoginCs { get; set; }
 
         [Key]

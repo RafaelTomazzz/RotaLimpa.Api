@@ -21,7 +21,7 @@ namespace RotaLimpa.Api.Models
         [ForeignKey("Id_Colaborador")]
         public int IdColaborador { get; set; }
         [NotMapped]
-        public Colaborador Colaborador { get; set; }
+        public Colaborador? Colaborador { get; set; }
 
         public DateTime DataHora { get; set; } = DateTime.Now;
 

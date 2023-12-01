@@ -47,10 +47,9 @@ namespace RotaLimpa.Api.Controllers
                 ColaboradorDTO colaboradorDTO = colaborador.ToColaborador();
                 return Ok(colaboradorDTO);
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
-                
-                throw;
+                return BadRequest($"{ex.Message} - {ex.InnerException}");
             }
         }
 
@@ -61,12 +60,11 @@ namespace RotaLimpa.Api.Controllers
             {
                 await _colaboradoresService.CreateColaboradorAsync(novoColaborador);
 
-                return Ok(novoColaborador);
+                return Ok(novoColaborador.Id);
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
-                
-                throw;
+                return BadRequest($"{ex.Message} - {ex.InnerException}");
             }
         }
 
