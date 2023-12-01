@@ -4,6 +4,7 @@ using RotaLimpa.Api.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using RotaLimpa.Api.Exceptions;
 using System.Threading.Tasks;
 using RotaLimpa.Api.Services;
 using RotaLimpa.Api.DTO;
@@ -33,10 +34,10 @@ namespace RotaLimpa.Api.Controllers
                 IEnumerable<EmpresaDTO> empresasDTO = empresas.Select(e => e.ToEmpresa());
                 return Ok(empresasDTO);
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();
             }
         }
 
@@ -49,10 +50,10 @@ namespace RotaLimpa.Api.Controllers
                 EmpresaDTO empresaDTO = empresa.ToEmpresa();
                 return Ok(empresaDTO);
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();
             }
         }
 
@@ -68,10 +69,10 @@ namespace RotaLimpa.Api.Controllers
 
                 return Ok(novoEmpresa);
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();
             }
         }
 
@@ -84,10 +85,10 @@ namespace RotaLimpa.Api.Controllers
 
                 return Ok(currentEmpresa);
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();
             }
         }
 
@@ -100,10 +101,10 @@ namespace RotaLimpa.Api.Controllers
                 
                 return Ok("Deletado com sucesso");
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();
             }
         }
     }

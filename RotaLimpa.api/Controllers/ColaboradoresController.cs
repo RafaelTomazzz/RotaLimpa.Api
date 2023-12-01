@@ -5,7 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using RotaLimpa.Api.Services;
+using RotaLimpa.Api.Exceptions;
 using RotaLimpa.Api.DTO;
+using RotaLimpa.Api.Http;
 
 namespace RotaLimpa.Api.Controllers 
 {
@@ -31,10 +33,10 @@ namespace RotaLimpa.Api.Controllers
                 IEnumerable<ColaboradorDTO> colaboradorDTO = colaborador.Select(c => c.ToColaborador()); 
                 return Ok(colaboradorDTO);
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();;
             }
         }
 
@@ -47,9 +49,9 @@ namespace RotaLimpa.Api.Controllers
                 ColaboradorDTO colaboradorDTO = colaborador.ToColaborador();
                 return Ok(colaboradorDTO);
             }
-            catch (System.Exception ex)
+            catch (BaseException ex)
             {
-                return BadRequest($"{ex.Message} - {ex.InnerException}");
+                return ex.GetResponse();
             }
         }
 
@@ -58,13 +60,14 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                await _colaboradoresService.CreateColaboradorAsync(novoColaborador);
+                Colaborador colaborador = await _colaboradoresService.CreateColaboradorAsync(novoColaborador);
+                ColaboradorDTO colaboradorDTO = colaborador.ToColaborador();
 
-                return Ok(novoColaborador.Id);
+                return HttpResponseApi<ColaboradorDTO>.Created(colaboradorDTO);
             }
-            catch (System.Exception ex)
+            catch (BaseException ex)
             {
-                return BadRequest($"{ex.Message} - {ex.InnerException}");
+                return ex.GetResponse();
             }
         }
 
@@ -73,14 +76,13 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                Colaborador currentColaborador = await _colaboradoresService.UpdateColaboradorAsync(id, colaboradorAlterado);
+                await _colaboradoresService.UpdateColaboradorAsync(id, colaboradorAlterado);
 
-                return Ok(currentColaborador);
+                return NoContent();
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
-                
-                throw;
+                return ex.GetResponse();;
             }
         }
 
@@ -91,12 +93,12 @@ namespace RotaLimpa.Api.Controllers
             {
                 await _colaboradoresService.RemoveColaborador(id);
                 
-                return Ok("Deletado com sucesso");
+                return NoContent();
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();;
             }
         }
     }

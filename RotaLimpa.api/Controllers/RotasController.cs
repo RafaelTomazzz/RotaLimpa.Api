@@ -1,6 +1,7 @@
 ﻿using RotaLimpa.Api.Data;
 using RotaLimpa.Api.Models;
 using Microsoft.EntityFrameworkCore;
+using RotaLimpa.Api.Exceptions;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using RotaLimpa.Api.Services;
@@ -29,10 +30,10 @@ namespace RotaLimpa.Api.Controllers
                 IEnumerable<Rota> lista = await _rotasService.GetAllRotasAsync();
                 return Ok(lista);
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();
             }
         }
 
@@ -44,10 +45,10 @@ namespace RotaLimpa.Api.Controllers
                 Rota rota = await _rotasService.GetRotaByIdAsync(id);
                 return Ok(rota);
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();
             }
         }
 
@@ -60,10 +61,10 @@ namespace RotaLimpa.Api.Controllers
 
                 return Ok(novoRota);
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();
             }
         }
 
@@ -76,10 +77,10 @@ namespace RotaLimpa.Api.Controllers
 
                 return Ok(currentRota);
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();
             }
         }
 
@@ -92,10 +93,10 @@ namespace RotaLimpa.Api.Controllers
                 
                 return Ok("Deletado com sucesso");
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();
             }
         }
     }

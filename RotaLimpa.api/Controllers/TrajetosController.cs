@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using RotaLimpa.Api.Data;
 using RotaLimpa.Api.Models;
 using RotaLimpa.Api.Services;
+using RotaLimpa.Api.Exceptions;
 
 namespace RotaLimpa.Api.Controllers
 {
@@ -28,10 +29,10 @@ namespace RotaLimpa.Api.Controllers
                 IEnumerable<Trajeto> lista = await _trajetosService.GetAllTrajetosAsync();
                 return Ok(lista);
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();
             }
         }
 
@@ -43,10 +44,10 @@ namespace RotaLimpa.Api.Controllers
                 Trajeto trajeto = await _trajetosService.GetTrajetoByIdAsync(id);
                 return Ok(trajeto);
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();
             }
         }
 
@@ -59,10 +60,10 @@ namespace RotaLimpa.Api.Controllers
 
                 return Ok(novoTrajeto);
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();
             }
         }
 
@@ -75,10 +76,10 @@ namespace RotaLimpa.Api.Controllers
 
                 return Ok(currentTrajeto);
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();
             }
         }
 
@@ -91,10 +92,10 @@ namespace RotaLimpa.Api.Controllers
                 
                 return Ok("Deletado com sucesso");
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();
             }
         }
     }

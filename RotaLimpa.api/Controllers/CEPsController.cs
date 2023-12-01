@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using RotaLimpa.Api.Exceptions;
 using RotaLimpa.Api.Data;
 using RotaLimpa.Api.Models;
 using RotaLimpa.Api.Services;
@@ -32,10 +33,10 @@ namespace RotaLimpa.Api.Controllers
                 IEnumerable<CEP> lista = await _cepsService.GetAllCEPsAsync();
                 return Ok(lista);
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();
             }
         }
 
@@ -47,10 +48,10 @@ namespace RotaLimpa.Api.Controllers
                 CEP cep = await _cepsService.GetCEPByIdAsync(id);
                 return Ok(cep);
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();
             }
         }
 
@@ -63,10 +64,10 @@ namespace RotaLimpa.Api.Controllers
 
                 return Ok(novoCEP);
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();
             }
         }
 
@@ -79,10 +80,10 @@ namespace RotaLimpa.Api.Controllers
 
                 return Ok(currentCEP);
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();
             }
         }
 
@@ -95,10 +96,10 @@ namespace RotaLimpa.Api.Controllers
                 
                 return Ok("Deletado com sucesso");
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();
             }
         }
     }

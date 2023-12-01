@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using RotaLimpa.Api.Exceptions;
 using RotaLimpa.Api.Data;
 using RotaLimpa.Api.Models;
 using RotaLimpa.Api.Services;
@@ -31,10 +32,10 @@ namespace RotaLimpa.Api.Controllers
                 IEnumerable<SetorDTO> setoresDTO = setores.Select(s => s.ToSetor());
                 return Ok(setoresDTO);
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
 
-                throw;
+                return ex.GetResponse();
             }
         }
 
@@ -47,10 +48,10 @@ namespace RotaLimpa.Api.Controllers
                 SetorDTO setorDTO = setor.ToSetor();
                 return Ok(setorDTO);
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
 
-                throw;
+                return ex.GetResponse();
             }
         }
 
@@ -63,10 +64,10 @@ namespace RotaLimpa.Api.Controllers
 
                 return Ok(novoSetor);
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
 
-                throw;
+                return ex.GetResponse();
             }
         }
 
@@ -79,10 +80,10 @@ namespace RotaLimpa.Api.Controllers
 
                 return Ok(currentSetor);
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
 
-                throw;
+                return ex.GetResponse();
             }
         }
 
@@ -95,10 +96,10 @@ namespace RotaLimpa.Api.Controllers
                 
                 return Ok("Deletado com sucesso");
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();
             }
         }
     }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using RotaLimpa.Api.Exceptions;
 using RotaLimpa.Api.Data;
 using RotaLimpa.Api.DTO;
 using RotaLimpa.Api.Models;
@@ -35,10 +36,10 @@ namespace RotaLimpa.Api.Controllers
                 IEnumerable<FrotaDTO> frotasDTO = frotas.Select(f => f.ToFrota());
                 return Ok(frotasDTO);
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();
             }
         }
 
@@ -51,10 +52,10 @@ namespace RotaLimpa.Api.Controllers
                 FrotaDTO frotaDTO = frota.ToFrota();
                 return Ok(frotaDTO);
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();
             }
         }
 
@@ -67,10 +68,10 @@ namespace RotaLimpa.Api.Controllers
 
                 return Ok(novoFrota);
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();
             }
         }
 
@@ -83,10 +84,10 @@ namespace RotaLimpa.Api.Controllers
 
                 return Ok(currentFrota);
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();
             }
         }
 
@@ -99,10 +100,10 @@ namespace RotaLimpa.Api.Controllers
                 
                 return Ok("Deletado com sucesso");
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();
             }
         }
     }

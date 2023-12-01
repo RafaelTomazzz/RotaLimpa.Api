@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using RotaLimpa.Api.Exceptions;
 using RotaLimpa.Api.Data;
 using RotaLimpa.Api.Models;
 using RotaLimpa.Api.Services;
@@ -31,10 +32,10 @@ namespace RotaLimpa.Api.Controllers
                 IEnumerable<Kilometragem> lista = await _kilometragensService.GetAllKilometragensAsync();
                 return Ok(lista);
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();
             }
         }
 
@@ -46,10 +47,10 @@ namespace RotaLimpa.Api.Controllers
                 Kilometragem kilometragem = await _kilometragensService.GetKilometragemByIdAsync(id);
                 return Ok(kilometragem);
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();
             }
         }
 
@@ -62,10 +63,10 @@ namespace RotaLimpa.Api.Controllers
 
                 return Ok(novoKilometragem);
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();
             }
         }
 
@@ -78,10 +79,10 @@ namespace RotaLimpa.Api.Controllers
 
                 return Ok(currentKilometragem);
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();
             }
         }
 
@@ -94,10 +95,10 @@ namespace RotaLimpa.Api.Controllers
                 
                 return Ok("Deletado com sucesso");
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();
             }
         }
     }

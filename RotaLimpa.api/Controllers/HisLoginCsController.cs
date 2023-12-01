@@ -2,6 +2,7 @@ using System;
 using RotaLimpa.Api.Data;
 using RotaLimpa.Api.Models;
 using Microsoft.EntityFrameworkCore;
+using RotaLimpa.Api.Exceptions;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -31,10 +32,10 @@ namespace RotaLimpa.Api.Controllers
                 IEnumerable<HisLoginC> lista = await _hisLoginCsService.GetAllHisLoginCsAsync();
                 return Ok(lista);
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();
             }
         }
 
@@ -46,10 +47,10 @@ namespace RotaLimpa.Api.Controllers
                 HisLoginC hisLoginC = await _hisLoginCsService.GetHisLoginCByIdAsync(id);
                 return Ok(hisLoginC);
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();
             }
         }
 
@@ -61,10 +62,10 @@ namespace RotaLimpa.Api.Controllers
                 IEnumerable<HisLoginC> lista = await _hisLoginCsService.GetAllHisLoginCsColaboradorAsync(idColaborador);
                 return Ok(lista);
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
 
-                throw;
+                return ex.GetResponse();
             }
         }
 
@@ -77,10 +78,10 @@ namespace RotaLimpa.Api.Controllers
 
                 return Ok(novoHisLoginC);
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();
             }
         }
 
@@ -93,10 +94,10 @@ namespace RotaLimpa.Api.Controllers
 
                 return Ok(currentHisLoginC);
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();
             }
         }
 
@@ -109,10 +110,10 @@ namespace RotaLimpa.Api.Controllers
                 
                 return Ok("Deletado com sucesso");
             }
-            catch (System.Exception)
+            catch (BaseException ex)
             {
                 
-                throw;
+                return ex.GetResponse();
             }
         }
     }
