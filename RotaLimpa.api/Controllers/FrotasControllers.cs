@@ -10,6 +10,7 @@ using RotaLimpa.Api.DTO;
 using RotaLimpa.Api.Models;
 using RotaLimpa.Api.Services;
 using RotaLimpa.Api.DTO.Builder;
+using RotaLimpa.Api.Http;
 
 namespace RotaLimpa.Api.Controllers
 {
@@ -64,9 +65,10 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                await _frotasService.CreateFrotaAsync(novoFrota);
+                Frota frota = await _frotasService.CreateFrotaAsync(novoFrota);
+                FrotaDTO frotaDTO = frota.ToFrota();
 
-                return Ok(novoFrota);
+                return HttpResponseApi<FrotaDTO>.Created(frotaDTO);
             }
             catch (BaseException ex)
             {

@@ -6,6 +6,7 @@ using RotaLimpa.Api.Models;
 using RotaLimpa.Api.Services;
 using RotaLimpa.Api.DTO;
 using RotaLimpa.Api.DTO.Builder;
+using RotaLimpa.Api.Http;
 
 namespace RotaLimpa.Api.Controllers
 {
@@ -60,9 +61,10 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                await _setoresService.CreateSetorAsync(novoSetor);
+                Setor setor = await _setoresService.CreateSetorAsync(novoSetor);
+                SetorDTO setorDTO = setor.ToSetor();
 
-                return Ok(novoSetor);
+                return HttpResponseApi<SetorDTO>.Created(setorDTO);
             }
             catch (BaseException ex)
             {

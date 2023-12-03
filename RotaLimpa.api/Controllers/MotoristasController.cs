@@ -5,6 +5,7 @@ using RotaLimpa.Api.Data;
 using RotaLimpa.Api.DTO;
 using RotaLimpa.Api.Models;
 using RotaLimpa.Api.Services;
+using RotaLimpa.Api.Http;
 
 namespace RotaLimpa.Api.Controllers 
 {
@@ -59,9 +60,10 @@ namespace RotaLimpa.Api.Controllers
         {
             try
             {
-                await _motoristasService.CreateMotoristaAsync(novoMotorista);
+                Motorista motorista = await _motoristasService.CreateMotoristaAsync(novoMotorista);
+                MotoristaDTO motoristaDTO = motorista.ToMotorista();
 
-                return Ok(novoMotorista);
+                return HttpResponseApi<MotoristaDTO>.Created(motoristaDTO);
             }
             catch (BaseException ex)
             {

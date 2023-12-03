@@ -8,6 +8,7 @@ using RotaLimpa.Api.Exceptions;
 using System.Threading.Tasks;
 using RotaLimpa.Api.Services;
 using RotaLimpa.Api.DTO;
+using RotaLimpa.Api.Http;
 
 namespace RotaLimpa.Api.Controllers
 {
@@ -64,10 +65,10 @@ namespace RotaLimpa.Api.Controllers
             {
                 //await _empresasService.CreateEmpresaAsync(novoEmpresa);
 
-                await _context.AddAsync(novoEmpresa);
-                await _context.SaveChangesAsync();
+                Empresa empresa = await _empresasService.CreateEmpresaAsync(novoEmpresa);
+                EmpresaDTO empresaDTO = empresa.ToEmpresa();
 
-                return Ok(novoEmpresa);
+                return HttpResponseApi<EmpresaDTO>.Created(empresaDTO);
             }
             catch (BaseException ex)
             {
