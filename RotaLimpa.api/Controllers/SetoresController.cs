@@ -104,5 +104,26 @@ namespace RotaLimpa.Api.Controllers
                 return ex.GetResponse();
             }
         }
+
+        [HttpGet("Motorista/{id}")]
+        public async Task<IActionResult> GetMotorista(int id)
+        {
+            try
+            {
+                Setor setor = await _context.Setores
+                    .Include(rota => rota.Rotas)
+                        .ThenInclude(trajeto => trajeto.Trajetos)
+                            .ThenInclude(motorista => motorista.Motorista)
+                    .FirstOrDefaultAsync(s => s.Id == id);
+
+
+                return Ok(setor);
+            }
+            catch (BaseException ex)
+            {
+
+                return ex.GetResponse();
+            }
+        }
     }
 }
