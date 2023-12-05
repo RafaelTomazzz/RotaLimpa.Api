@@ -52,12 +52,14 @@ namespace RotaLimpa.Api.Services
             {
                 throw new Exception("Empresa doesn't exists.");
             }
+            setor.Empresa = empresa;
 
             Colaborador colaborador = await _colaboradoresService.GetColaboradorByIdAsync(setor.IdColaborador);
             if (colaborador == null)
             {
                 throw new Exception("Colaborador doesn't exists.");
             }
+            setor.Colaborador = colaborador;
 
             await _setoresRepository.CreateSetorAsync(setor);
             await _unitOfWork.SaveChangesAsync();

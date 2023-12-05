@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RotaLimpa.Api.DTO;
 using RotaLimpa.Api.DTO.Builder;
+using RotaLimpa.Api.Models.Enum;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -114,6 +115,16 @@ namespace RotaLimpa.Api.Models
             .Build();
 
             return motoristaDTO;
+        }
+
+        public SetorMotoristaPlacaDTO ToSetorMotoristaPlaca()
+        {
+            SetorMotoristaPlacaDTO setorMotoristaPlacaDTO = new SetorMotoristaPlacaDTOBuilder()
+                .WithPNome(PNome)
+                .WithSNome(SNome)
+                .WithCPF(Cpf)
+                .Build();
+            return setorMotoristaPlacaDTO;
         }
     }
 }

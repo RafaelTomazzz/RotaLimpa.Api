@@ -63,18 +63,21 @@ namespace RotaLimpa.Api.Services
             {
                 throw new Exception("Motorista doesn't exists.");
             }
+            trajeto.Motorista = motorista;
 
             Periodo periodo = await _periodosService.GetPeriodoByIdAsync(trajeto.IdPeriodo);
             if (periodo == null)
             {
                 throw new Exception("Periodo doesn't exists.");
             }
+            trajeto.Periodo = periodo;
 
             Frota frota = await _frotasService.GetFrotaByIdAsync(trajeto.IdFrota);
             if (frota == null)
             {
                 throw new Exception("Frota doesn't exists.");
             }
+            trajeto.Frota = frota;
 
             await _trajetosRepository.CreateTrajetoAsync(trajeto);
             await _unitOfWork.SaveChangesAsync();

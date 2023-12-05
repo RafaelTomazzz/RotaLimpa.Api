@@ -116,8 +116,14 @@ namespace RotaLimpa.Api.Controllers
                             .ThenInclude(motorista => motorista.Motorista)
                     .FirstOrDefaultAsync(s => s.Id == id);
 
+                SetorMotoristaPlacaDTO setorMotoristaPlacaDTO = setor.ToSetorMotoristaPlaca();
 
-                return Ok(setor);
+                if (setorMotoristaPlacaDTO == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(setorMotoristaPlacaDTO);
             }
             catch (BaseException ex)
             {

@@ -77,5 +77,13 @@ namespace RotaLimpa.Api.Models
                 .Build();
             return setorDTO;
         }
+
+        public SetorMotoristaPlacaDTO ToSetorMotoristaPlaca()
+        {
+            SetorMotoristaPlacaDTO setorMotoristaPlacaDTO = new SetorMotoristaPlacaDTOBuilder()
+                .WithTipoServico(TipoServico)
+                .Build();
+            return setorMotoristaPlacaDTO;
+        }
     }
 }

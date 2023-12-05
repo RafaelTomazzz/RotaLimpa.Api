@@ -72,5 +72,13 @@ namespace RotaLimpa.Api.Models
 
             return frotaDTO;
         }
+
+        public SetorMotoristaPlacaDTO ToSetorMotoristaPlaca()
+        {
+            SetorMotoristaPlacaDTO setorMotoristaPlacaDTO = new SetorMotoristaPlacaDTOBuilder()
+                .WithPlaca(PVeiculo)
+                .Build();
+            return setorMotoristaPlacaDTO;
+        }
     }
 }
