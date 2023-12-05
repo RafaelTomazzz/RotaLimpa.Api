@@ -131,6 +131,27 @@ namespace RotaLimpa.Api.Services
             login = $"{ultimoSequencialLogin + 1:D3}" + $"{DateTime.Now.ToString("MMyy")}";
             return login;
         }
+        
+        public async Task<Colaborador> AutenticarColaboradorAsync(int id, string login, string senha)
+        {
+            Colaborador colaborador = await _colaboradoresRepository.GetColaboradorByIdAsync(id);
 
+            if (colaborador == null)
+            {
+                throw new NotFoundException("Colaborador not found.");
+            }
+
+            if (colaborador.Login != login || !VerificarSenha(senha, colaborador.Senha))
+            {
+                throw new Exception("Invalid login or password.");
+            }
+
+            return colaborador;
+        }
+
+        private bool VerificarSenha(string senhaDigitada, string senha)
+        {
+            return senhaDigitada == senha;
+        }
     }
 }

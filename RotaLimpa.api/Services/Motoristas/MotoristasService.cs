@@ -110,5 +110,27 @@ namespace RotaLimpa.Api.Services
             return login;
         }
 
+        public async Task<Motorista> AutenticarMotoristaAsync(int id, string login, string senha)
+        {
+            Motorista motorista = await _motoristasRepository.GetMotoristaByIdAsync(id);
+
+            if (motorista == null)
+            {
+                throw new NotFoundException("Motorista not found.");
+            }
+
+            if (motorista.Login != login || !VerificarSenha(senha, motorista.Senha))
+            {
+                throw new Exception("Invalid login or password.");
+            }
+
+            return motorista;
+        }
+
+        private bool VerificarSenha(string senhaDigitada, string senha)
+        {
+            return senhaDigitada == senha;
+        }
     }
 }
+

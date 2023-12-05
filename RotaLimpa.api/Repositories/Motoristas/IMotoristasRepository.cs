@@ -11,6 +11,6 @@ namespace RotaLimpa.Api.Repositories.Interfaces
         public Task<int> ObterUltimoNumeroLoginAsync();
         public Task<Motorista> GetMotoristaByCPFAsync(string cpf);
         public Task<DateTime> BuscarUltimaCriacao();
-
+        public Task<Motorista> GetMotoristaByLoginAsync(string login);
     }
 }

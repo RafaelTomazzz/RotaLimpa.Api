@@ -29,6 +29,21 @@ namespace RotaLimpa.Api.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+        modelBuilder.Entity<Motorista>().HasData(
+        new Motorista
+        {
+            Id = 1,
+            PNome = "Breno",
+            SNome = "Lisboa Souza",
+            Di_Motorista = DateTime.Now,
+            StMotorista = "1",
+            Cpf = "500.700.700-99",
+            Rg = "50-200.600.9",
+            Login = "BrLsz",
+            Senha = "12345",
+        });
+
             modelBuilder.Entity<CEP>()
                 .HasKey(c => c.Id);
 

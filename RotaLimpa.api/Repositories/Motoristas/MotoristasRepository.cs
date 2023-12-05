@@ -27,6 +27,11 @@ namespace RotaLimpa.Api.Repositories
         {
             return await _context.Motoristas.FirstOrDefaultAsync(m => m.Id == id);
         }
+
+        public async Task<Motorista> GetMotoristaByLoginAsync(string login)
+        {
+            return await _context.Motoristas.FirstOrDefaultAsync(m => m.Login == login);
+        }
         
         public async Task CreateMotoristaAsync(Motorista novoMotorista)
         {

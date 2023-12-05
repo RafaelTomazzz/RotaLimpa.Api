@@ -103,5 +103,34 @@ namespace RotaLimpa.Api.Controllers
                 return ex.GetResponse();
             }
         }
+
+        [HttpPost("Authenticate/{id}")]
+        public async Task<IActionResult> Authenticate(int id, [FromBody] RotaLimpa.api.DTO.LoginMDTO request)
+        {
+            try
+            {
+                if (id != request.Id)
+                {
+                    return BadRequest("O ID do motorista na URL não corresponde ao ID fornecido no corpo da solicitação.");
+                }
+
+                    Motorista motorista = await _motoristasService.AutenticarMotoristaAsync(id, request.Login, request.Senha);
+                
+                if (motorista != null && motorista.Id == id)
+                {
+                    MotoristaDTO motoristaDTO = motorista.ToMotorista();
+                    return Ok(motoristaDTO);
+                }
+                else
+                {
+                    return Unauthorized("Credenciais inválidas ou motorista não encontrado.");
+                }
+            }
+            catch (BaseException ex)
+            {
+                return ex.GetResponse();
+            }
+        }
+
     }
 }

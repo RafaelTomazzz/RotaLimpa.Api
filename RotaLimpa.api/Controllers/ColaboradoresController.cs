@@ -101,5 +101,33 @@ namespace RotaLimpa.Api.Controllers
                 return ex.GetResponse();;
             }
         }
+
+        [HttpPost("Authenticate/{id}")]
+        public async Task<IActionResult> Authenticate(int id, [FromBody] RotaLimpa.api.DTO.LoginCDTO request)
+        {
+            try
+            {
+                if (id != request.Id)
+                {
+                    return BadRequest("O ID do Colaborador na URL não corresponde ao ID fornecido na solicitação.");
+                }
+
+                    Colaborador colaborador = await _colaboradoresService.AutenticarColaboradorAsync(id, request.Login, request.Senha);
+                
+                if (colaborador != null && colaborador.Id == id)
+                {
+                    ColaboradorDTO colaboradorDTO = colaborador.ToColaborador();
+                    return Ok(colaboradorDTO);
+                }
+                else
+                {
+                    return Unauthorized("Credenciais inválidas ou colaborador não encontrado.");
+                }
+            }
+            catch (BaseException ex)
+            {
+                return ex.GetResponse();
+            }
+        }
     }
 }

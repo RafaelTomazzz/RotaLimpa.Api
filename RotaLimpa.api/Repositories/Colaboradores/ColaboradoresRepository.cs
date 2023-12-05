@@ -27,6 +27,11 @@ namespace RotaLimpa.Api.Repositories
         {
             return await _context.Colaboradores.FirstOrDefaultAsync(f => f.Id == id);
         }
+
+        public async Task<Colaborador> GetColaboradorByLoginAsync(string login)
+        {
+            return await _context.Colaboradores.FirstOrDefaultAsync(m => m.Login == login);
+        }
         
         public async Task CreateColaboradorAsync(Colaborador colaborador)
         {
