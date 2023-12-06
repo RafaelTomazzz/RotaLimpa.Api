@@ -111,19 +111,31 @@ namespace RotaLimpa.Api.Controllers
             try
             {
                 Setor setor = await _context.Setores
-                    .Include(rota => rota.Rotas)
-                        .ThenInclude(trajeto => trajeto.Trajetos)
-                            .ThenInclude(motorista => motorista.Motorista)
-                    .FirstOrDefaultAsync(s => s.Id == id);
+            .Include(rota => rota.Rotas)
+                .ThenInclude(trajeto => trajeto.Trajetos)
+                    .ThenInclude(motorista => motorista.Motorista)
+            .FirstOrDefaultAsync(s => s.Id == id);
 
-                SetorMotoristaPlacaDTO setorMotoristaPlacaDTO = setor.ToSetorMotoristaPlaca();
-
-                if (setorMotoristaPlacaDTO == null)
+                if (setor == null)
                 {
-                    return NotFound();
+                    return NotFound("Setor não encontrado");
                 }
 
-                return Ok(setorMotoristaPlacaDTO);
+                foreach (var rota in setor.Rotas)
+                {
+                    foreach (var trajeto in rota.Trajetos)
+                    {
+                        var motorista = trajeto.Motorista;
+                        if (motorista != null)
+                        {
+                            string nomeMotorista = $"{motorista.PNome} {motorista.SNome}";
+                            
+                            return Ok(new { NomeMotorista = nomeMotorista});
+                        }
+                    }
+                }
+
+                return Ok();
             }
             catch (BaseException ex)
             {
