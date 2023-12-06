@@ -106,20 +106,22 @@ namespace RotaLimpa.Api.Controllers
         }
 
         [HttpGet("Motorista/{id}")]
-        public async Task<IActionResult> GetMotorista(int id)
+        public async Task<IActionResult> GetMotoristas(int id)
         {
             try
             {
                 Setor setor = await _context.Setores
-            .Include(rota => rota.Rotas)
-                .ThenInclude(trajeto => trajeto.Trajetos)
-                    .ThenInclude(motorista => motorista.Motorista)
-            .FirstOrDefaultAsync(s => s.Id == id);
+                    .Include(rota => rota.Rotas)
+                        .ThenInclude(trajeto => trajeto.Trajetos)
+                            .ThenInclude(motorista => motorista.Motorista)
+                    .FirstOrDefaultAsync(s => s.Id == id);
 
                 if (setor == null)
                 {
                     return NotFound("Setor não encontrado");
                 }
+
+                List<string> nomesMotoristas = new List<string>();
 
                 foreach (var rota in setor.Rotas)
                 {
@@ -129,13 +131,15 @@ namespace RotaLimpa.Api.Controllers
                         if (motorista != null)
                         {
                             string nomeMotorista = $"{motorista.PNome} {motorista.SNome}";
-                            
-                            return Ok(new { NomeMotorista = nomeMotorista});
+                            nomesMotoristas.Add(nomeMotorista);
                         }
                     }
                 }
 
-                return Ok();
+                // Retorne até três motoristas
+                var motoristasParaRetornar = nomesMotoristas.Take(3).ToList();
+
+                return Ok(motoristasParaRetornar);
             }
             catch (BaseException ex)
             {
