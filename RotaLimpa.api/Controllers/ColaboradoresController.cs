@@ -129,5 +129,33 @@ namespace RotaLimpa.Api.Controllers
                 return ex.GetResponse();
             }
         }
+
+        [HttpGet("GetEmpresa/{id}")]
+        public async Task<IActionResult> EmpresaColaborador(int id)
+        {
+            try
+            {
+                Colaborador colaborador = await _context.Colaboradores
+                    .Include(c => c.Empresa)
+                    .FirstOrDefaultAsync(c => c.Id == id);
+
+                if (colaborador == null)
+                {
+                    return NotFound("Colaborador não encontrado");
+                }
+
+                if (colaborador.Empresa == null)
+                {
+                    return NotFound("Empresa não encontrada para o colaborador");
+                }
+
+                EmpresaDTO empresaDTO = colaborador.Empresa.ToEmpresa();
+                return Ok(empresaDTO);
+            }
+            catch (BaseException ex)
+            {
+                return ex.GetResponse();
+            }
+        }
     }
 }
