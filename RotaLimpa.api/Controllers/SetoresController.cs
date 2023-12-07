@@ -147,5 +147,36 @@ namespace RotaLimpa.Api.Controllers
                 return ex.GetResponse();
             }
         }
+
+        [HttpGet("Placa/{id}")]
+        public async Task<IActionResult> GetPlacas(int id)
+        {
+            try
+            {
+                Setor setor = await _context.Setores
+            .Include(setor => setor.SetorVeiculos)
+                .ThenInclude(setorVeiculo => setorVeiculo.Frota)
+            .FirstOrDefaultAsync(s => s.Id == id);
+
+                if (setor == null)
+                {
+                    return NotFound("Setor não encontrado");
+                }
+
+                List<string> placasVeiculos = new List<string>();
+
+                foreach (var setorVeiculo in setor.SetorVeiculos)
+                {
+                    var placaVeiculo = setorVeiculo.Frota.PVeiculo;
+                    placasVeiculos.Add(placaVeiculo);
+                }
+
+                return Ok(placasVeiculos);
+            }
+            catch (BaseException ex)
+            {
+                return ex.GetResponse();
+            }
+        }
     }
 }
