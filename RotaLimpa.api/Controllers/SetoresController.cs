@@ -154,9 +154,9 @@ namespace RotaLimpa.Api.Controllers
             try
             {
                 Setor setor = await _context.Setores
-            .Include(setor => setor.SetorVeiculos)
-                .ThenInclude(setorVeiculo => setorVeiculo.Frota)
-            .FirstOrDefaultAsync(s => s.Id == id);
+                    .Include(setor => setor.SetorVeiculos)
+                        .ThenInclude(setorVeiculo => setorVeiculo.Frota)
+                    .FirstOrDefaultAsync(s => s.Id == id);
 
                 if (setor == null)
                 {

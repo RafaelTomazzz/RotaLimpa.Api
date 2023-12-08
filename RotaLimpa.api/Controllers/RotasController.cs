@@ -99,5 +99,69 @@ namespace RotaLimpa.Api.Controllers
                 return ex.GetResponse();
             }
         }
+
+        [HttpGet("Latitude/{id}")]
+        public async Task<IActionResult> GetLatitude(int id)
+        {
+            try
+            {
+                Rota rota = await _context.Rotas
+                    .Include(rua => rua.Ruas)
+                        .ThenInclude(cep => cep.CEP)
+                    .FirstOrDefaultAsync(s => s.Id == id);
+
+                if (rota == null)
+                {
+                    return NotFound("Rota não encontrada");
+                }
+
+                List<string> lats = new List<string>();
+
+                foreach (var rua in rota.Ruas)
+                {
+                    var lat = rua.CEP.Latitude;
+                    lats.Add(lat);
+                }
+
+                return Ok(lats);
+            }
+            catch (BaseException ex)
+            {
+
+                return ex.GetResponse();
+            }
+        }
+
+        [HttpGet("Longitude/{id}")]
+        public async Task<IActionResult> Getlongitude(int id)
+        {
+            try
+            {
+                Rota rota = await _context.Rotas
+                    .Include(rua => rua.Ruas)
+                        .ThenInclude(cep => cep.CEP)
+                    .FirstOrDefaultAsync(s => s.Id == id);
+
+                if (rota == null)
+                {
+                    return NotFound("Rota não encontrada");
+                }
+
+                List<string> logs = new List<string>();
+
+                foreach (var rua in rota.Ruas)
+                {
+                    var log = rua.CEP.Longitude;
+                    logs.Add(log);
+                }
+
+                return Ok(logs);
+            }
+            catch (BaseException ex)
+            {
+
+                return ex.GetResponse();
+            }
+        }
     }
 }
