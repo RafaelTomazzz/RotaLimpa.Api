@@ -5,6 +5,7 @@ using RotaLimpa.Api.Exceptions;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using RotaLimpa.Api.Services;
+using Org.BouncyCastle.Utilities;
 
 namespace RotaLimpa.Api.Controllers
 {
@@ -133,7 +134,7 @@ namespace RotaLimpa.Api.Controllers
         }
 
         [HttpGet("Longitude/{id}")]
-        public async Task<IActionResult> Getlongitude(int id)
+        public async Task<IActionResult> GetLongitude(int id)
         {
             try
             {
@@ -156,6 +157,38 @@ namespace RotaLimpa.Api.Controllers
                 }
 
                 return Ok(logs);
+            }
+            catch (BaseException ex)
+            {
+
+                return ex.GetResponse();
+            }
+        }
+
+        [HttpGet("CEP/{id}")]
+        public async Task<IActionResult> GetCEP(int id)
+        {
+            try
+            {
+                Rota rota = await _context.Rotas
+                    .Include(rua => rua.Ruas)
+                        .ThenInclude(cep => cep.CEP)
+                    .FirstOrDefaultAsync(s => s.Id == id);
+
+                if (rota == null)
+                {
+                    return NotFound("Rota não encontrada");
+                }
+
+                List<CEP> ceps = new List<CEP>();
+
+                foreach (var rua in rota.Ruas)
+                {
+                    CEP cep = rua.CEP;
+                    ceps.Add(cep);
+                }
+
+                return Ok(ceps);
             }
             catch (BaseException ex)
             {
