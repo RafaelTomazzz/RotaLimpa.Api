@@ -17,11 +17,15 @@ namespace RotaLimpa.Api.Controllers
         private readonly DataContext _context;
 
         private readonly ISetoresService _setoresService;
+        private readonly IEmpresasService _empresasService;
+        private readonly IColaboradoresService _colaboradoresService;
 
-        public SetoresController(DataContext context, ISetoresService setoresService)
+        public SetoresController(DataContext context, ISetoresService setoresService, IEmpresasService empresasService, IColaboradoresService colaboradoresService)
         {
             _context = context;
             _setoresService = setoresService;
+            _empresasService = empresasService;
+            _colaboradoresService = colaboradoresService;
         }
 
         [HttpGet("GetAll")]
@@ -118,7 +122,7 @@ namespace RotaLimpa.Api.Controllers
 
                 if (setor == null)
                 {
-                    return NotFound("Setor não encontrado");
+                    return NotFound("Setor nï¿½o encontrado");
                 }
 
                 List<string> nomesMotoristas = new List<string>();
@@ -136,7 +140,7 @@ namespace RotaLimpa.Api.Controllers
                     }
                 }
 
-                // Retorne até três motoristas
+                // Retorne atï¿½ trï¿½s motoristas
                 var motoristasParaRetornar = nomesMotoristas.Take(3).ToList();
 
                 return Ok(motoristasParaRetornar);
@@ -160,7 +164,7 @@ namespace RotaLimpa.Api.Controllers
 
                 if (setor == null)
                 {
-                    return NotFound("Setor não encontrado");
+                    return NotFound("Setor nï¿½o encontrado");
                 }
 
                 List<string> placasVeiculos = new List<string>();
@@ -178,5 +182,43 @@ namespace RotaLimpa.Api.Controllers
                 return ex.GetResponse();
             }
         }
+
+        [HttpGet("Empresa/{id}")]
+        public async Task<IActionResult> GetNomeEmpresa(int id)
+        {
+            try
+            {
+                Setor setor = await _setoresService.GetSetorByIdAsync(id);
+                int idempresa = setor.IdEmpresa;
+
+                Empresa empresa = await _empresasService.GetEmpresaByIdAsync(idempresa);
+                string empresaNome = empresa.Nome;
+
+                return Ok(empresaNome); 
+            }
+            catch (BaseException ex)
+            {
+                return ex.GetResponse();
+            }
+        }
+
+        [HttpGet("Colaborador/{id}")]
+        public async Task<IActionResult> GetNomeColaborador(int id)
+        {
+            try
+            {
+                Setor setor = await _setoresService.GetSetorByIdAsync(id);
+                int idcolaborador = setor.IdColaborador;
+
+                Colaborador colaborador = await _colaboradoresService.GetColaboradorByIdAsync(idcolaborador); 
+                string colaboradorNome = colaborador.PNome + colaborador.SNome;
+
+                return Ok(colaboradorNome); 
+            }
+            catch (BaseException ex)
+            {
+                return ex.GetResponse();
+            }
+        }   
     }
 }
