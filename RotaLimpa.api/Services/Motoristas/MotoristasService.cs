@@ -110,9 +110,9 @@ namespace RotaLimpa.Api.Services
             return login;
         }
 
-        public async Task<Motorista> AutenticarMotoristaAsync(int id, string login, string senha)
+        public async Task<Motorista> AutenticarMotoristaAsync(string login, string senha)
         {
-            Motorista motorista = await _motoristasRepository.GetMotoristaByIdAsync(id);
+            Motorista motorista = await _motoristasRepository.GetMotoristaByLoginAsync(login);
 
             if (motorista == null)
             {
