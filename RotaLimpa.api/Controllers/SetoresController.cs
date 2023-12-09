@@ -7,6 +7,7 @@ using RotaLimpa.Api.Services;
 using RotaLimpa.Api.DTO;
 using RotaLimpa.Api.DTO.Builder;
 using RotaLimpa.Api.Http;
+using Newtonsoft.Json;
 
 namespace RotaLimpa.Api.Controllers
 {
@@ -219,6 +220,36 @@ namespace RotaLimpa.Api.Controllers
             {
                 return ex.GetResponse();
             }
-        }   
+        }
+
+        [HttpGet("Rotas/{id}")]
+        public async Task<IActionResult> GetSetorRotas(int id)
+        {
+            try
+            {
+                var setor = await _context.Setores
+                    .Include(s => s.Rotas)
+                    .FirstOrDefaultAsync(s => s.Id == id);
+
+                if (setor == null)
+                {
+                    return NotFound("Setor não encontrado");
+                }
+
+                // Desabilita a referência circular durante a serialização
+                var settings = new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                };
+
+                var json = JsonConvert.SerializeObject(setor.Rotas, settings);
+
+                return Content(json, "application/json");
+            }
+            catch (BaseException ex)
+            {
+                return ex.GetResponse();
+            }
+        }
     }
 }
