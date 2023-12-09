@@ -102,19 +102,14 @@ namespace RotaLimpa.Api.Controllers
             }
         }
 
-        [HttpPost("Authenticate/{id}")]
-        public async Task<IActionResult> Authenticate(int id, [FromBody] RotaLimpa.api.DTO.LoginCDTO request)
+        [HttpPost("Authenticate")]
+        public async Task<IActionResult> Authenticate([FromBody] RotaLimpa.api.DTO.LoginCDTO request)
         {
             try
             {
-                if (id != request.Id)
-                {
-                    return BadRequest("O ID do Colaborador na URL não corresponde ao ID fornecido na solicitação.");
-                }
+                Colaborador colaborador = await _colaboradoresService.AutenticarColaboradorAsync(request.Login, request.Senha);
 
-                    Colaborador colaborador = await _colaboradoresService.AutenticarColaboradorAsync(id, request.Login, request.Senha);
-                
-                if (colaborador != null && colaborador.Id == id)
+                if (colaborador != null && colaborador.Login == request.Login)
                 {
                     ColaboradorDTO colaboradorDTO = colaborador.ToColaborador();
                     return Ok(colaboradorDTO);

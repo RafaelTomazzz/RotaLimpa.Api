@@ -131,10 +131,10 @@ namespace RotaLimpa.Api.Services
             login = $"{ultimoSequencialLogin + 1:D3}" + $"{DateTime.Now.ToString("MMyy")}";
             return login;
         }
-        
-        public async Task<Colaborador> AutenticarColaboradorAsync(int id, string login, string senha)
+
+        public async Task<Colaborador> AutenticarColaboradorAsync(string login, string senha)
         {
-            Colaborador colaborador = await _colaboradoresRepository.GetColaboradorByIdAsync(id);
+            Colaborador colaborador = await _colaboradoresRepository.GetColaboradorByLoginAsync(login);
 
             if (colaborador == null)
             {
