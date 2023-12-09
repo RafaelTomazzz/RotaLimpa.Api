@@ -45,22 +45,22 @@ namespace RotaLimpa.Api.Models
 
             doc.Open();
 
-            //Título do pdf
+            //Tï¿½tulo do pdf
 
             Font fontTitulo = FontFactory.GetFont(BaseFont.COURIER, 20, Font.BOLD);
             Font fontSubtitulo = FontFactory.GetFont(BaseFont.COURIER, 16, Font.BOLD);
             Font fontText = FontFactory.GetFont(BaseFont.COURIER, 12);
-            Paragraph paragTitulo = new Paragraph("RELATÓRIO DO TRAJETO" + "\n \n", fontTitulo);
+            Paragraph paragTitulo = new Paragraph("RELATï¿½RIO DO TRAJETO" + "\n \n", fontTitulo);
             paragTitulo.Alignment = Element.ALIGN_CENTER;
 
             doc.Add(paragTitulo);
 
-            //informaçoes do trajeto
+            //informaï¿½oes do trajeto
 
-            Paragraph tituloTrajeto = new Paragraph("   Informações do Trajeto \n \n", fontSubtitulo);
+            Paragraph tituloTrajeto = new Paragraph("   Informaï¿½ï¿½es do Trajeto \n \n", fontSubtitulo);
             doc.Add(tituloTrajeto);
 
-            Phrase idTrajeto = new Phrase("Identidicação do Trajeto: " + trajeto.Id.ToString() + "\n", fontText);
+            Phrase idTrajeto = new Phrase("Identidicaï¿½ï¿½o do Trajeto: " + trajeto.Id.ToString() + "\n", fontText);
             Phrase miTrajeto = new Phrase("Momento Inicial: " + trajeto.MiTrajeto + "\n", fontText);
             Phrase mfTrajeto = new Phrase("Momento Final: " + trajeto.MfTrajeto + "\n \n", fontText);
 
@@ -71,12 +71,12 @@ namespace RotaLimpa.Api.Models
 
             doc.Add(infoTrajeto);
 
-            //informações do motorista
+            //informaï¿½ï¿½es do motorista
 
-            Paragraph tituloMotorista = new Paragraph("   Informações do Motorista \n \n", fontSubtitulo);
+            Paragraph tituloMotorista = new Paragraph("   Informaï¿½ï¿½es do Motorista \n \n", fontSubtitulo);
             doc.Add(tituloMotorista);
 
-            Phrase idMotorista = new Phrase("Identificação do Motorista: " + motorista.Id.ToString() + "\n", fontText);
+            Phrase idMotorista = new Phrase("Identificaï¿½ï¿½o do Motorista: " + motorista.Id.ToString() + "\n", fontText);
             Phrase nomeMotorista = new Phrase("Nome do Motorista: " + motorista.PNome + " " + motorista.SNome + "\n", fontText);
             Phrase cpfMotorista = new Phrase("CPF do Motorista: " + motorista.Cpf + "\n", fontText);
             Phrase rgMotorista = new Phrase("RG do Motorista: " + motorista.Rg + "\n" + "\n", fontText);
@@ -89,11 +89,11 @@ namespace RotaLimpa.Api.Models
 
             doc.Add(infoMotorista);
 
-            //Lista de Ocorrências
+            //Lista de Ocorrï¿½ncias
 
             if (listaOcorrencia != null)
             {
-                Phrase listOcorrencia = new Phrase("   Lista de Ocorrências", fontSubtitulo);
+                Phrase listOcorrencia = new Phrase("   Lista de Ocorrï¿½ncias", fontSubtitulo);
                 doc.Add(listOcorrencia);
 
                 Font fontTable = FontFactory.GetFont(BaseFont.COURIER, 12);
@@ -101,9 +101,9 @@ namespace RotaLimpa.Api.Models
 
                 Paragraph coluna1 = new Paragraph("Id", fontTable);
                 coluna1.Alignment = Element.ALIGN_CENTER;
-                Paragraph coluna2 = new Paragraph("Tipo de Ocorrência", fontTable);
+                Paragraph coluna2 = new Paragraph("Tipo de Ocorrï¿½ncia", fontTable);
                 coluna2.Alignment = Element.ALIGN_CENTER;
-                Paragraph coluna3 = new Paragraph("Momento da Ocorrêcia", fontTable);
+                Paragraph coluna3 = new Paragraph("Momento da Ocorrï¿½cia", fontTable);
                 coluna3.Alignment = Element.ALIGN_CENTER;
 
                 var cellId = new PdfPCell(coluna1);
@@ -121,9 +121,9 @@ namespace RotaLimpa.Api.Models
                     var cell1 = new PdfPCell(Id);
                     table.AddCell(cell1);
 
-                    if (ocorrencia.TipoOcorrencia == TiposOcorrencia.Colisão)
+                    if (ocorrencia.TipoOcorrencia == TiposOcorrencia.ColisÃ£o)
                     {
-                        Paragraph tipo = new Paragraph("Colisão", fontTable);
+                        Paragraph tipo = new Paragraph("Colisï¿½o", fontTable);
                         tipo.Alignment = Element.ALIGN_CENTER;
                         var cell2 = new PdfPCell(tipo);
                         table.AddCell(cell2);
@@ -137,14 +137,14 @@ namespace RotaLimpa.Api.Models
                     }
                     else if (ocorrencia.TipoOcorrencia == TiposOcorrencia.ArvoreCaida)
                     {
-                        Paragraph tipo = new Paragraph("Árvore Caída", fontTable);
+                        Paragraph tipo = new Paragraph("ï¿½rvore Caï¿½da", fontTable);
                         tipo.Alignment = Element.ALIGN_CENTER;
                         var cell2 = new PdfPCell(tipo);
                         table.AddCell(cell2);
                     }
                     else if (ocorrencia.TipoOcorrencia == TiposOcorrencia.SemSaida)
                     {
-                        Paragraph tipo = new Paragraph("Sem Saída", fontTable);
+                        Paragraph tipo = new Paragraph("Sem Saï¿½da", fontTable);
                         tipo.Alignment = Element.ALIGN_CENTER;
                         var cell2 = new PdfPCell(tipo);
                         table.AddCell(cell2);
