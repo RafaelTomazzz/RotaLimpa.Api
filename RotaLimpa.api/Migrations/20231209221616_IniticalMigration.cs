@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RotaLimpa.Api.Migrations
 {
     /// <inheritdoc />
-    public partial class InicialMigration : Migration
+    public partial class IniticalMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -39,7 +39,7 @@ namespace RotaLimpa.Api.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
                     Dc_Empresa = table.Column<string>(type: "nvarchar(18)", maxLength: 18, nullable: false, comment: "CNPJ"),
-                    St_empresa = table.Column<int>(type: "int", nullable: false, comment: "SITUAÇÃO DA EMPRESA"),
+                    St_empresa = table.Column<string>(type: "nvarchar(max)", nullable: false, comment: "SITUAÇÃO DA EMPRESA"),
                     Di_empresa = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "DATA DE INCLUSÃO"),
                     Da_empresa = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "DATA DA ULTIMA ALTERAÇÃO")
                 },
@@ -54,7 +54,7 @@ namespace RotaLimpa.Api.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    P_Veiculo = table.Column<string>(type: "nvarchar(max)", nullable: false, comment: "placa do veiculo"),
+                    P_Veiculo = table.Column<string>(type: "nvarchar(7)", maxLength: 7, nullable: false, comment: "placa do veiculo"),
                     Tmn_Veiculo = table.Column<double>(type: "float", nullable: false, comment: "Tamanho do ve�culo"),
                     Di_Veiculo = table.Column<DateTime>(type: "datetime2", nullable: false),
                     St_Veiculo = table.Column<string>(type: "nvarchar(max)", nullable: false)
@@ -76,7 +76,7 @@ namespace RotaLimpa.Api.Migrations
                     St_Motorista = table.Column<string>(type: "nvarchar(1)", maxLength: 1, nullable: false),
                     CPF = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
                     RG = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
-                    Login = table.Column<string>(type: "nvarchar(7)", maxLength: 7, nullable: false),
+                    Login = table.Column<string>(type: "nvarchar(7)", maxLength: 7, nullable: true),
                     Senha = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false)
                 },
                 constraints: table =>
@@ -112,7 +112,7 @@ namespace RotaLimpa.Api.Migrations
                     St_Colaborador = table.Column<string>(type: "nvarchar(1)", maxLength: 1, nullable: false),
                     CPF = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
                     RG = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
-                    Login = table.Column<string>(type: "nvarchar(7)", maxLength: 7, nullable: false),
+                    Login = table.Column<string>(type: "nvarchar(7)", maxLength: 7, nullable: true),
                     Senha = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false)
                 },
                 constraints: table =>
@@ -342,12 +342,19 @@ namespace RotaLimpa.Api.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Id_Trajeto = table.Column<int>(type: "int", nullable: false),
+                    Id_Cep = table.Column<int>(type: "int", nullable: false),
                     TipoOcorrencia = table.Column<int>(type: "int", nullable: false),
                     MtOcorrencia = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Data domento da ocorr�ncia")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Ocorrencia", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Ocorrencia_CEP_Id_Cep",
+                        column: x => x.Id_Cep,
+                        principalTable: "CEP",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Ocorrencia_Trajeto_Id_Trajeto",
                         column: x => x.Id_Trajeto,
@@ -363,24 +370,35 @@ namespace RotaLimpa.Api.Migrations
                     Id_Relatorio = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdSetor = table.Column<int>(type: "int", nullable: false),
-                    IdOcorrencia = table.Column<int>(type: "int", nullable: false)
+                    IdTrajeto = table.Column<int>(type: "int", nullable: false),
+                    OcorrenciaId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_RelatorioFinal", x => x.Id_Relatorio);
                     table.ForeignKey(
-                        name: "FK_RelatorioFinal_Ocorrencia_IdOcorrencia",
-                        column: x => x.IdOcorrencia,
+                        name: "FK_RelatorioFinal_Ocorrencia_OcorrenciaId",
+                        column: x => x.OcorrenciaId,
                         principalTable: "Ocorrencia",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_RelatorioFinal_Setor_IdSetor",
                         column: x => x.IdSetor,
                         principalTable: "Setor",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_RelatorioFinal_Trajeto_IdTrajeto",
+                        column: x => x.IdTrajeto,
+                        principalTable: "Trajeto",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Motorista",
+                columns: new[] { "Id", "CPF", "Di_Motorista", "Login", "Primeiro_Nome", "RG", "Sobre_Nome", "Senha", "St_Motorista" },
+                values: new object[] { 1, "500.700.700-99", new DateTime(2023, 12, 9, 19, 16, 16, 596, DateTimeKind.Local).AddTicks(6821), "BrLsz", "Breno", "50-200.600.9", "Lisboa Souza", "12345", "1" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Colaborador_Id",
@@ -410,10 +428,21 @@ namespace RotaLimpa.Api.Migrations
                 column: "IdMotorista");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Motorista_Id",
+                table: "Motorista",
+                column: "Id",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Ocorrencia_Id",
                 table: "Ocorrencia",
                 column: "Id",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ocorrencia_Id_Cep",
+                table: "Ocorrencia",
+                column: "Id_Cep");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Ocorrencia_Id_Trajeto",
@@ -421,14 +450,19 @@ namespace RotaLimpa.Api.Migrations
                 column: "Id_Trajeto");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RelatorioFinal_IdOcorrencia",
-                table: "RelatorioFinal",
-                column: "IdOcorrencia");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_RelatorioFinal_IdSetor",
                 table: "RelatorioFinal",
                 column: "IdSetor");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RelatorioFinal_IdTrajeto",
+                table: "RelatorioFinal",
+                column: "IdTrajeto");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RelatorioFinal_OcorrenciaId",
+                table: "RelatorioFinal",
+                column: "OcorrenciaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rota_IdColaborador",

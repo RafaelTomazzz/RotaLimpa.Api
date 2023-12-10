@@ -78,5 +78,11 @@ namespace RotaLimpa.Api.Services
             return;
 
         }
+
+        public async Task<IEnumerable<Rua>> GetAllRuasWhereRota(int idrota)
+        {
+            IEnumerable<Rua> ruas = await _ruasRepository.GetAllRuaWhereRotaAsync(idrota);
+            return ruas;
+        }
     }
 }

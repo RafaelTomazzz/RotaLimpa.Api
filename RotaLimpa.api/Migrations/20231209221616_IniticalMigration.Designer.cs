@@ -12,8 +12,8 @@ using RotaLimpa.Api.Data;
 namespace RotaLimpa.Api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231123004525_DTOMigration")]
-    partial class DTOMigration
+    [Migration("20231209221616_IniticalMigration")]
+    partial class IniticalMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -109,7 +109,6 @@ namespace RotaLimpa.Api.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Login")
-                        .IsRequired()
                         .HasMaxLength(7)
                         .HasColumnType("nvarchar(7)")
                         .HasColumnName("Login");
@@ -185,8 +184,9 @@ namespace RotaLimpa.Api.Migrations
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 
-                    b.Property<int>("StEmpresa")
-                        .HasColumnType("int")
+                    b.Property<string>("StEmpresa")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("St_empresa")
                         .HasComment("SITUAÇÃO DA EMPRESA");
 
@@ -213,7 +213,8 @@ namespace RotaLimpa.Api.Migrations
 
                     b.Property<string>("PVeiculo")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(7)
+                        .HasColumnType("nvarchar(7)")
                         .HasColumnName("P_Veiculo")
                         .HasComment("placa do veiculo");
 
@@ -319,7 +320,6 @@ namespace RotaLimpa.Api.Migrations
                         .HasComment("Data de cria��o do Motorista");
 
                     b.Property<string>("Login")
-                        .IsRequired()
                         .HasMaxLength(7)
                         .HasColumnType("nvarchar(7)")
                         .HasColumnName("Login");
@@ -356,7 +356,24 @@ namespace RotaLimpa.Api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Id")
+                        .IsUnique();
+
                     b.ToTable("Motorista");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Cpf = "500.700.700-99",
+                            Di_Motorista = new DateTime(2023, 12, 9, 19, 16, 16, 596, DateTimeKind.Local).AddTicks(6821),
+                            Login = "BrLsz",
+                            PNome = "Breno",
+                            Rg = "50-200.600.9",
+                            SNome = "Lisboa Souza",
+                            Senha = "12345",
+                            StMotorista = "1"
+                        });
                 });
 
             modelBuilder.Entity("RotaLimpa.Api.Models.Ocorrencia", b =>
@@ -366,6 +383,10 @@ namespace RotaLimpa.Api.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("IdCep")
+                        .HasColumnType("int")
+                        .HasColumnName("Id_Cep");
 
                     b.Property<int>("IdTrajeto")
                         .HasColumnType("int")
@@ -383,6 +404,8 @@ namespace RotaLimpa.Api.Migrations
 
                     b.HasIndex("Id")
                         .IsUnique();
+
+                    b.HasIndex("IdCep");
 
                     b.HasIndex("IdTrajeto");
 
@@ -426,17 +449,22 @@ namespace RotaLimpa.Api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdRelatorio"));
 
-                    b.Property<int>("IdOcorrencia")
+                    b.Property<int>("IdSetor")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdSetor")
+                    b.Property<int>("IdTrajeto")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("OcorrenciaId")
                         .HasColumnType("int");
 
                     b.HasKey("IdRelatorio");
 
-                    b.HasIndex("IdOcorrencia");
-
                     b.HasIndex("IdSetor");
+
+                    b.HasIndex("IdTrajeto");
+
+                    b.HasIndex("OcorrenciaId");
 
                     b.ToTable("RelatorioFinal");
                 });
@@ -640,32 +668,44 @@ namespace RotaLimpa.Api.Migrations
 
             modelBuilder.Entity("RotaLimpa.Api.Models.Ocorrencia", b =>
                 {
+                    b.HasOne("RotaLimpa.Api.Models.CEP", "CEP")
+                        .WithMany("Ocorrencias")
+                        .HasForeignKey("IdCep")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("RotaLimpa.Api.Models.Trajeto", "Trajeto")
                         .WithMany("Ocorrencias")
                         .HasForeignKey("IdTrajeto")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("CEP");
+
                     b.Navigation("Trajeto");
                 });
 
             modelBuilder.Entity("RotaLimpa.Api.Models.RelatorioFinal", b =>
                 {
-                    b.HasOne("RotaLimpa.Api.Models.Ocorrencia", "Ocorrencia")
-                        .WithMany("RelatoriosFinais")
-                        .HasForeignKey("IdOcorrencia")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("RotaLimpa.Api.Models.Setor", "Setor")
                         .WithMany("RelatoriosFinais")
                         .HasForeignKey("IdSetor")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Ocorrencia");
+                    b.HasOne("RotaLimpa.Api.Models.Trajeto", "Trajeto")
+                        .WithMany("RelatoriosFinais")
+                        .HasForeignKey("IdTrajeto")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RotaLimpa.Api.Models.Ocorrencia", null)
+                        .WithMany("RelatoriosFinais")
+                        .HasForeignKey("OcorrenciaId");
 
                     b.Navigation("Setor");
+
+                    b.Navigation("Trajeto");
                 });
 
             modelBuilder.Entity("RotaLimpa.Api.Models.Rota", b =>
@@ -781,6 +821,8 @@ namespace RotaLimpa.Api.Migrations
 
             modelBuilder.Entity("RotaLimpa.Api.Models.CEP", b =>
                 {
+                    b.Navigation("Ocorrencias");
+
                     b.Navigation("Ruas");
                 });
 
@@ -802,8 +844,7 @@ namespace RotaLimpa.Api.Migrations
 
             modelBuilder.Entity("RotaLimpa.Api.Models.Frota", b =>
                 {
-                    b.Navigation("Kilometragem")
-                        .IsRequired();
+                    b.Navigation("Kilometragem");
 
                     b.Navigation("SetorVeiculos");
 
@@ -846,6 +887,8 @@ namespace RotaLimpa.Api.Migrations
             modelBuilder.Entity("RotaLimpa.Api.Models.Trajeto", b =>
                 {
                     b.Navigation("Ocorrencias");
+
+                    b.Navigation("RelatoriosFinais");
                 });
 #pragma warning restore 612, 618
         }

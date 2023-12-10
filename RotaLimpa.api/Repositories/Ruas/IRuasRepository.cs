@@ -8,5 +8,6 @@ namespace RotaLimpa.Api.Repositories.Interfaces
         public Task<Rua> GetRuaByIdAsync(int id);
         public Task CreateRuaAsync(Rua rua);
         public Task RemoveRua(Rua rua);
+        public Task<IEnumerable<Rua>> GetAllRuaWhereRotaAsync(int idrota);
     }
 }

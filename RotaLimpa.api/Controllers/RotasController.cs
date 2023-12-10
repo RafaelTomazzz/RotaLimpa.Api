@@ -16,11 +16,13 @@ namespace RotaLimpa.Api.Controllers
         private readonly DataContext _context;
 
         private readonly IRotasService _rotasService;
+        private readonly IRuasService _ruasService;
 
-        public RotasController(DataContext context, IRotasService rotasService)
+        public RotasController(DataContext context, IRotasService rotasService, IRuasService ruasService)
         {
             _context = context;
             _rotasService = rotasService;
+            _ruasService = ruasService;
         }
 
         [HttpGet("GetAll")]
@@ -189,6 +191,24 @@ namespace RotaLimpa.Api.Controllers
                 }
 
                 return Ok(ceps);
+            }
+            catch (BaseException ex)
+            {
+
+                return ex.GetResponse();
+            }
+        }
+
+        [HttpGet("QtdRuas/{id}")]
+        public async Task<IActionResult> CountRuas(int idrotas)
+        {
+            try
+            {
+                IEnumerable<Rua> Rua = await _ruasService.GetAllRuasWhereRota(idrotas);
+                int qtdRuas = Rua.Count();
+
+                return Ok(qtdRuas);
+
             }
             catch (BaseException ex)
             {

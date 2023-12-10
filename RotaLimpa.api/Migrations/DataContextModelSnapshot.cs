@@ -357,6 +357,20 @@ namespace RotaLimpa.Api.Migrations
                         .IsUnique();
 
                     b.ToTable("Motorista");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Cpf = "500.700.700-99",
+                            Di_Motorista = new DateTime(2023, 12, 9, 19, 16, 16, 596, DateTimeKind.Local).AddTicks(6821),
+                            Login = "BrLsz",
+                            PNome = "Breno",
+                            Rg = "50-200.600.9",
+                            SNome = "Lisboa Souza",
+                            Senha = "12345",
+                            StMotorista = "1"
+                        });
                 });
 
             modelBuilder.Entity("RotaLimpa.Api.Models.Ocorrencia", b =>
