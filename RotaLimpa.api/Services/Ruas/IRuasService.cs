@@ -9,5 +9,6 @@ namespace RotaLimpa.Api.Services
         public Task<Rua> CreateRuaAsync(Rua rua);
         public Task<Rua> UpdateRuaAsync(int id, Rua rua);
         public Task RemoveRua(int id);
+        public Task<IEnumerable<Rua>> GetAllRuasWhereRota(int idrota);
     }
 }

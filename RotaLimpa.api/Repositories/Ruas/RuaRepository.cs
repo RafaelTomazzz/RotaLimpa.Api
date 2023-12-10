@@ -30,6 +30,12 @@ namespace RotaLimpa.Api.Repositories
             _context.Ruas.Remove(rua);
         }
 
+        public async Task<IEnumerable<Rua>> GetAllRuaWhereRotaAsync(int idrota)
+        {
+            IEnumerable<Rua> ruas = await _context.Ruas.Where(o => o.IdRota == idrota).ToListAsync();
+            return ruas;
+        }
+
 
     }
 }
