@@ -199,13 +199,13 @@ namespace RotaLimpa.Api.Controllers
             }
         }
 
-        [HttpGet("QtdRuas/{id}")]
-        public async Task<IActionResult> CountRuas(int idrotas)
+        [HttpGet("QtdRuas/{idrota}")]
+        public async Task<IActionResult> CountRuas(int idrota)
         {
             try
             {
-                IEnumerable<Rua> Rua = await _ruasService.GetAllRuasWhereRota(idrotas);
-                int qtdRuas = Rua.Count();
+                IEnumerable<Rua> ruas = await _ruasService.GetAllRuasWhereRota(idrota);
+                int qtdRuas = ruas.Count();
 
                 return Ok(qtdRuas);
 
