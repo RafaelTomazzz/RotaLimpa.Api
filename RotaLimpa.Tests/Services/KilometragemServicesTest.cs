@@ -41,7 +41,7 @@ namespace RotaLimpa.Tests.Services
             Assert.Equal(ServiceOrderDtoMock, result);
         }
         [Fact]
-        public async Task ShouldThrowNotFoundExceptionIfFrotaIdDontExist()
+        public async Task ShouldThrowNotFoundExceptionIfKilometragemIdDontExist()
         {
             const int kilometragemId = 1;
             _mockKilometragemRepository.Setup(repo => repo.GetKilometragemByIdAsync(kilometragemId)).ReturnsAsync((Kilometragem)null);

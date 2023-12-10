@@ -57,7 +57,7 @@ namespace RotaLimpa.Tests.Services
             Assert.Equal(serviceOrderDtoMock, expectedMotorista);
         }
         [Fact]
-        public async Task ShouldThrowNotFoundExceptionIfFrotaIdDontExist()
+        public async Task ShouldThrowNotFoundExceptionIfMotoristaIdDontExist()
         {
             const int motoristaId = 1;
             _mockMotoristaRepository.Setup(repo => repo.GetMotoristaByIdAsync(motoristaId)).ReturnsAsync((Motorista)null);

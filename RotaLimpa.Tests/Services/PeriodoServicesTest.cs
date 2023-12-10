@@ -38,7 +38,7 @@ namespace RotaLimpa.Tests.Services
             Assert.Equal(expectedPeriodos, result);
         }
         [Fact]
-        public async Task ShouldThrowNotFoundExceptionIfFrotaIdDontExist()
+        public async Task ShouldThrowNotFoundExceptionIfPeriodoIdDontExist()
         {
             const int periodoId = 1;
             _mockPeriodoRepository.Setup(repo => repo.GetPeriodoByIdAsync(periodoId)).ReturnsAsync((Periodo)null);

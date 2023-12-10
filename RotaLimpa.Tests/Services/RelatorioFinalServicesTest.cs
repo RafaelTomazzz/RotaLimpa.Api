@@ -45,7 +45,7 @@ namespace RotaLimpa.Tests.Services
             Assert.Equal(serviceOrderDtoMock, result);
         }
         [Fact]
-        public async Task ShouldThrowNotFoundExceptionIfFrotaIdDontExist()
+        public async Task ShouldThrowNotFoundExceptionIfRelatorioFinalIdDontExist()
         {
             const int relatorioFinalId = 1;
             _mockRelatorioFinalRepository.Setup(repo => repo.GetRelatorioFinalByIdAsync(relatorioFinalId)).ReturnsAsync((RelatorioFinal)null);
