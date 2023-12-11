@@ -15,6 +15,8 @@ namespace RotaLimpa.Api.Services
         private readonly ISetoresService _setoresService;
 
         private readonly IColaboradoresService _colaboradoresService;
+        private IRotasRepository object1;
+        private IUnitOfWork object2;
 
         public RotasService(IRotasRepository rotasRepository, IUnitOfWork unitOfWork, ISetoresService setoresService, IColaboradoresService colaboradoresService)
         {
@@ -23,6 +25,13 @@ namespace RotaLimpa.Api.Services
             _setoresService = setoresService;
             _colaboradoresService = colaboradoresService;
         }
+
+        public RotasService(IRotasRepository object1, IUnitOfWork object2)
+        {
+            this.object1 = object1;
+            this.object2 = object2;
+        }
+
         public async Task<IEnumerable<Rota>> GetAllRotasAsync()
         {
             IEnumerable<Rota> rota = await _rotasRepository.GetAllRotasAsync();
